@@ -8,6 +8,8 @@
 </head>
 <body>
 	<h1>hello world!ni hao ya...</h1>
-	<form action=""></form>
+	<form action="">
+		<input/>
+	</form>
 </body>
 </html>
