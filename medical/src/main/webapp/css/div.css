@@ -1,0 +1,17 @@
+@charset "UTF-8";
+input{
+	margin-top: 5px;
+	border-left-style: 0;
+ 	 border:none #FFFFFF;
+	border-bottom:black solid 1px;  
+	background:transparent;  
+	outline: none;
+	
+	
+}
+.div-inner{
+	color:#95B8E7;
+	border:solid 1px;
+	height:25px; 
+	width:1300px;
+}

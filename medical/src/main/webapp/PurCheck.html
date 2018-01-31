@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>采购验收</title>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'productid'
+			});
+			row.productname = $(ed.target).combobox('getText');
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{status:'P'});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#dg').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		function accept(){
+			if (endEditing()){
+				$('#dg').datagrid('acceptChanges');
+			}
+		}
+	</script>
+</head>
+<body>
+<center>
+<table id="dg" class="easyui-datagrid" title="采购验收" style="width:1200px;height:530px"
+			data-options="
+				iconCls: 'icon-edit',
+				singleSelect: true,
+				toolbar: '#tb',
+				url: 'datagrid_data1.json',
+				method: 'get',
+				onClickCell: onClickCell,
+				onEndEdit: onEndEdit">
+				<thead>
+		<tr>
+		<th data-options="field:'productid',width:200,align:'center',
+						formatter:function(value,row){
+							return row.productname;
+						},
+						editor:{
+							type:'textbox',
+							options:{
+								valueField:'productid',
+								textField:'productname',
+								method:'get',
+								url:'products.json'
+							}
+						}">原料名称</th>
+                <th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">超标水分</th>
+			   <th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">杂质含量</th>
+				<th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">入库等级</th>
+				<th data-options="field:'attr1',width:100,align:'center',editor:'numberbox'">批号</th>
+			</tr>
+		</thead>
+  </table>
+</center>
+<form >
+	<div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" style="submit" data-options="iconCls:'icon-save',plain:true" onclick="accept()">检验</a>
+	   <div class="div-inner" >
+	采购单号:<input type="text" name="purchaseOdd" >
+	检验单号:<input type="text" name="checkOdd" >
+	检测日期:<input type="text" name="detectionDate" >
+	</div>
+	</div>
+</form>
+</body>
+</html>
+</head>
+</body>
+</html>
