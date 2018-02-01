@@ -58,31 +58,29 @@
 					.datagrid('deleteRow', editIndex);
 			editIndex = undefined;
 		}
-		function accept(){
-			if (endEditing()){
-				$('#dg').datagrid('acceptChanges');
-			}
+		
+		function submitForm(){
+			$('#ff').form('submit');
+			location.href="addServlet";
 		}
+		
 	</script>
 </head>
 <body>
-	<center>
-<table id="dg" class="easyui-datagrid" title="采购订单" style="width:1200px;height:300px"
+
+	
+	<div style="margin:20px 0;"></div>
+	 <form id="ff" action="https://hao.360.cn/?a1004" method="post">
+<table id="dg" class="easyui-datagrid" title="采购订单" style="width:1200px;height:530px"
 			data-options="
 				iconCls: 'icon-edit',
 				singleSelect: true,
 				toolbar: '#tb',
-				url: 'datagrid_data1.json',
 				method: 'get',
 				onClickCell: onClickCell,
 				onEndEdit: onEndEdit">
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
-				<tr></tr>
 				<thead>
-		<tr>
+		<tr >
 		<th data-options="field:'productid',width:100,
 						formatter:function(value,row){
 							return row.productname;
@@ -93,35 +91,38 @@
 								valueField:'productid',
 								textField:'productname',
 								method:'get',
-								url:'products.json'
 							}
-						}">职工号</th>
-                <th data-options="field:'attr1',width:250,editor:'textbox'">职工姓名</th>
-			   <th data-options="field:'attr1',width:250,editor:'textbox'">材料名称</th>
-				<th data-options="field:'attr1',width:250,editor:'textbox'">材料类别</th>
-				<th data-options="field:'attr1',width:250,editor:'textbox'">规格型号</th>
-				<th data-options="field:'attr1',width:250,editor:'textbox'">计量单位</th>
-				<th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">单价</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">采购数量</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">品种数量</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">货物总数</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">合计金额</th>
-                <th data-options="field:'attr1',width:250,editor:'textbox'">预计到货日期</th>
+						}" name="matId">材料编号</th>
+			   <th><input data-options="label:'材料名称',width:180,editor:'textbox'" name="matName"></th>
+				<th><input data-options="field:'attr1',width:180,editor:'textbox'" name="matCategory">材料类别</th>
+				<th data-options="field:'attr1',width:180,editor:'textbox'" name="matSpec">规格型号</th>
+				<th data-options="field:'attr1',width:180,editor:'textbox'" name="metering">计量单位</th>
+				<th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}" name="unitPrice">单价</th>
+				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="amount">金额</th>
+				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="quantity">采购数量</th>
+				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="variety">品种数量</th>
+				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="totalNumber">货物总数</th>
+				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="totalMoney">合计金额</th>
+                <th data-options="field:'attr1',width:180,editor:'textbox'" name="expectDate">预计到货日期</th>
 			</tr>
 		</thead>
   </table>
-</center>
-<form >
-	<div id="tb" style="height:auto">
+<div style="overflow-x:scroll;width:200px;white-space:nowrap;"></div>
+       <div id="tb" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" style="submit" data-options="iconCls:'icon-save',plain:true" onclick="accept()">审核</a>
-	<div class="div-inner" >
-	采购单号:<input type="text" name="purchaseOdd" >
-	供应商:<input type="text" name="supplierName" >
-	日期:<input type="text" name="purDate" >
-	</div>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="submitForm()">审核</a>
+	 <div class="div-inner" >
+	      采购单号:<input type="text" name="purchaseOdd" >
+	     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" >
+	    &emsp;&emsp;&emsp; 职工号:<input type="text" name="userId" >
+	  &emsp;&emsp;&emsp;职工名称:<input type="text" name="userName" >
+	&emsp;&emsp;&emsp;供应商编号:<input type="text" name="supId"></br>
+	      供应商名称:<input type="text" name="supName" >
+	   </div>
 	</div>
 </form>
+
+
 </body>
 </html>

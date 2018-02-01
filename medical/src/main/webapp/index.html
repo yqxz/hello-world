@@ -11,25 +11,24 @@
     <script type="text/javascript">
     $(function(){
     	$("#pm").click(function(){
-    		$(".easyui-linkbutton").load("PurInfo.html")
+    		$("#load").load("PurInfo.html")
     	});  
     });
     </script>
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false" style="height:100px;
-			background:#B3DFDA;padding:10px">north region</div>
-	<div data-options="region:'west',split:false," style="width:130px;padding:5px;background:#B3DFDA">
+			background:#E0ECFF;padding:10px">医药系统</div>
+	<div data-options="region:'west',split:false," style="width:130px;padding:5px;background:#E0ECFF">
 		<div class="m-title">
-	  <a href="javascript:void(0)"  id="pm"class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px">采购管理</a></p>
+	  <a href="javascript:void(0)"  id="pm" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px">采购管理</a></p>
 	  <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px">库存管理</a></p>
 	  <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px">Home</a></p>
 	  <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px">Home</a> <p>
 		</div>
-		
+		</div>
+	<div data-options="region:'',"id="load"style="width:130px;padding:5px">
 	</div>
-	<div data-options="region:''," id="load"style="width:130px;padding:5px">
-	</div>
-    <div data-options="region:'south',border:false" style="height:60px;background:#A9FACD;padding:10px;">其他</div>
+    <div data-options="region:'south',border:false" style="height:60px;background:#E0ECFF;padding:10px;">其他</div>
 </body>
 </html>
