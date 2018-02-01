@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Reqpurchase {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Reqpurchase implements Serializable{
 		/**
 		 * CREATE TABLE `reqpurchase` (
 			  `reqId` varchar(32) NOT NULL COMMENT 'Çë¹ºµ¥ºÅ',
@@ -22,7 +25,7 @@ public class Reqpurchase {
 		private String	reqType;
 		private String	userId;
 		private String	userName;
-		private int reqState;
+		private boolean reqState;
 		public String getReqId() {
 			return reqId;
 		}
@@ -65,11 +68,17 @@ public class Reqpurchase {
 		public void setUserName(String userName) {
 			this.userName = userName;
 		}
-		public int getReqState() {
+		public boolean getReqState() {
 			return reqState;
 		}
-		public void setReqState(int reqState) {
+		public void setReqState(boolean reqState) {
 			this.reqState = reqState;
+		}
+		@Override
+		public String toString() {
+			return "Reqpurchase [reqId=" + reqId + ", variety=" + variety + ", totalNumber=" + totalNumber
+					+ ", reqDate=" + reqDate + ", reqType=" + reqType + ", userId=" + userId + ", userName=" + userName
+					+ ", reqState=" + reqState + "]";
 		}
 		
 		

@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Purchase {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Purchase implements Serializable{
 		/**
 		 * CREATE TABLE `purchase` (
 			  `purId` varchar(32) NOT NULL COMMENT '²É¹ºµ¥ºÅ',

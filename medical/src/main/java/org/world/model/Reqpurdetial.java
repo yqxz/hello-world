@@ -1,6 +1,8 @@
 package org.world.model;
 
-public class Reqpurdetial {
+import java.io.Serializable;
+
+public class Reqpurdetial implements Serializable{
 		/**
 		 * CREATE TABLE `reqpurdetial` (
 			  `reqId` varchar(32) NOT NULL COMMENT 'Çë¹ºµ¥ID',
@@ -14,7 +16,7 @@ public class Reqpurdetial {
 			private String reqId;
 			private String matId;
 			private String matName;
-			private String reqNumber;
+			private int reqNumber;
 			public String getReqId() {
 				return reqId;
 			}
@@ -33,11 +35,17 @@ public class Reqpurdetial {
 			public void setMatName(String matName) {
 				this.matName = matName;
 			}
-			public String getReqNumber() {
+			public int getReqNumber() {
 				return reqNumber;
 			}
-			public void setReqNumber(String reqNumber) {
+			public void setReqNumber(int reqNumber) {
 				this.reqNumber = reqNumber;
 			}
+			@Override
+			public String toString() {
+				return "Reqpurdetial [reqId=" + reqId + ", matId=" + matId + ", matName=" + matName + ", reqNumber="
+						+ reqNumber + "]";
+			}
+			
 			
 }

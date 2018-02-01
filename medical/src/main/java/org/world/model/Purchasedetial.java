@@ -1,21 +1,24 @@
 package org.world.model;
 
-public class Purchasedetial {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Purchasedetial implements Serializable{
 		/**
 		 * CREATE TABLE `purchasedetial` (
-	  `purId` varchar(32) NOT NULL COMMENT '采购单号',
-	  `supID` varchar(32) NOT NULL COMMENT '供应商编号',
-	  `matId` varchar(32) NOT NULL COMMENT '材料ID',
-	  `matName` varchar(32) NOT NULL COMMENT '材料名称',
-	  `matCategory` varchar(32) NOT NULL COMMENT '材料类别',
-	  `matSpec` varchar(32) NOT NULL COMMENT '规格型号',
-	  `metering` varchar(32) NOT NULL COMMENT '计量单位',
-	  `unitPrice` double NOT NULL COMMENT '单价',
-	  `quantity` int(11) NOT NULL COMMENT '采购数量',
-	  `expectDate` varchar(32) DEFAULT NULL COMMENT '预计到货日期',
-	  `amount` double NOT NULL COMMENT '金额',
-	  PRIMARY KEY (`purId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采购订单明细表';
+			  `purId` varchar(32) NOT NULL COMMENT '采购单号',
+			  `supID` varchar(32) NOT NULL COMMENT '供应商编号',
+			  `matId` varchar(32) NOT NULL COMMENT '材料ID',
+			  `matName` varchar(32) NOT NULL COMMENT '材料名称',
+			  `matCategory` varchar(32) NOT NULL COMMENT '材料类别',
+			  `matSpec` varchar(32) NOT NULL COMMENT '规格型号',
+			  `metering` varchar(32) NOT NULL COMMENT '计量单位',
+			  `unitPrice` double NOT NULL COMMENT '单价',
+			  `quantity` int(11) NOT NULL COMMENT '采购数量',
+			  `expectDate` varchar(32) DEFAULT NULL COMMENT '预计到货日期',
+			  `amount` double NOT NULL COMMENT '金额',
+			  PRIMARY KEY (`purId`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采购订单明细表';
 		 */
 	
 		private String purId;
@@ -96,6 +99,13 @@ public class Purchasedetial {
 		}
 		public void setAmount(double amount) {
 			this.amount = amount;
+		}
+		@Override
+		public String toString() {
+			return "Purchasedetial [purId=" + purId + ", supId=" + supId + ", matId=" + matId + ", matName=" + matName
+					+ ", matCategory=" + matCategory + ", matSpec=" + matSpec + ", metering=" + metering
+					+ ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", expectDate=" + expectDate + ", amount="
+					+ amount + "]";
 		}
 		
 		

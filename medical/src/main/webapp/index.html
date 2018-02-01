@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".easyui-linkbutton").click(function(){
+				var valName=$(this).attr('id');
+				alert(valName);
+				$("#load").load(valName);
+			})
+		})
+	</script>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:60px;
+				background:#B3DFDA;padding:10px">
+		<h1>狐妖小红娘</h1>
+	</div>
+	<div data-options="region:'west',split:true,title:'hello world!'" style="width:150px;
+			padding:10px;"><br/><br/><br/>
+		<a id="login.html" class="easyui-linkbutton" 
+					data-options="iconCls:'icon-large-picture',size:'large',iconAlign:'top'">采购部</a><br/><br/><br/>
+		<a id="#" class="easyui-linkbutton" 
+					data-options="iconCls:'icon-large-clipart',size:'large',iconAlign:'top'">销售部</a><br/><br/><br/>
+		<a id="#" class="easyui-linkbutton" 
+					data-options="iconCls:'icon-large-shapes',size:'large',iconAlign:'top'">生产部门</a><br/><br/><br/>
+		<a id="#" class="easyui-linkbutton" 
+					data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">涂山管理员</a><br/><br/><br/>
+		<a id="#" class="easyui-linkbutton" 
+					data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">质检部</a><br/><br/><br/>
+	</div>
+	<div data-options="region:'south',border:false" style="height:50px;
+			background:#A9FACD;padding:10px;">south region</div>
+	<div data-options="region:'center',title:'狐仙医药！！！'" id="load"></div>
+</body>
+</html>
