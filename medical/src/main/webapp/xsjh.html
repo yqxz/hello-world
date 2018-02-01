@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>销售计划</title>
+    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+</head>
+<body style="background-color: #e0e0e0">
+    <div style="margin-top:0px;border: solid 1px;"><p style="font-size: 14px">欢 迎 使 用 红 娘 医 药 软 件 1.1 版 本</p></div>
+	<div id="tb" style="height:auto;background-color: #f0f0f0;border: solid 1px;">
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append('add')"><p style="font-size: 14px">增加</p></a>
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()"><p style="font-size: 14px">删除</p></a>
+		&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="append('edit')"><p style="font-size: 14px">修改</p></a>
+	</div>
+	<div id="djlx" style="height:auto;margin-top:1px;border: solid 1px;" align="center"><br><h2>销 售 计 划</h2></div>
+	<table class="easyui-datagrid" id="dg"style="width:670px;height:30px;border: solid 1px;"
+			data-options="singleSelect:true,collapsible:true,pagination:true,pageSize:10,
+							toolbar: '#tb',url:'loadAllServlet',method:'get',onClickRow:clickRow">
+		<thead>
+			<tr style="font-size: 16px">
+				<th data-options="field:'bookId',width:80">编码</th>
+				<th data-options="field:'bookName',width:100,editor:'textbox'">名称</th>
+				<th data-options="field:'bookPrice',width:80,align:'right',editor:'numberbox'">价格</th>
+				<th data-options="field:'bookInfo',width:310,editor:'textbox'">信息</th>
+			</tr>
+		</thead>
+	</table>
+	<div class="easyui-panel" id="bookInfoDiv" data-options="collapsed:true" style="width:100%;max-width:670px;padding:30px 60px;">
+		<form id="ff" method="post">
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="bookId" type="hidden" id="bookId"><br/>
+				<input class="easyui-textbox" name="bookName" style="width:100%" data-options="label:'名称:',required:true">
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="bookPrice" style="width:100%" data-options="label:'价格:',required:true">
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="bookInfo" style="width:100%;height:60px" data-options="label:'信息',multiline:true">
+			</div>
+		</form>
+	</div>
+ </body>
+</html>

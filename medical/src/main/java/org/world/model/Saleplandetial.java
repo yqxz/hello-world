@@ -38,5 +38,10 @@ public class Saleplandetial {
 		public void setAmount(int amount) {
 			this.amount = amount;
 		}
+		@Override
+		public String toString() {
+			return "Saleplandetial [spId=" + spId + ", drugId=" + drugId + ", drugName=" + drugName + ", amount="
+					+ amount + "]";
+		}
 		
 }

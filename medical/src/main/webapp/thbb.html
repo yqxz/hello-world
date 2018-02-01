@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>退货报表</title>
+<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+</head>
+<body>
+<div align="center"><h1>退货报表</h1></div>
+ <div style="margin:auto;margin-top: 10px;margin-left: 200px">
+	<table class="easyui-datagrid" title="<h2>退货报表</h2>" style="width:80%;height:250px;"
+			data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+		<thead>
+			<tr style="font-size: 14px" align="center">
+				<th data-options="field:'itemid',width:80"><h3>药品编码</h3></th>
+				<th data-options="field:'productid',width:100"><h3>药品名称</h3></th>
+				<th data-options="field:'listprice',width:80,"><h3>计划数量</h3></th>
+				<th data-options="field:'unitcost',width:80,"><h3>已完成数量</h3></th>
+				<th data-options="field:'attr1',width:250"><h3>完成情况</h3></th>
+				<th data-options="field:'status',width:60,align:'center'"><h3>wewr</h3></th>
+			</tr>
+		</thead>
+	</table>
+</div>
+</body>
+</html>

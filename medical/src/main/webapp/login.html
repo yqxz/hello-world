@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Validate Form on Submit - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+	function submitForm(){
+		$('#ff').form('submit',{url:"loginServlet",success:function(data){
+			if(parseInt(data)==1){
+				location.href="index.html";
+			}else{
+				$.messager.alert('消息','登陆失败');
+			}
+		}});
+	}
+	function clearForm(){
+		$('#ff').form('clear');
+	}
+	</script>
+</head>
+<body>
+	<div style="margin: auto;margin-top: 150px;width: 400px;">
+		<div class="easyui-panel" title="登陆系统" style="width:100%;max-width:400px;padding:30px 60px;">
+			<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
+				<div style="margin-bottom:20px">
+					<input class="easyui-textbox" name="cName" style="width:100%" data-options="label:'用户:',required:true">
+				</div>
+				<div style="margin-bottom:20px">
+					<input class="easyui-textbox" type="userPwd" name="cPwd" style="width:100%" data-options="label:'密码:',required:true,">
+				</div>
+			</form>
+			<div style="text-align:center;padding:5px 0">
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">提交</a>
+				&nbsp;&nbsp;&nbsp;
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">取消</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
