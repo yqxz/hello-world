@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class InStore {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class InStore implements Serializable{
 		/**
 		 * CREATE TABLE `instore` (
 			  `inStoreId` varchar(32) NOT NULL COMMENT 'Èë¿âµ¥ID',
@@ -71,6 +74,13 @@ public class InStore {
 		public void setTotalMoney(double totalMoney) {
 			this.totalMoney = totalMoney;
 		}
+		@Override
+		public String toString() {
+			return "InStore [inStoreId=" + inStoreId + ", repName=" + repName + ", variety=" + variety
+					+ ", totalNumber=" + totalNumber + ", inStoreDate=" + inStoreDate + ", userId=" + userId
+					+ ", userName=" + userName + ", totalMoney=" + totalMoney + "]";
+		}
+		
 		
 		
 }

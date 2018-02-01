@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Invoice {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Invoice implements Serializable{
 		/**
 		 * CREATE TABLE `invoice` (
 			  `invId` varchar(32) NOT NULL COMMENT '·¢Æ±ºÅ',
@@ -102,6 +105,13 @@ public class Invoice {
 		}
 		public void setTotalmoney(double totalmoney) {
 			this.totalmoney = totalmoney;
+		}
+		@Override
+		public String toString() {
+			return "Invoice [invId=" + invId + ", invType=" + invType + ", incDate=" + incDate + ", taxRate=" + taxRate
+					+ ", currency=" + currency + ", supName=" + supName + ", serType=" + serType + ", userId=" + userId
+					+ ", userName=" + userName + ", userPower=" + userPower + ", purId=" + purId + ", totalmoney="
+					+ totalmoney + "]";
 		}
 		
 }

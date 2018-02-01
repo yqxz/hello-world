@@ -42,6 +42,7 @@ public class ReqpurchaseDao extends DBManager{
 	 * @return  一个Reqpurchase的List集合
 	 * @throws SQLException
 	 */
+	@SuppressWarnings("all")
 	public List<Reqpurchase> queryAll() throws SQLException {
 		List<Reqpurchase> reqList=new ArrayList<>();
 		String sql="select * from Reqpurchase";

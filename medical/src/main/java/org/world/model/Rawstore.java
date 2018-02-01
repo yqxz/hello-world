@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Rawstore {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Rawstore implements Serializable{
 		/**
 		 * CREATE TABLE `rawstore` (
 			  `rawId` varchar(32) NOT NULL COMMENT '´æ»õ±àÂë',
@@ -126,6 +129,14 @@ public class Rawstore {
 		}
 		public void setWaitCheck(double waitCheck) {
 			this.waitCheck = waitCheck;
+		}
+		@Override
+		public String toString() {
+			return "Rawstore [rawId=" + rawId + ", matId=" + matId + ", matName=" + matName + ", metering=" + metering
+					+ ", rawSpec=" + rawSpec + ", batchNumber=" + batchNumber + ", repId=" + repId + ", repName="
+					+ repName + ", proDate=" + proDate + ", valDate=" + valDate + ", extantNum=" + extantNum
+					+ ", originNumber=" + originNumber + ", waterIndex=" + waterIndex + ", impurity=" + impurity
+					+ ", waitCheck=" + waitCheck + "]";
 		}
 		
 		

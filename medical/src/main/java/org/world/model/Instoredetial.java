@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Instoredetial {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Instoredetial implements Serializable{
 	/**
 	 * CREATE TABLE `instoredetial` (
 		  `inStoreId` varchar(32) NOT NULL COMMENT 'Èë¿âµ¥ºÅ',
@@ -70,6 +73,12 @@ public class Instoredetial {
 		}
 		public void setAmount(double amount) {
 			this.amount = amount;
+		}
+		@Override
+		public String toString() {
+			return "Instoredetial [inStoreId=" + inStoreId + ", purId=" + purId + ", matId=" + matId + ", batchNumber="
+					+ batchNumber + ", matName=" + matName + ", originNumber=" + originNumber + ", quantity=" + quantity
+					+ ", amount=" + amount + "]";
 		}
 		
 		

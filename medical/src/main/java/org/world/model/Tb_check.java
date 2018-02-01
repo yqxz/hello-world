@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Tb_check {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Tb_check implements Serializable{
 	/**
 	 * CREATE TABLE `tb_check` (
 		  `cheId` varchar(32) NOT NULL COMMENT '检验单ID',
@@ -8,12 +11,12 @@ public class Tb_check {
 		  `matId` varchar(32) NOT NULL COMMENT '原料ID',
 		  `matName` varchar(32) NOT NULL COMMENT '原料名称',
 		  `purId` varchar(32) NOT NULL COMMENT '采购单号',
-		  `waterIndex` varchar(32) DEFAULT NULL COMMENT '超标水分',
-		  `impurity` varchar(32) DEFAULT NULL COMMENT '杂质含量',
-		  `cheTime` varchar(32) NOT NULL COMMENT '检测时间',
-		  `grade` enum('合格','降级入库','不合格') NOT NULL COMMENT '入库等级',
+		  `waterIndex` varchar(32) NOT NULL DEFAULT '未填写' COMMENT '超标水分',
+		  `impurity` varchar(32) NOT NULL DEFAULT '未填写' COMMENT '杂质含量',
+		  `cheTime` varchar(32) NOT NULL DEFAULT '未填写' COMMENT '检测时间',
+		  `grade` enum('合格','降级入库','不合格','未填写') NOT NULL DEFAULT '未填写' COMMENT '入库等级',
 		  PRIMARY KEY (`cheId`)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='检验单';
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='检验单'
 	 */
 	
 		private String cheId;
@@ -25,6 +28,8 @@ public class Tb_check {
 		private String impurity;
 		private String cheTime;
 		private String grade;
+		
+		
 		public String getCheId() {
 			return cheId;
 		}
@@ -78,6 +83,12 @@ public class Tb_check {
 		}
 		public void setGrade(String grade) {
 			this.grade = grade;
+		}
+		@Override
+		public String toString() {
+			return "Tb_check [cheId=" + cheId + ", batchNumber=" + batchNumber + ", matId=" + matId + ", matName="
+					+ matName + ", purId=" + purId + ", waterIndex=" + waterIndex + ", impurity=" + impurity
+					+ ", cheTime=" + cheTime + ", grade=" + grade + "]";
 		}
 		
 		
