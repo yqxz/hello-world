@@ -37,6 +37,7 @@ public class PurchasedetialDao extends DBManager{
 					pur.setAmount(rs.getDouble("amount"));
 					purList.add(pur);
 			}
+			this.closeConnection();
 			return purList;
 		}
 		/**
@@ -52,6 +53,7 @@ public class PurchasedetialDao extends DBManager{
 									pur.getExpectDate(),pur.getAmount()};
 			Connection conn=this.openConnection();
 			int count=this.update(conn, sql, obs);
+			this.closeConnection();
 			return count;
 		}
 		

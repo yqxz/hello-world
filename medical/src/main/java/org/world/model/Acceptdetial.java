@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Acceptdetial {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Acceptdetial implements Serializable{
 		/**
 		 * CREATE TABLE `acceptdetial` (
 			  `accId` varchar(32) NOT NULL COMMENT '到货单号',
@@ -10,7 +13,6 @@ public class Acceptdetial {
 			  `proDate` varchar(32) NOT NULL COMMENT '生产日期',
 			  `valDate` varchar(32) NOT NULL COMMENT '有效期至',
 			  `accNumber` int(11) NOT NULL COMMENT '数量',
-			  `supName` varchar(32) NOT NULL COMMENT '供应商名称'
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采购到货单明细表';
 		 */
 	
@@ -21,7 +23,6 @@ public class Acceptdetial {
 		private String proDate;
 		private String valDate;
 		private int accNumber;
-		private String supName;
 		
 		
 		public String getAccId() {
@@ -62,15 +63,15 @@ public class Acceptdetial {
 		}
 		public int getAccNumber() {
 			return accNumber;
+			
 		}
 		public void setAccNumber(int accNumber) {
 			this.accNumber = accNumber;
 		}
-		public String getSupName() {
-			return supName;
-		}
-		public void setSupName(String supName) {
-			this.supName = supName;
+		@Override
+		public String toString() {
+			return "Acceptdetial [accId=" + accId + ", purId=" + purId + ", matId=" + matId + ", matName=" + matName
+					+ ", proDate=" + proDate + ", valDate=" + valDate + ", accNumber=" + accNumber + "]";
 		}
 		
 		

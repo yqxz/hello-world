@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Acceptance {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Acceptance implements Serializable{
 		/**
 		 * CREATE TABLE `acceptance` (
 			  `accId` varchar(32) NOT NULL COMMENT 'µ½»õµ¥ID',
@@ -64,6 +67,12 @@ public class Acceptance {
 		}
 		public void setAskTime(String askTime) {
 			this.askTime = askTime;
+		}
+		@Override
+		public String toString() {
+			return "Acceptance [accId=" + accId + ", accDate=" + accDate + ", variety=" + variety + ", totalNumber="
+					+ totalNumber + ", batchNumber=" + batchNumber + ", originNumber=" + originNumber + ", askTime="
+					+ askTime + "]";
 		}
 		
 		
