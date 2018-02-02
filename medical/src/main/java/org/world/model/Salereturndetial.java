@@ -5,11 +5,11 @@ public class Salereturndetial {
 		 * CREATE TABLE `salereturndetial` (
 			  `stId` varchar(32) NOT NULL COMMENT '销售退货单ID',
 			  `soId` varchar(32) NOT NULL COMMENT '销售订单编号',
-			  `durgId` varchar(32) NOT NULL COMMENT '药品编号',
+			  `drugId` varchar(32) NOT NULL COMMENT '药品编号',
 			  `drugName` varchar(32) NOT NULL COMMENT '药品名称',
 			  `cusId` varchar(32) NOT NULL COMMENT '客户ID',
 			  `cudName` varchar(32) NOT NULL COMMENT '客户名称',
-			  `uintPrice` double NOT NULL COMMENT '单价',
+			  `unitPrice` double NOT NULL COMMENT '单价',
 			  `quantity` int(11) NOT NULL COMMENT '数量',
 			  `amount` double NOT NULL COMMENT '合计金额',
 			  `reason` varchar(32) DEFAULT NULL COMMENT '退货原因'

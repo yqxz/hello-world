@@ -19,11 +19,11 @@ public class SalereturndetialDao extends DBManager{
 	    		   Salereturndetial sd = new Salereturndetial();
 	    		   sd.setStId(rs.getString("stId"));
 	    		   sd.setSoId(rs.getString("soId"));
-	    		   sd.setDrugId(rs.getString("durgId"));
+	    		   sd.setDrugId(rs.getString("drugId"));
 	    		   sd.setDrugName(rs.getString("drugName"));
 	    		   sd.setCusId(rs.getString("cusId"));
 	    		   sd.setCudName(rs.getString("cudName"));
-	    		   sd.setUnitPrice(rs.getDouble("uintPrice"));
+	    		   sd.setUnitPrice(rs.getDouble("unitPrice"));
 	    		   sd.setQuantity(rs.getInt("quantity"));
 	    		   sd.setAmount(rs.getDouble("amount"));
 	    		   sd.setReason(rs.getString("reason"));
