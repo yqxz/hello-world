@@ -30,7 +30,6 @@ public class SalereturndetialServlet extends HttpServlet {
         String jsonStr = mapper.writeValueAsString(map);
         response.setCharacterEncoding("utf-8");
         response.getWriter().println(jsonStr);
-        System.out.println(jsonStr);
         response.getWriter().flush();
         response.getWriter().close();
 	}
