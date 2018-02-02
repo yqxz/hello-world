@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic DataGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<div style="margin:20px 0;"></div>
+	
+	<table class="easyui-datagrid" title="Basic DataGrid" style="width:1280px;height:600px"
+			data-options="singleSelect:true,collapsible:true,url:'inProDateServlet',method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'proId',width:80">存货编码</th>
+				<th data-options="field:'drugId',width:80">药品ID</th>
+				<th data-options="field:'drugName',width:80">药品名称</th>
+				<th data-options="field:'repId',width:80">仓库编号</th>
+				<th data-options="field:'repName',width:80">仓库名称</th>
+				<th data-options="field:'inProDate',width:80">入库日期</th>
+				<th data-options="field:'approvalNum',width:80">批准文号</th>
+				<th data-options="field:'metering',width:80">计量单位</th>
+				<th data-options="field:'proSpec',width:80">产品规格</th>
+				<th data-options="field:'proCategory',width:80">产品类别</th>
+				<th data-options="field:'proNumber',width:80">产品数量</th>
+				<th data-options="field:'proDate',width:80">生产日期</th>
+				<th data-options="field:'valDate',width:80">有效期至</th>
+				<th data-options="field:'extantNum',width:70">现存量</th>
+			</tr>
+		</thead>
+	</table>
+
+</body>
+
+</html>
