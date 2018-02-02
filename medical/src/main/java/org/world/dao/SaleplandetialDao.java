@@ -13,7 +13,7 @@ import org.world.model.Saleplandetial;
 public class SaleplandetialDao extends DBManager {
     public List<Saleplandetial> loadAll() throws SQLException {
     	List<Saleplandetial> list= new ArrayList<>();
-    	String sql="select * from Saleplandetial;";
+    	String sql="select * from Saleplandetial";
     	Connection conn = this.openConnection();
     	ResultSet rs = this.query(conn, sql, null);
     	while(rs.next()) {
@@ -24,6 +24,7 @@ public class SaleplandetialDao extends DBManager {
     		sl.setAmount(rs.getInt("amount"));
     		list.add(sl);
     	}
+    	this.closeConnection(conn);
     	return list;
     }
 }

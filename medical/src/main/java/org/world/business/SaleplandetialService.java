@@ -9,13 +9,12 @@ import org.world.model.Saleplandetial;
 public class SaleplandetialService {
      SaleplandetialDao sd = new SaleplandetialDao();
      public List<Saleplandetial> loadAll(){
-    	 List<Saleplandetial> listsl= null;
+    	 List<Saleplandetial> list= null;
     	 try {
-			listsl = sd.loadAll();
+			list = sd.loadAll();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	 return listsl;
+    	 return list;
      }
 }

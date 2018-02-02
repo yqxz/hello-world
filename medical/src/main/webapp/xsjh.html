@@ -22,24 +22,24 @@
 							toolbar: '#tb',url:'loadAllServlet',method:'get',onClickRow:clickRow">
 		<thead>
 			<tr style="font-size: 16px">
-				<th data-options="field:'bookId',width:80">编码</th>
-				<th data-options="field:'bookName',width:100,editor:'textbox'">名称</th>
-				<th data-options="field:'bookPrice',width:80,align:'right',editor:'numberbox'">价格</th>
-				<th data-options="field:'bookInfo',width:310,editor:'textbox'">信息</th>
+				<th data-options="field:'spId',width:80">销售计划单号</th>
+				<th data-options="field:'drugId',width:100,editor:'textbox'">药品编码</th>
+				<th data-options="field:'drugName',width:80,align:'right',editor:'numberbox'">药品名称</th>
+				<th data-options="field:'amount',width:310,editor:'textbox'">数量</th>
 			</tr>
 		</thead>
 	</table>
 	<div class="easyui-panel" id="bookInfoDiv" data-options="collapsed:true" style="width:100%;max-width:670px;padding:30px 60px;">
 		<form id="ff" method="post">
 			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="bookId" type="hidden" id="bookId"><br/>
-				<input class="easyui-textbox" name="bookName" style="width:100%" data-options="label:'名称:',required:true">
+				<input class="easyui-textbox" name="spId" type="hidden" id="bookId"><br/>
+				<input class="easyui-textbox" name="drugId" style="width:100%" data-options="label:'药品编码:',required:true">
 			</div>
 			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="bookPrice" style="width:100%" data-options="label:'价格:',required:true">
+				<input class="easyui-textbox" name="drugName" style="width:100%" data-options="label:'药品名称:',required:true">
 			</div>
 			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="bookInfo" style="width:100%;height:60px" data-options="label:'信息',multiline:true">
+				<input class="easyui-textbox" name="amount" style="width:100%;height:60px" data-options="label:'药品数量',multiline:true">
 			</div>
 		</form>
 	</div>
