@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Returnbill {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Returnbill implements Serializable{
 		/**
 		 * CREATE TABLE `returnbill` (
 			  `retId` varchar(32) NOT NULL COMMENT 'ÍË»õµ¥ºÅ',
@@ -63,6 +66,11 @@ public class Returnbill {
 		}
 		public void setUserName(String userName) {
 			this.userName = userName;
+		}
+		@Override
+		public String toString() {
+			return "Returnbill [retId=" + retId + ", variety=" + variety + ", retNumber=" + retNumber + ", retDate="
+					+ retDate + ", totalMoney=" + totalMoney + ", userId=" + userId + ", userName=" + userName + "]";
 		}
 		
 		

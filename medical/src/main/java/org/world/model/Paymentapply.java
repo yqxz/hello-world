@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Paymentapply {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Paymentapply implements Serializable{
 		/**
 		 * CREATE TABLE `paymentapply` (
 			  `payId` varchar(32) NOT NULL COMMENT '∏∂øÓ…Í«Îµ•∫≈',
@@ -54,6 +57,11 @@ public class Paymentapply {
 		}
 		public void setPayDate(String payDate) {
 			this.payDate = payDate;
+		}
+		@Override
+		public String toString() {
+			return "Paymentapply [payId=" + payId + ", invId=" + invId + ", totalMoney=" + totalMoney + ", userId="
+					+ userId + ", userName=" + userName + ", payDate=" + payDate + "]";
 		}
 		
 }

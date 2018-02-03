@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Retbilldetial {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Retbilldetial implements Serializable{
 		/**
 		 * CREATE TABLE `retbilldetial` (
 			  `retId` varchar(32) NOT NULL COMMENT 'ÍË»õµ¥ºÅ',
@@ -26,6 +29,7 @@ public class Retbilldetial {
 		private int quantity;
 		private double amount;
 		private String reason;
+		
 		public String getRetId() {
 			return retId;
 		}
@@ -85,6 +89,12 @@ public class Retbilldetial {
 		}
 		public void setReason(String reason) {
 			this.reason = reason;
+		}
+		@Override
+		public String toString() {
+			return "Retbilldetial [retId=" + retId + ", purId=" + purId + ", batchNumber=" + batchNumber + ", matId="
+					+ matId + ", matName=" + matName + ", supId=" + supId + ", unitPrice=" + unitPrice + ", quantity="
+					+ quantity + ", amount=" + amount + ", reason=" + reason + "]";
 		}
 		
 		

@@ -8,18 +8,6 @@ import org.world.database.DBManager;
 import org.world.model.Invoice;
 
 public class InvoiceDao extends DBManager{
-			//	private String invId;
-			//	private String invType;
-			//	private String  incDate;
-			//	private String taxRate;
-			//	private String currency;
-			//	private String supName;
-			//	private String serType;
-			//	private String userId;
-			//	private String userName;
-			//	private String userPower;
-			//	private String purId;
-			//	private double totalmoney;
 		
 		/**
 		 * 添加一条发票表的信息
