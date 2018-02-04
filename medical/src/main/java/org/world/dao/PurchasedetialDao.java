@@ -11,7 +11,7 @@ import org.world.model.Purchasedetial;
 
 public class PurchasedetialDao extends DBManager{
 		/**
-		 * 根据purId查询对应对象
+		 * 查询订单执行进度
 		 * @param id
 		 * @return  返回对应purId的一个对象集合
 		 * @throws SQLException
@@ -25,16 +25,13 @@ public class PurchasedetialDao extends DBManager{
 			while(rs.next()) {
 				Purchasedetial pur=new Purchasedetial();
 					pur.setPurId(rs.getString("purId"));
-					pur.setSupId(rs.getString("supId"));
-					pur.setMatId(rs.getString("matId"));
+					pur.setSupName(rs.getString("supName"));
 					pur.setMatName(rs.getString("matName"));
-					pur.setMatCategory(rs.getString("matCategory"));
-					pur.setMatSpec(rs.getString("matSpec"));
 					pur.setMetering(rs.getString("metering"));
-					pur.setUnitPrice(rs.getDouble("unitPrice"));
 					pur.setQuantity(rs.getInt("quantity"));
+					pur.setArriveNumber(rs.getInt("arriveNumber"));
+					pur.setInStoreNumber(rs.getInt("inStoreNumber"));
 					pur.setExpectDate(rs.getString("expectDate"));
-					pur.setAmount(rs.getDouble("amount"));
 					purList.add(pur);
 			}
 			this.closeConnection();
@@ -47,8 +44,8 @@ public class PurchasedetialDao extends DBManager{
 		 * @throws SQLException
 		 */
 		public int insert(Purchasedetial pur) throws SQLException {
-			String sql="insert into Purchasedetial values(?,?,?,?,?,?,?,?,?,?,?)";
-			Object[] obs= {pur.getPurId(),pur.getSupId(),pur.getMatId(),pur.getMatName(),pur.getMatCategory(),
+			String sql="insert into Purchasedetial values(?,?,?,?,?,?,?,?,?,default,default,?,?)";
+			Object[] obs= {pur.getPurId(),pur.getSupName(),pur.getMatId(),pur.getMatName(),pur.getMatCategory(),
 								pur.getMatSpec(),pur.getMetering(),pur.getUnitPrice(),pur.getQuantity(),
 									pur.getExpectDate(),pur.getAmount()};
 			Connection conn=this.openConnection();

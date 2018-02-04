@@ -9,7 +9,7 @@ public class Purchase implements Serializable{
 			  `purId` varchar(32) NOT NULL COMMENT '采购单号',
 			  `userId` varchar(32) NOT NULL COMMENT '职工号',
 			  `userName` varchar(32) NOT NULL COMMENT '职工姓名',
-			  `supName` varchar(32) NOT NULL COMMENT '供应商名称',
+			  `supId` varchar(32) NOT NULL COMMENT '供应商Id',
 			  `purTime` varchar(32) NOT NULL COMMENT '采购时间',
 			  `variety` smallint(6) NOT NULL COMMENT '品种数量',
 			  `totalNumber` int(11) NOT NULL COMMENT '货物总数',
@@ -20,7 +20,7 @@ public class Purchase implements Serializable{
 		private String purId;
 		private String userId;
 		private String userName;
-		private String supName;
+		private String supId;
 		private String purTime;
 		private int variety;
 		private int totalNumber;
@@ -45,11 +45,11 @@ public class Purchase implements Serializable{
 		public void setUserName(String userName) {
 			this.userName = userName;
 		}
-		public String getSupName() {
-			return supName;
+		public String getSupId() {
+			return supId;
 		}
-		public void setSupName(String supName) {
-			this.supName = supName;
+		public void setSupId(String supId) {
+			this.supId = supId;
 		}
 		public String getPurTime() {
 			return purTime;
@@ -74,6 +74,12 @@ public class Purchase implements Serializable{
 		}
 		public void setTotalMoney(double totalMoney) {
 			this.totalMoney = totalMoney;
+		}
+		@Override
+		public String toString() {
+			return "Purchase [purId=" + purId + ", userId=" + userId + ", userName=" + userName + ", supId=" + supId
+					+ ", purTime=" + purTime + ", variety=" + variety + ", totalNumber=" + totalNumber + ", totalMoney="
+					+ totalMoney + "]";
 		}
 		
 		

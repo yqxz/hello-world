@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class User {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class User implements Serializable{
 	/**
 	 * CREATE TABLE `user` (
 		  `userID` varchar(32) NOT NULL COMMENT 'ÓÃ»§ID',
@@ -46,6 +49,11 @@ public class User {
 	}
 	public void setUserPower(String userPower) {
 		this.userPower = userPower;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", loginName=" + loginName + ", userPwd=" + userPwd + ", userName=" + userName
+				+ ", userPower=" + userPower + "]";
 	}
 	
 }

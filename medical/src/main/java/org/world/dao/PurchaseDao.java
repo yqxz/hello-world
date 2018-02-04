@@ -26,7 +26,7 @@ public class PurchaseDao extends DBManager{
 				pur.setPurId(rs.getString("purId"));
 				pur.setUserId(rs.getString("userId"));
 				pur.setUserName(rs.getString("userName"));
-				pur.setSupName(rs.getString("supName"));
+				pur.setSupId(rs.getString("supId"));
 				pur.setPurTime(rs.getString("purTime"));
 				pur.setVariety(rs.getInt("variety"));
 				pur.setTotalNumber(rs.getInt("totalNumber"));
@@ -43,7 +43,7 @@ public class PurchaseDao extends DBManager{
 		 */
 		public int insert(Purchase pur) throws SQLException {
 			String sql="insert into Purchase values(?,?,?,?,?,?,?,?)";
-			Object[] obs= {pur.getPurId(),pur.getUserId(),pur.getUserName(),pur.getSupName(),
+			Object[] obs= {pur.getPurId(),pur.getUserId(),pur.getUserName(),pur.getSupId(),
 					pur.getPurTime(),pur.getVariety(),pur.getTotalNumber(),pur.getTotalMoney()};
 			Connection conn=this.openConnection();
 			int count=this.update(conn, sql, obs);	

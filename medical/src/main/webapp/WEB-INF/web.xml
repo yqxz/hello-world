@@ -4,14 +4,6 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-  	<servlet-name>reqpurchaseServlet</servlet-name>
-  	<display-name>reqpurchaseServlet</display-name>
-  	<description></description>
-  	<servlet-class>org.world.servlet.ReqpurchaseServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>reqpurchaseServlet</servlet-name>
-  	<url-pattern>/reqpurchaseServlet</url-pattern>
-  </servlet-mapping>
+  
+  
 </web-app>

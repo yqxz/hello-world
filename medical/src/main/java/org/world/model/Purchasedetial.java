@@ -7,22 +7,25 @@ public class Purchasedetial implements Serializable{
 		/**
 		 * CREATE TABLE `purchasedetial` (
 			  `purId` varchar(32) NOT NULL COMMENT '采购单号',
-			  `supID` varchar(32) NOT NULL COMMENT '供应商编号',
+			  `supName` varchar(32) NOT NULL COMMENT '供应商名称',
 			  `matId` varchar(32) NOT NULL COMMENT '材料ID',
 			  `matName` varchar(32) NOT NULL COMMENT '材料名称',
 			  `matCategory` varchar(32) NOT NULL COMMENT '材料类别',
 			  `matSpec` varchar(32) NOT NULL COMMENT '规格型号',
 			  `metering` varchar(32) NOT NULL COMMENT '计量单位',
 			  `unitPrice` double NOT NULL COMMENT '单价',
-			  `quantity` int(11) NOT NULL COMMENT '采购数量',
+			  `quantity` int(11) NOT NULL COMMENT '采购总数',
+			  `arriveNumber` int(11) NOT NULL DEFAULT '0' COMMENT '到货总数',
+			  `inStoreNumber` int(11) NOT NULL DEFAULT '0' COMMENT '入库总数',
 			  `expectDate` varchar(32) DEFAULT NULL COMMENT '预计到货日期',
 			  `amount` double NOT NULL COMMENT '金额',
 			  PRIMARY KEY (`purId`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采购订单明细表';
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采购订单明细表'
+
 		 */
 	
 		private String purId;
-		private String supId;
+		private String supName;
 		private String matId;
 		private String matName;
 		private String matCategory;
@@ -30,6 +33,8 @@ public class Purchasedetial implements Serializable{
 		private String metering;
 		private double unitPrice;
 		private int quantity;
+		private int arriveNumber;
+		private int inStoreNumber;
 		private String expectDate;
 		private double amount;
 		
@@ -40,11 +45,11 @@ public class Purchasedetial implements Serializable{
 		public void setPurId(String purId) {
 			this.purId = purId;
 		}
-		public String getSupId() {
-			return supId;
+		public String getSupName() {
+			return supName;
 		}
-		public void setSupId(String supId) {
-			this.supId = supId;
+		public void setSupName(String supName) {
+			this.supName = supName;
 		}
 		public String getMatId() {
 			return matId;
@@ -88,6 +93,18 @@ public class Purchasedetial implements Serializable{
 		public void setQuantity(int quantity) {
 			this.quantity = quantity;
 		}
+		public int getArriveNumber() {
+			return arriveNumber;
+		}
+		public void setArriveNumber(int arriveNumber) {
+			this.arriveNumber = arriveNumber;
+		}
+		public int getInStoreNumber() {
+			return inStoreNumber;
+		}
+		public void setInStoreNumber(int inStoreNumber) {
+			this.inStoreNumber = inStoreNumber;
+		}
 		public String getExpectDate() {
 			return expectDate;
 		}
@@ -102,11 +119,13 @@ public class Purchasedetial implements Serializable{
 		}
 		@Override
 		public String toString() {
-			return "Purchasedetial [purId=" + purId + ", supId=" + supId + ", matId=" + matId + ", matName=" + matName
-					+ ", matCategory=" + matCategory + ", matSpec=" + matSpec + ", metering=" + metering
-					+ ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", expectDate=" + expectDate + ", amount="
-					+ amount + "]";
+			return "Purchasedetial [purId=" + purId + ", supName=" + supName + ", matId=" + matId + ", matName="
+					+ matName + ", matCategory=" + matCategory + ", matSpec=" + matSpec + ", metering=" + metering
+					+ ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", arriveNumber=" + arriveNumber
+					+ ", inStoreNumber=" + inStoreNumber + ", expectDate=" + expectDate + ", amount=" + amount + "]";
 		}
+		
+		
 		
 		
 }
