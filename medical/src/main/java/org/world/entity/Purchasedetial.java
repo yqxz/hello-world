@@ -81,6 +81,12 @@ public class Purchasedetial implements Serializable {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+	@Override
+	public String toString() {
+		return "Purchasedetial [supId=" + supId + ", matId=" + matId + ", matName=" + matName + ", matCategory="
+				+ matCategory + ", matSpec=" + matSpec + ", metering=" + metering + ", unitPrice=" + unitPrice
+				+ ", quantity=" + quantity + ", expectDate=" + expectDate + ", amount=" + amount + "]";
+	}
 	
 	
 	

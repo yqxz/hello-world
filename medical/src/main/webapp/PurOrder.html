@@ -40,13 +40,13 @@
 		function onEndEdit(index, row){
 			var ed = $(this).datagrid('getEditor', {
 				index: index,
-				field: 'productid'
+				field: 'matId'
 			});
 			row.productname = $(ed.target).combobox('getText');
 		}
 		function append(){
 			if (endEditing()){
-				$('#dg').datagrid('appendRow',{status:'P'});
+				$('#dg').datagrid('appendRow',{});
 				editIndex = $('#dg').datagrid('getRows').length-1;
 				$('#dg').datagrid('selectRow', editIndex)
 						.datagrid('beginEdit', editIndex);
@@ -59,18 +59,48 @@
 			editIndex = undefined;
 		}
 		
-		function submitForm(){
-			$('#ff').form('submit');
-			location.href="addServlet";
-		}
-		
+	function accept(){
+			/*$('#ff').form('submit',{url:"addServlet",success:function(data){
+				if(parseInt(data)==1){
+					//location.href="index.html";
+				}else{
+					$.messager.alert('消息','添加失败');
+				}
+			}});*/
+			var purI=$("input[name='purId']").val();
+			var purT=$("input[name='purTime']").val();
+			var userI=$("input[name='userId']").val();
+			var userN=$("input[name='userName']").val();
+			var supN=$("input[name='supName']").val();
+			var supI=$("input[name='supId']").val();
+			location.href="PurOrder.html";	
+alert(supI)
+			if (endEditing()){
+				$('#dg').datagrid('acceptChanges');      
+					var all = $("#dg").datagrid("getData");
+					var json =JSON.stringify(all.rows);
+					alert(json);
+				}
+			$.post("addServlet",{
+				info:json,
+				purId:purI,
+				purTime:purT,
+				userId:userI,
+				userName:userN,
+				supName:supN,
+				supId:supI
+				},
+				
+			function(data,status){
+				 alert("数据：" + data + "\n状态：" + status);
+			});
+			}
+	
 	</script>
 </head>
 <body>
-
-	
-	<div style="margin:20px 0;"></div>
-	 <form id="ff" action="https://hao.360.cn/?a1004" method="post">
+<div style="margin:20px 0;"></div>
+	 <form id="ff">
 <table id="dg" class="easyui-datagrid" title="采购订单" style="width:1200px;height:530px"
 			data-options="
 				iconCls: 'icon-edit',
@@ -81,29 +111,18 @@
 				onEndEdit: onEndEdit">
 				<thead>
 		<tr >
-		<th data-options="field:'productid',width:100,
-						formatter:function(value,row){
-							return row.productname;
-						},
-						editor:{
-							type:'numberbox',
-							options:{
-								valueField:'productid',
-								textField:'productname',
-								method:'get',
-							}
-						}" name="matId">材料编号</th>
-			   <th><input data-options="label:'材料名称',width:180,editor:'textbox'" name="matName"></th>
-				<th><input data-options="field:'attr1',width:180,editor:'textbox'" name="matCategory">材料类别</th>
-				<th data-options="field:'attr1',width:180,editor:'textbox'" name="matSpec">规格型号</th>
-				<th data-options="field:'attr1',width:180,editor:'textbox'" name="metering">计量单位</th>
-				<th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}" name="unitPrice">单价</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="amount">金额</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="quantity">采购数量</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="variety">品种数量</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="totalNumber">货物总数</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'" name="totalMoney">合计金额</th>
-                <th data-options="field:'attr1',width:180,editor:'textbox'" name="expectDate">预计到货日期</th>
+		        <th data-options="field:'matId',width:100,editor:{type:'numberbox',}" >材料编号</th>
+			    <th data-options="field:'matName',width:180,editor:'textbox'" >材料名称</th>
+				<th data-options="field:'matCategory',width:180,editor:'textbox'" >材料类别</th>
+				<th data-options="field:'matSpec',width:180,editor:'textbox'" >规格型号</th>
+				<th data-options="field:'metering',width:180,editor:'textbox'" >计量单位</th>
+				<th data-options="field:'unitPrice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
+				<th data-options="field:'amount',width:80,align:'right',editor:'numberbox'" >金额</th>
+				<th data-options="field:'quantity',width:80,align:'right',editor:'numberbox'" >采购数量</th>
+				<th data-options="field:'variety',width:80,align:'right',editor:'numberbox'">品种数量</th>
+				<th data-options="field:'totalNumber',width:80,align:'right',editor:'numberbox'" >货物总数</th>
+				<th data-options="field:'totalMoney',width:80,align:'right',editor:'numberbox'" >合计金额</th>
+                <th data-options="field:'expectDate',width:180,editor:'textbox'" >预计到货日期</th>
 			</tr>
 		</thead>
   </table>
@@ -111,9 +130,9 @@
        <div id="tb" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="submitForm()">审核</a>
-	 <div class="div-inner" >
-	      采购单号:<input type="text" name="purchaseOdd" >
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
+	 <div class="div-inner">
+	      采购单号:<input type="text" name="purId" >
 	     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" >
 	    &emsp;&emsp;&emsp; 职工号:<input type="text" name="userId" >
 	  &emsp;&emsp;&emsp;职工名称:<input type="text" name="userName" >

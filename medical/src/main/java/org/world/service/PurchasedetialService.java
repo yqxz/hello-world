@@ -1,6 +1,7 @@
 package org.world.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.world.dao.PurchasedetialDao;
 import org.world.entity.Purchasedetial;
@@ -8,15 +9,22 @@ import org.world.entity.Purchasedetial;
 public class PurchasedetialService { 
 	//添加采购明细表信息
 	PurchasedetialDao pdd=new PurchasedetialDao();
-	public boolean addPurchasedetial(Purchasedetial pd) {
+	public int addPurchasedetial(List<Purchasedetial> purdList) {
 		int count=0;
-		try {
-			count=pdd.addPurchasedetial(pd);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		for (int i = 0; i <purdList.size(); i++) {
+		
+				try {
+					pdd.addPurchasedetial(purdList.get(i));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				count++;
+			
 		}
-		return count>0?true:false;
+		return count;
 	}
+
 	
 
 }

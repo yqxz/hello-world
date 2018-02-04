@@ -3,7 +3,7 @@ package org.world.entity;
 import java.io.Serializable;
 //采购订单主表
 public class Purchase implements Serializable{
-	private String purId;     //采购编号
+	private String purId;     //采购订单号
 	private String userId;    //职工编号
 	private String userName;  //职工姓名
 	private String supName;   //供应商名称
@@ -58,6 +58,12 @@ public class Purchase implements Serializable{
 	}
 	public void setTotalMoney(double totalMoney) {
 		this.totalMoney = totalMoney;
+	}
+	@Override
+	public String toString() {
+		return "Purchase [purId=" + purId + ", userId=" + userId + ", userName=" + userName + ", supName=" + supName
+				+ ", purTime=" + purTime + ", variety=" + variety + ", totalNumber=" + totalNumber + ", totalMoney="
+				+ totalMoney + "]";
 	}
 	
 	

@@ -2,10 +2,10 @@
 input{
 	margin-top: 10px;
 	border-left-style: 0;
- 	 border:none #E0ECFF;
-	border-bottom:#E0ECFF solid 1px;  
+ 	 border:none #95B8E7;
+	border-bottom:#95B8E7 solid 1px;  
 	background:transparent;  
-	outline: none ;
+    outline: none; 
 }
 .div-inner{
 	height:auto;
