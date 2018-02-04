@@ -17,10 +17,10 @@ public class ProstoreService {
 /**
  * 按现存量查询
  */
-	public List<Prostore> extantNum() {
+	public List<Prostore> extantNum(int page,int rows) {
 		List<Prostore> prostoreList=null;
 		try {
-			prostoreList=pdao.extantNum();
+			prostoreList=pdao.extantNum(page-1,rows);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -37,5 +37,15 @@ public class ProstoreService {
 			e.printStackTrace();
 		}
 		return prostoreList;
+	}
+	
+	public int getCount() {
+		int count=0;
+		try {
+			count=pdao.getCount();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }

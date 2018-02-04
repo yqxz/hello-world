@@ -9,27 +9,15 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			var pager = $('#dg').datagrid().datagrid('getPager');	
-			alert("1");
+		$(document).ready(function(){
+			var pager = $("#dg").datagrid().datagrid('getPager');
 			pager.pagination({
-				buttons:[{
-					iconCls:'icon-search',
-					handler:function(){
-						alert('search');
-					}
-				},{
-					iconCls:'icon-add',
-					handler:function(){
-						alert('add');
-					}
-				},{
-					iconCls:'icon-edit',
-					handler:function(){
-						alert('edit');
-					}
-				}]
-			});			
+		            pageSize: 10,
+		            pageList:[5,10,15,20,40],
+		            beforePageText: '第',
+		            afterPageText:'共{pages}页',
+		            displayMsg: '当前显示 {from} 到 {to} ,共{total}记录'
+			});
 		})
 	</script>
 </head>
@@ -41,8 +29,8 @@
 						singleSelect:true,
 						collapsible:true,
 						url:'extantNumServlet',
+						pagination:true,
 						toolbar: '#tb',
-						pagination=true,
 						method:'get'">
 		<thead>
 			<tr>
@@ -71,7 +59,7 @@
 			Date From: <input class="easyui-datebox" style="width:80px">
 			To: <input class="easyui-datebox" style="width:80px">
 			Language: 
-			<input class="easyui-combobox" style="width:100px" url="data/combobox_data.json" valueField="id" textField="text">
+			<input class="easyui-combobox" style="width:100px" >
 		</div>
 	</div>
 </body>

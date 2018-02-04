@@ -27,13 +27,15 @@ public class ExtantNumServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		int page=Integer.parseInt(request.getParameter("page"));
+		int rows=Integer.parseInt(request.getParameter("rows"));
 		ProstoreService ps=new ProstoreService();
-		List<Prostore> list=ps.extantNum();
-//		request.getSession().setAttribute("list", list);
-		//JSON¶ÔÏó×ª»»
+		List<Prostore> list=ps.extantNum(page,rows);
+		int count=ps.getCount();
+		System.out.println("count-->"+count);
 		ObjectMapper mapper=new ObjectMapper();
 		Map<String,Object> maps=new HashMap<String,Object>();
-		maps.put("total", 10);
+		maps.put("total", count);
 		maps.put("rows",list);
 		String jsonStr=mapper.writeValueAsString(maps);
 		response.setCharacterEncoding("utf-8");

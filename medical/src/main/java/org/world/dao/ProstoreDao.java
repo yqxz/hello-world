@@ -73,11 +73,12 @@ public class ProstoreDao extends DBManager{
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<Prostore> extantNum()throws SQLException{
+	public List<Prostore> extantNum(int page,int rows)throws SQLException{
 		List<Prostore> prostoreList=new ArrayList<Prostore>();
 		Connection conn=this.openConnection();
-		String sql="select * from prostore order by extantNum";
-		ResultSet rs=this.query(conn, sql, null);
+		String sql="select * from prostore order by extantNum limit ?,?";
+		Object[] obs= {page*rows,rows};
+		ResultSet rs=this.query(conn, sql, obs);
 		while(rs.next()) {
 			Prostore p=new Prostore();
 			p.setProId(rs.getString("proId"));
@@ -124,5 +125,17 @@ public class ProstoreDao extends DBManager{
 		}
 		this.closeConnection();
 		return prostoreList;
+	}
+	
+	public int getCount() throws SQLException {
+		String sql="select count(proId) from prostore";
+		Connection conn=this.openConnection();
+		ResultSet rs=this.query(conn, sql, null);
+		int count=0;
+		if(rs.next()) {
+			count=rs.getInt(1);
+			System.out.println("dao"+count);
+		}
+		return count;
 	}
 }
