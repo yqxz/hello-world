@@ -17,10 +17,22 @@
 					userPwd:pass
 				},
 				function(data,status){
-					alert("Data: " + data + "\nStatus: " + status);
 					var src=String($.trim(data));
+					if(src=="0"){
+					alert("登录失败！请重新登录");
+					location.href="fox.html";
+					}
 					if(src=="A"){
+						location.href="index.html";
+					}
+					if(src=="B"){
 						location.href="chief.html";
+					}
+					if(src=="C"){
+						location.href="PurInfo.html";
+					}
+					if(src=="D"){
+						location.href="xiaoshoubu.html";
 					}
 				});
 			});

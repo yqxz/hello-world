@@ -2,6 +2,7 @@ package org.world.model;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Reqpurdetial implements Serializable{
 		/**
 		 * CREATE TABLE `reqpurdetial` (

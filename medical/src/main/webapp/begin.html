@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/datagrid-detailview.js"></script>
+	<script type="text/javascript">
+	var editIndex = undefined;
+	function endEditing(){
+		if (editIndex == undefined){return true}
+		if ($('#dg').datagrid('validateRow', editIndex)){
+			$('#dg').datagrid('endEdit', editIndex);
+			editIndex = undefined;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function removeit(){
+		if (editIndex == undefined){return}
+		$('#dg').datagrid('cancelEdit', editIndex)
+				.datagrid('deleteRow', editIndex);
+		editIndex = undefined;
+	}
+	function append(){
+		if (endEditing()){
+			$('#dg').datagrid('appendRow',{
+				});
+			editIndex = $('#dg').datagrid('getRows').length-1;
+			$('#dg').datagrid('selectRow', editIndex)
+					.datagrid('beginEdit', editIndex);
+		}
+	}
+	function accept(){
+		if (true){
+			$('#dg').datagrid('acceptChanges');
+		}
+		var all = $("#dg").datagrid("getData");
+		
+		var json =JSON.stringify(all.rows);   
+		$.post("testServlet",
+				{
+				purId:$("purId").val(),
+				userName:json
+				},
+				function(data,status){
+			 alert("数据：" + data + "\n状态：" + status);
+		})
+	}
+	function onEndEdit(index, row){
+		var ed = $(this).datagrid('getEditor', {
+			index: index,
+			field: 'goodsId'
+		});
+		alert("ni guo qu!");
+		row.goodsName = $(ed.target).combobox('getText');
+	}
+	function onClickCell(index, field){
+		if (editIndex != index){
+			if (endEditing()){
+				$('#dg').datagrid('selectRow', index)
+						.datagrid('beginEdit', index);
+				var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+				if (ed){
+					($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+				}
+				editIndex = index;
+			} else {
+				setTimeout(function(){
+					$('#dg').datagrid('selectRow', editIndex);
+				},0);
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+		<div style="margin:20px 0;"></div>
+	
+	<table id="dg"  class="easyui-datagrid" title="你想看什么！！！"   style="width:1540px;height:600px"
+			data-options="rownumbers:true,
+						singleSelect:true,
+						collapsible:true,
+						url:'extantNumServlet',
+						pagination:true,
+						fitColumns:true,
+						toolbar: '#tb',
+						method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'proId',width:110">存货编码</th>
+				<th data-options="field:'drugId',width:110">药品ID</th>
+				<th data-options="field:'drugName',width:110">药品名称</th>
+				<th data-options="field:'repId',width:110">仓库编号</th>
+				<th data-options="field:'repName',width:110">仓库名称</th>
+				<th data-options="field:'inProdate',width:110">入库日期</th>
+				<th data-options="field:'approvalNum',width:110">批准文号</th>
+				<th data-options="field:'metering',width:110">计量单位</th>
+				<th data-options="field:'proSpec',width:110">产品规格</th>
+				<th data-options="field:'proCategory',width:110">产品类别</th>
+				<th data-options="field:'proNumber',width:110">产品数量</th>
+				<th data-options="field:'proDate',width:110">生产日期</th>
+				<th data-options="field:'valDate',width:110">有效期至</th>
+				<th data-options="field:'extantNum',width:110">现存量</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+		<div>
+			Date From: <input class="easyui-datebox" style="width:80px">
+			To: <input class="easyui-datebox" style="width:80px">
+			Language: 
+			<input class="easyui-combobox" style="width:100px" >
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#dg').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		
+	function accept(){
+			var purI=$("input[name='purId']").val();
+			var purT=$("input[name='purTime']").val();
+			var userI=$("input[name='userId']").val();
+			var userN=$("input[name='userName']").val();
+			var supN=$("input[name='supName']").val();
+			var supI=$("input[name='supId']").val();
+			location.href="PurOrder.html";	
+			if (endEditing()){
+				$('#dg').datagrid('acceptChanges');      
+					var all = $("#dg").datagrid("getData");
+					var json =JSON.stringify(all.rows);
+				}
+			$.post("purOrderServlet",{
+				info:json,
+				purId:purI,
+				purTime:purT,
+				userId:userI,
+				userName:userN,
+				supName:supN,
+				supId:supI
+				},
+			function(data,status){
+				 alert("数据：" + data + "\n状态：" + status);
+			});
+			}
+	
+	</script>
+</head>
+<body style="background-color:#CCCCCC;">
+<div style="margin:20px 0;"></div>
+<div style="width:1460px;height:530px;margin-left: 50px">
+	<table id="dg" class="easyui-datagrid" title="采购订单" style="width:1460px;height:530px"
+			data-options="
+				singleSelect: true,
+				toolbar: '#tb',
+				method: 'post',
+				onClickCell:onClickCell">
+				<thead>
+		<tr >
+	        <th data-options="field:'matId',width:120,align:'center',editor:{type:'numberbox',}" >材料编号</th>
+		    <th data-options="field:'matName',width:130,align:'center',editor:'textbox'" >材料名称</th>
+			<th data-options="field:'matCategory',width:130,align:'center',editor:'textbox'" >材料类别</th>
+			<th data-options="field:'matSpec',width:130,align:'center',editor:'textbox'" >规格型号</th>
+			<th data-options="field:'metering',width:120,align:'center',editor:'textbox'" >计量单位</th>
+			<th data-options="field:'unitPrice',width:120,align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
+			<th data-options="field:'amount',width:120,align:'center',editor:'numberbox'" >金额</th>
+			<th data-options="field:'quantity',width:120,align:'center',editor:'numberbox'" >采购数量</th>
+			<th data-options="field:'variety',width:120,align:'center',editor:'numberbox'">品种数量</th>
+			<th data-options="field:'totalNumber',width:120,align:'center',editor:'numberbox'" >货物总数</th>
+			<th data-options="field:'totalMoney',width:120,align:'center',editor:'numberbox'" >合计金额</th>
+             <th data-options="field:'expectDate',width:120,align:'center',editor:'textbox'" >预计到货日期</th>
+			</tr>
+		</thead>
+  </table>
+</div>
+<div style="width:200px"></div>
+     <div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
+		 <div class="div-inner">
+				 &emsp;采购单号:<input type="text" name="purId" >
+				     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" >
+				    &emsp;&emsp;&emsp; 职工号:<input type="text" name="userId" >
+				  &emsp;&emsp;&emsp;职工名称:<input type="text" name="userName" >
+				&emsp;&emsp;&emsp;供应商编号:<input type="text" name="supId"><br/>
+				    &emsp; 供应商名称:<input type="text" name="supName" >
+		   </div>
+	</div>
+</body>
+</html>
