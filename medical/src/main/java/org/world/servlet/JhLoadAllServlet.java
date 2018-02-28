@@ -31,6 +31,7 @@ public class JhLoadAllServlet extends HttpServlet {
 		Map<String, Object> maps=new HashMap<>();
 		maps.put("rows", listst);
 		String jsonStr=mapper.writeValueAsString(maps);
+		System.out.println(jsonStr);
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().println(jsonStr);
 		response.getWriter().flush();
