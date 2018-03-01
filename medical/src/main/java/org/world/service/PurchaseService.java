@@ -22,5 +22,22 @@ public class PurchaseService {
 		}
 		return count;
 	}
+	//添加采购明细表信息
+		
+		public int addPurchasedetial(List<Purchasedetial> purdList) {
+			int count=0;
+			for (int i = 0; i <purdList.size(); i++) {
+			
+					try {
+						pd.addPurchasedetial(purdList.get(i));
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					count++;
+				
+			}
+			return count;
+		}
+
 
 }

@@ -1,23 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<!--  <meta http-equiv="refresh" content="1"/>-->
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'matId'
+			});
+			row.productname = $(ed.target).combobox('getText');
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#dg').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		
+	function accept(){
+				if (endEditing()){
+				$('#dg').datagrid('acceptChanges');      
+				
+				}
+	}
+			
+	
+	</script>
 </head>
 <body>
-<div style="margin-top:80px" align="center">
-<h1>采购计划表</h1>
-<form>
-  材料名称:<input type="text" name="matName"/></p>
- 材料类别:<input type="text" name="matCategories"></p>
- 规格型号:<input type="text" name="typeName"/> </p>
- 单 价:<input type="text" name="price"/></p>
- 数 量:<input type="text" name="number"/></p>
- 总 价:<input type="text" name="totalPrice"/></p>
-供应商:<input type="text" name="supplier"/></p>
-<input type="submit" value="提交">
-<input type="submit" value="重置">
-</form>
-</div >
+<div style="margin:20px 0"></div>
+<table id="dg"  class="easyui-datagrid" title="采购计划" style="width:1200px;height:530px"
+			data-options="
+				singleSelect: true,
+				toolbar: '#tb',
+				method: 'get',
+				onClickCell: onClickCell,
+				onEndEdit: onEndEdit">
+				<thead>
+		<tr >
+		        <th data-options="field:'totalMoney',width:80,align:'center',editor:'numberbox'" >材料编号</th>
+			    <th data-options="field:'matName',width:150,align:'center',editor:'textbox'" >材料名称</th>
+				<th data-options="field:'matCategory',width:150,align:'center',editor:'textbox'" >材料类别</th>
+				<th data-options="field:'supName',width:150,align:'center',editor:'textbox'" >供应商名称</th>
+				<th data-options="field:'matSpec',width:150,editor:'textbox'" >规格型号</th>
+				<th data-options="field:'metering',width:150,editor:'textbox'" >计量单位</th>
+				<th data-options="field:'unitPrice',width:80,align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
+				<th data-options="field:'amount',width:80,align:'center',editor:'numberbox'" >金额</th>
+				<th data-options="field:'variety',width:80,align:'center',editor:'numberbox'">品种数量</th>
+				<th data-options="field:'totalNumber',width:80,align:'center',editor:'numberbox'" >货物总数</th>
+				<th data-options="field:'totalMoney',width:80,align:'center',editor:'numberbox'" >合计金额</th>
+			</tr>
+		</thead>
+  </table>
+<div style="overflow-x:scroll;width:200px;white-space:nowrap;"></div>
+       <div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-pencil',plain:true"  onclick="accept()">生成计划</a>
+	</div>
 </body>
 </html>

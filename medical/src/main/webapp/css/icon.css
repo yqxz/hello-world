@@ -14,13 +14,16 @@
 	background:url('icons/edit_remove.png') no-repeat center center;
 }
 .icon-save{
-	background:url('icons/filesave.png') no-repeat center center;
+	background:url('icons/mini_add.png') no-repeat center center;
 }
 .icon-cut{
 	background:url('icons/cut.png') no-repeat center center;
 }
 .icon-ok{
 	background:url('icons/ok.png') no-repeat center center;
+}
+.icon-pencil{
+	background:url('icons/pencil.png') no-repeat center center;
 }
 .icon-no{
 	background:url('icons/no.png') no-repeat center center;

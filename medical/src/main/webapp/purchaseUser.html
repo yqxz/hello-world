@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+    <script type="text/javascript">
+    $(function(){
+    	$("#pp").click(function(){
+    		location.href="ProcPlan.html";
+    		
+    	});
+    });
+    $(function(){
+    	$("#po").click(function(){
+    		location.href="PurOrder.html";
+    	});
+    });
+    $(function(){
+    	$("#pg").click(function(){
+    		location.href="PurGoods.html";
+    	});
+    });
+    $(function(){
+    	$("#pc").click(function(){
+    		location.href="PurCheck.html";
+    	});
+    });
+    $(function(){
+    	$("#pi").click(function(){
+    		location.href="PurLibary.html";
+    	});
+    });
+    $(function(){
+    	$("#cc").click(function(){
+    		location.href="PurQuery.html";
+    	});
+    });
+    </script>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north',border:false" style="height:120px;width:800px;
+			background:#E0ECFF;border:#E0ECFF solid 1px;padding:10px;font-family: 黑体;font-size:30px;">医药系统</div>
+	<div data-options="region:'west',split:false" style="width:150px;padding:5px;background:#E0ECFF">
+		<div class="m-title" style="margin-top:120px">
+      <a href="javascript:void(0)"  id="pp" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px;;border:#E0ECFF"><font face="黑体" size=4>采购计划</font></a></p>
+	  <a href="javascript:void(0)" id="po" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px;border:#E0ECFF"><font face="黑体" size=4>采购订单</font></a></p>
+	  <a href="javascript:void(0)" id="pg" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px;border:#E0ECFF"><font face="黑体" size=4>采购收货</font></a></p>
+	  <a href="javascript:void(0)" id="pc" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px;border:#E0ECFF"><font face="黑体" size=4>采购验收</font></a></p>
+	  <a href="javascript:void(0)" id="pi"class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px;border:#E0ECFF"><font face="黑体" size=4>采购入库</font></a></p>
+	  <a href="javascript:void(0)" id="cc" class="easyui-linkbutton" data-options="plain:true,outline:true" style="width:100px;border:#E0ECFF"><font face="黑体" size=4>进度查询</font></a>
+		</div>
+		</div>
+	 <div data-options="region:'',"id="load"style="width:80px;padding:5px">
+	医药系统
+	</div>
+    <div data-options="region:'south',border:false" style="height:60px;width:800px;background:#E0ECFF;padding:10px;">其他</div>
+</body>
+</html>

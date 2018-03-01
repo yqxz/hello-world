@@ -2,11 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>采购验收</title>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
+<title>采购收货</title>
 	<link rel="stylesheet" type="text/css" href="css/div.css">
 	<link rel="stylesheet" type="text/css" href="css/easyui.css">
 	<link rel="stylesheet" type="text/css" href="css/icon.css">
@@ -45,13 +41,13 @@
 		function onEndEdit(index, row){
 			var ed = $(this).datagrid('getEditor', {
 				index: index,
-				field: 'productid'
+				field: 'matId'
 			});
 			row.productname = $(ed.target).combobox('getText');
 		}
 		function append(){
 			if (endEditing()){
-				$('#dg').datagrid('appendRow',{status:'P'});
+				$('#dg').datagrid('appendRow',{});
 				editIndex = $('#dg').datagrid('getRows').length-1;
 				$('#dg').datagrid('selectRow', editIndex)
 						.datagrid('beginEdit', editIndex);
@@ -63,18 +59,38 @@
 					.datagrid('deleteRow', editIndex);
 			editIndex = undefined;
 		}
+		
 		function accept(){
+			//获得文本框里输入的信息
+			var accI=$("input[name='accId']").val(); 
+			var purI=$("input[name='purId']").val();
+			var supN=$("input[name='supName']").val();
+			var accD=$("input[name='accDate']").val();
 			if (endEditing()){
 				$('#dg').datagrid('acceptChanges');
-			}
+				var all=$("#dg").datagrid("getData");
+				var json=JSON.stringify(all.rows);
+				alert(json);
+				}
+			$.post("purchaseGoodsServlet",{
+				info:json,
+				accId:accI,
+				purId:purI,
+			    supName:supN,
+			    accDate:accD
+				
+			},
+			function(data,status){
+				 alert("数据：" + data + "\n状态：" + status);
+			});
+		
+			
 		}
 	</script>
 </head>
 <body>
-	<center>
-<table id="dg" class="easyui-datagrid" title="采购到货" style="width:1200px;height:530px"
+<table id="dg" class="easyui-datagrid" title="采购收货" style="width:1200px;height:530px"
 			data-options="
-				iconCls: 'icon-edit',
 				singleSelect: true,
 				toolbar: '#tb',
 				url: 'datagrid_data1.json',
@@ -83,40 +99,30 @@
 				onEndEdit: onEndEdit">
 				<thead>
 		<tr>
-		     <th data-options="field:'productid',width:250,align:'center',
-						formatter:function(value,row){
-							return row.productname;
-						},
-						editor:{
-							type:'textbox',
-							options:{
-								valueField:'productid',
-								textField:'productname',
-								method:'get',
-								url:'products.json'
-							}
-						}">材料名称</th>
-                <th data-options="field:'attr1',width:150,align:'center',editor:'numberbox'">到货数量</th>
-			   <th data-options="field:'attr1',width:250,align:'center',editor:'numberbox'">品种数量</th>
-				<th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">内部批号</th>
-				<th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">原始批号</th>
-				<th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">生产日期</th>
-				<th data-options="field:'unitcost',width:250,align:'center',editor:'textbox'">有效日期</th>
+		         <th data-options="field:'matId',width:100,align:'center',editor:{type:'numberbox',}" >材料编号</th>
+		       <th data-options="field:'matName',width:180,align:'center',editor:'textbox'">材料名称</th>
+                <th data-options="field:'totalNumber',width:100,align:'center',editor:'numberbox'">到货数量</th>
+			    <th data-options="field:'variety',width:100,align:'center',editor:'numberbox'">品种数量</th>
+			    <th data-options="field:'accNumber',width:100,align:'center',editor:'numberbox'">数量</th>
+				<th data-options="field:'batchNumber',width:100,align:'center',editor:'textbox'">内部批号</th>
+				<th data-options="field:'originNumber',width:100,align:'center',editor:'textbox'">原始批号</th>
+				<th data-options="field:'askTime',width:180,align:'center',editor:'textbox'">请检日期</th>
+				<th data-options="field:'proDate',width:180,align:'center',editor:'textbox'">生产日期</th>
+				<th data-options="field:'valDate',width:180,align:'center',editor:'textbox'">有效日期</th>
 			</tr>
 		</thead>
   </table>
-</center>
+
 <form >
 	<div  id="tb" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" style="submit" data-options="iconCls:'icon-save',plain:true" onclick="accept()">检验</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-_add',plain:true" onclick="accept()">检验</a>
 	<div class="div-inner" >
-	采购单号:<input type="text" name="purchaseOdd" >
-	到货单号:<input type="text" name="goodsOdd" >
-	材料编号:<input type="text" name="materialsOdd" >
-	供应商:<input type="text" name="supplierName" >
-	到货日期:<input type="text" name="goodsDate" >
+	到货单号:<input type="text" name="accId" >
+	采购单号:<input type="text" name="purId" >
+	供应商名称:<input type="text" name="supName" >
+	到货日期:<input type="text" name="accDate" >
 </div>
 	</div>
 </form>

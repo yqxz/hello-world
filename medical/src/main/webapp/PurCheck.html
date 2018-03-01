@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>采购验收</title>
-<!DOCTYPE html>
-<html>
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/div.css">
@@ -71,10 +69,8 @@
 	</script>
 </head>
 <body>
-<center>
 <table id="dg" class="easyui-datagrid" title="采购验收" style="width:1200px;height:530px"
 			data-options="
-				iconCls: 'icon-edit',
 				singleSelect: true,
 				toolbar: '#tb',
 				url: 'datagrid_data1.json',
@@ -83,19 +79,7 @@
 				onEndEdit: onEndEdit">
 				<thead>
 		<tr>
-		<th data-options="field:'productid',width:200,align:'center',
-						formatter:function(value,row){
-							return row.productname;
-						},
-						editor:{
-							type:'textbox',
-							options:{
-								valueField:'productid',
-								textField:'productname',
-								method:'get',
-								url:'products.json'
-							}
-						}">原料名称</th>
+		 <th data-options="field:'productid',width:80,editor:{type:'numberbox',}" >原料名称</th>
                 <th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">超标水分</th>
 			   <th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">杂质含量</th>
 				<th data-options="field:'attr1',width:250,align:'center',editor:'textbox'">入库等级</th>
@@ -103,12 +87,11 @@
 			</tr>
 		</thead>
   </table>
-</center>
 <form >
 	<div id="tb" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" style="submit" data-options="iconCls:'icon-save',plain:true" onclick="accept()">检验</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" style="submit" data-options="iconCls:'icon-search',plain:true" onclick="accept()">检验</a>
 	<div class="div-inner" >
 	采购单号:<input type="text" name="purchaseOdd" >
 	检验单号:<input type="text" name="checkOdd" >
@@ -116,8 +99,5 @@
 	</div>
 	</div>
 	</form>
-</body>
-</html>
-</head>
 </body>
 </html>
