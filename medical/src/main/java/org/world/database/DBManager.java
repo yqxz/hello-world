@@ -26,7 +26,7 @@ public abstract class DBManager {
 	 * @throws SQLException
 	 */
 	public Connection openConnection() throws SQLException {
-		String url="jdbc:mysql://localhost:3306/db_yygl";
+		String url="jdbc:mysql://localhost:3306/db_yygl?useSSL=true";
 		Connection conn=threadLocal.get();
 		if(conn==null) {
 			conn=DriverManager.getConnection(url,"root","1225");

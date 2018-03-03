@@ -23,7 +23,7 @@ public class PurOrderServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			this.doPost(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 		String info=req.getParameter("info");
 		ObjectMapper mapper=new ObjectMapper();

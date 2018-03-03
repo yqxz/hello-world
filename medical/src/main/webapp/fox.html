@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>登陆框</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
 	<link rel="stylesheet" href="css/fox.css" />
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
@@ -18,57 +19,63 @@
 				},
 				function(data,status){
 					var src=String($.trim(data));
-					if(src=="0"){
-					alert("登录失败！请重新登录");
-					location.href="fox.html";
-					}
+					if(src==0){
+						alert("登录失败，请重新登录！");
+						src="fox.html";
+					};
 					if(src=="A"){
-						location.href="index.html";
-					}
-					if(src=="B"){
-						location.href="chief.html";
-					}
+						src="index.html";
+					};
+					if(src=="W"){
+						src="chief.html";
+					};
+					if(src=="P"){
+						src="PurInfo.html";
+					};
+					if(src=="S"){
+						src="xiaoshoubu.html";
+					};
 					if(src=="C"){
-						location.href="PurInfo.html";
-					}
-					if(src=="D"){
-						location.href="xiaoshoubu.html";
-					}
+						src="shengchan.html";
+					};
+					if(true){
+						location.href=src;
+					};
 				});
 			});
 		})
 	</script>
 </head>
-<body>
+<body style="background-color: lightblue">
 	<div class="wrapper">
 		<div class="header">Login to <span>狐仙！医药^-^</span></div>
 		<form action="" method="post">
 			<ul>
 				<li>
 					<div class="text">
-						<span class="yonghu">&#xe601;</span><input type="text" placeholder="IconDeposit" id="name">
+						<span class="yonghu">&#xe601;</span><input type="text" placeholder="请输入用户名" id="name">
 					</div>
 				</li>
 				<li>
 					<div class="password">
-						<span class="mima">&#xe600;</span><input type="password" placeholder="••••••••••••••" id="pass">
+						<span class="mima">&#xe600;</span><input type="password" placeholder="请输入密码" id="pass">
 					</div>
 				</li>
-				<li class="remember">
-					<input id="checkbox" type="checkbox"><label for="checkbox"></label>Remember Me
+				<li>
+					<a href="register.html">新用户注册</a>
 				</li>
 				<li>
-					<a href="">Forgot username or password?</a>
+					<a href="forget.html">Forgot password?忘记密码</a>
 				</li>
 				<li>
-					<input type="button" value="Login" id="login">
+					<input type="button" value="登录" id="login">
 				</li>
 			</ul>
 		</form>
 		<div class="footer">
-			<p>Love.ly Personal Blog .PSD Template <a href="">Copyright ©2012 Matt Gentile</a></p>
-			<p><a href="">Love.ly Home</a> | <a href="">Bolg
-			</a> | <a href="">Work</a> | <a href="">Terms of Use</a> | <a href="">Contact Me</a></p>
+			<p>Love.ly Personal Blog .PSD Template <a href="">Copyright ©2018 Matt Gentile</a></p>
+			<p><a href="">狐仙医药</a> | <a href="">Bolg
+			</a> | <a href="">Work</a> | <a href="">Terms of Use</a> | <a href="">关于我们</a></p>
 		</div>
 	</div>
 </body>

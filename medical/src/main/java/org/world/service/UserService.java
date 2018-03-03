@@ -33,10 +33,10 @@ public class UserService {
 		 * @param userId   用户userId
 		 * @return	修改结果！
 		 */
-		public boolean changePwd(String userPwd,String userId) {
+		public boolean changePwd(String userPwd,String loginName) {
 			int count=0;
 			try {
-				count=userDao.updatePwd(userPwd, userId);
+				count=userDao.updatePwd(userPwd, loginName);
 			} catch (SQLException e) {
 				logger.debug(e);
 			}
@@ -74,7 +74,7 @@ public class UserService {
 		}
 		
 		/**
-		 * 开出员工！删除用户表信息
+		 * 开除员工！删除用户表信息
 		 * @param userId
 		 * @return  turn/false
 		 */
@@ -87,9 +87,34 @@ public class UserService {
 			}
 			return count>0?true:false;
 		}
-		
-		
-		
+		/**
+		 * 判断登录名是否重复
+		 * @param name
+		 * @return
+		 */
+		public boolean cheakName(String name) {
+			boolean bool=false;
+			try {
+				bool=userDao.queryName(name);
+			} catch (SQLException e) {
+				logger.debug(e);
+			}
+			return bool;
+		}
+		/**
+		 * 添加一个新的user用户
+		 * @param user
+		 * @return
+		 */
+		public boolean add(User user) {
+			int count=0;
+			try {
+				count=userDao.insert(user);
+			} catch (SQLException e) {
+				logger.debug(e);
+			}
+			return count>0?true:false;
+		}
 		
 		
 		

@@ -4,4 +4,24 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>registerServlet</servlet-name>
+  	<display-name>registerServlet</display-name>
+  	<description></description>
+  	<servlet-class>org.world.servlet.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>checkNameServlet</servlet-name>
+  	<display-name>checkNameServlet</display-name>
+  	<description></description>
+  	<servlet-class>org.world.servlet.CheckNameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>registerServlet</servlet-name>
+  	<url-pattern>/registerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>checkNameServlet</servlet-name>
+  	<url-pattern>/checkNameServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

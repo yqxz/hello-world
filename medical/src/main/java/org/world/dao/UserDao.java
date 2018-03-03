@@ -40,9 +40,9 @@ public class UserDao extends DBManager{
 		 * @return   1/0
 		 * @throws SQLException
 		 */
-		public int updatePwd(String pass,String id) throws SQLException {
-			String sql="update user set userPwd=? where userId=?";
-			Object[] obs= {pass,id};
+		public int updatePwd(String pass,String loginName) throws SQLException {
+			String sql="update user set userPwd=? where loginName=?";
+			Object[] obs= {pass,loginName};
 			Connection conn=this.openConnection();
 			int count=this.update(conn, sql, obs);
 			this.closeConnection();
@@ -93,7 +93,7 @@ public class UserDao extends DBManager{
 			ResultSet rs=this.query(conn, sql, null);
 			while(rs.next()) {
 				User user=new User();
-				user.setUserId(rs.getString("userId"));
+				user.setUserId(rs.getInt("userId"));
 				user.setUserName(rs.getString("userName"));
 				user.setUserPower(rs.getString("userPower"));
 				userList.add(user);
@@ -102,8 +102,36 @@ public class UserDao extends DBManager{
 			return userList;
 		}
 		
-		
-		
+		/**
+		 * 查询loginName是否重复
+		 * @param name
+		 * @return  
+		 * @throws SQLException
+		 */
+		public boolean queryName(String name) throws SQLException {
+			String loginName=null;
+			String sql="select loginName from user where loginName=?";
+			Object[] obs= {name};
+			Connection conn=this.openConnection();
+			ResultSet rs=this.query(conn, sql, obs);
+			if(rs.next()) {
+				loginName=rs.getString("loginName");
+			}
+			return loginName==null?false:true;
+		}
+		/**
+		 * 添加一个user用户
+		 * @param user
+		 * @return
+		 * @throws SQLException
+		 */
+		public int insert(User user) throws SQLException {
+			String sql="insert into user values(default,?,?,?,?)";
+			Object[] obs= {user.getLoginName(),user.getUserPwd(),user.getUserName(),user.getUserPower()};
+			Connection conn=this.openConnection();
+			int count=this.update(conn, sql, obs);
+			return count;
+		}
 		
 		
 		
