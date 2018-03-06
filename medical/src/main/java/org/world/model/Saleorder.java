@@ -16,7 +16,7 @@ public class Saleorder {
 			  PRIMARY KEY (`soId`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='销售订单主表'
 		 */
-	
+
 		private String  soId;
 		private int totalNumber;
 		private double totalMoney;
@@ -87,7 +87,12 @@ public class Saleorder {
 		public void setState(boolean state) {
 			this.state = state;
 		}
-		
-		
-		
+
+		@Override
+		public String toString() {
+			return "Saleorder [soId=" + soId + ", totalNumber=" + totalNumber + ", totalMoney=" + totalMoney
+					+ ", deposit=" + deposit + ", cusId=" + cusId + ", cudName=" + cudName + ", creatDate=" + creatDate
+					+ ", userId=" + userId + ", userName=" + userName + ", state=" + state + "]";
+		}
+
 }

@@ -63,6 +63,11 @@ public class SalePlan {
 		public void setEndDate(String endDate) {
 			this.endDate = endDate;
 		}
+		@Override
+		public String toString() {
+			return "SalePlan [spId=" + spId + ", variety=" + variety + ", totalNumber=" + totalNumber + ", userId="
+					+ userId + ", userName=" + userName + ", beginDate=" + beginDate + ", endDate=" + endDate + "]";
+		}
 		
 		
 }

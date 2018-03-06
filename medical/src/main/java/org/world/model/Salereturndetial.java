@@ -15,13 +15,15 @@ public class Salereturndetial {
 			  `reason` varchar(32) DEFAULT NULL COMMENT '退货原因'
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='销售退货单明细表';
 		 */
-	
+
 		private String stId;
 		private String soId;
 		private String drugId;
 		private String drugName;
+		private String matSpec;
+		private String metering;
 		private String cusId;
-		private String cudName;
+		private String cusName;
 		private double unitPrice;
 		private int quantity;
 		private double amount;
@@ -50,17 +52,31 @@ public class Salereturndetial {
 		public void setDrugName(String drugName) {
 			this.drugName = drugName;
 		}
+
+
+		public String getMatSpec() {
+			return matSpec;
+		}
+		public void setMatSpec(String matSpec) {
+			this.matSpec = matSpec;
+		}
+		public String getMetering() {
+			return metering;
+		}
+		public void setMetering(String metering) {
+			this.metering = metering;
+		}
 		public String getCusId() {
 			return cusId;
 		}
 		public void setCusId(String cusId) {
 			this.cusId = cusId;
 		}
-		public String getCudName() {
-			return cudName;
+		public String getCusName() {
+			return cusName;
 		}
-		public void setCudName(String cudName) {
-			this.cudName = cudName;
+		public void setCusName(String cusName) {
+			this.cusName = cusName;
 		}
 		public double getUnitPrice() {
 			return unitPrice;
@@ -86,6 +102,15 @@ public class Salereturndetial {
 		public void setReason(String reason) {
 			this.reason = reason;
 		}
-		
-		
+		@Override
+		public String toString() {
+			return "Salereturndetial [stId=" + stId + ", soId=" + soId + ", drugId=" + drugId + ", drugName=" + drugName
+					+ ", matSpec=" + matSpec + ", metering=" + metering + ", cusId=" + cusId + ", cusName=" + cusName
+					+ ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", amount=" + amount + ", reason="
+					+ reason + "]";
+		}
+
+
+
+
 }

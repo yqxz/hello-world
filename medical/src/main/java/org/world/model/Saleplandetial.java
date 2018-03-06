@@ -13,6 +13,8 @@ public class Saleplandetial {
 		private String spId;
 		private String drugId;
 		private String drugName;
+		private String matSpec;
+		private String metering;
 		private int amount;
 		private int soamount; //单品计划总数量
 		private int saamount; //单品出库总数量
@@ -58,6 +60,19 @@ public class Saleplandetial {
 		}
 		public void setSaamount(int saamount) {
 			this.saamount = saamount;
+		}
+		
+		public String getMatSpec() {
+			return matSpec;
+		}
+		public void setMatSpec(String matSpec) {
+			this.matSpec = matSpec;
+		}
+		public String getMetering() {
+			return metering;
+		}
+		public void setMetering(String metering) {
+			this.metering = metering;
 		}
 		@Override
 		public String toString() {

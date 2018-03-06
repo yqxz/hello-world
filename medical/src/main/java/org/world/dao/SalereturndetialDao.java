@@ -22,7 +22,7 @@ public class SalereturndetialDao extends DBManager{
 	    		   sd.setDrugId(rs.getString("drugId"));
 	    		   sd.setDrugName(rs.getString("drugName"));
 	    		   sd.setCusId(rs.getString("cusId"));
-	    		   sd.setCudName(rs.getString("cudName"));
+	    		   sd.setCusName(rs.getString("cusName"));
 	    		   sd.setUnitPrice(rs.getDouble("unitPrice"));
 	    		   sd.setQuantity(rs.getInt("quantity"));
 	    		   sd.setAmount(rs.getDouble("amount"));

@@ -8,40 +8,123 @@
 	<link rel="stylesheet" type="text/css" href="css/demo.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'drugId'
+			});
+			row.productname = $(ed.target).combobox('getText');
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#dg').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		
+	function accept(){
+			var spI=$("input[name='spId']").val();
+			var v=$("input[name='variety']").val();
+			var totalN=$("input[name='totalNumber']").val();
+			var userI=$("input[name='userId']").val();
+			var userN=$("input[name='userName']").val();
+			var beginD=$("input[name='beginDate']").val();
+			var endD=$("input[name='endDate']").val();
+			//location.href="PurOrder.html";	
+			if (endEditing()){
+				$('#dg').datagrid('acceptChanges');      
+					var all = $("#dg").datagrid("getData");
+					var json =JSON.stringify(all.rows);
+					//alert(json);
+				}
+			$.post("addSalePlanServlet",{
+				info:json,
+				spId:spI,
+				variety:v,
+				totalNumber:totalN,
+				userId:userI,
+				userName:userN,
+				beginDate:beginD,
+				endDate:endD
+				},
+			function(data,status){
+			 //alert("数据：" + data + "\n状态：" + status);
+			});
+			}
+	
+	</script>
 </head>
 <body style="background-color: #e0e0e0">
-    <div style="margin-top:0px;border: solid 1px;"><p style="font-size: 14px">欢 迎 使 用 红 娘 医 药 软 件 1.1 版 本</p></div>
-	<div id="tb" style="height:auto;background-color: #f0f0f0;border: solid 1px;">
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append('add')"><p style="font-size: 14px">增加</p></a>
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()"><p style="font-size: 14px">删除</p></a>
-		&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="append('edit')"><p style="font-size: 14px">修改</p></a>
-	</div>
-	<div id="djlx" style="height:auto;margin-top:1px;border: solid 1px;" align="center"><br><h2>销 售 计 划</h2></div>
-	<table class="easyui-datagrid" id="dg"style="width:670px;height:30px;border: solid 1px;"
-			data-options="singleSelect:true,collapsible:true,pagination:true,pageSize:10,
-							toolbar: '#tb',url:'loadAllServlet',method:'get',onClickRow:clickRow">
-		<thead>
-			<tr style="font-size: 16px">
-				<th data-options="field:'spId',width:80">销售计划单号</th>
-				<th data-options="field:'drugId',width:100,editor:'textbox'">药品编码</th>
-				<th data-options="field:'drugName',width:80,align:'right',editor:'numberbox'">药品名称</th>
-				<th data-options="field:'amount',width:310,editor:'textbox'">数量</th>
+<form>
+   <table id="dg"  class="easyui-datagrid" title="销售计划" style="width:100%;height:650px"
+			data-options="
+				singleSelect: true,
+				toolbar: '#tb',
+				method: 'get',
+				onClickCell: onClickCell,
+				onEndEdit: onEndEdit">
+				<thead>
+		<tr>
+			    <th data-options="field:'drugId',width:150,align:'center',editor:'textbox'" >药品编码</th>
+				<th data-options="field:'drugName',width:150,align:'center',editor:'textbox'" >药品名称</th>
+				<th data-options="field:'matSpec',width:150,align:'center',editor:'textbox'" >规格</th>
+				<th data-options="field:'metering',width:150,align:'center',editor:'textbox'" >单位</th>
+				<th data-options="field:'amount',width:80,align:'center',editor:'numberbox'" >数量</th>
 			</tr>
 		</thead>
-	</table>
-	<div class="easyui-panel" id="bookInfoDiv" data-options="collapsed:true" style="width:100%;max-width:670px;padding:30px 60px;">
-		<form id="ff" method="post">
-			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="spId" type="hidden" id="bookId"><br/>
-				<input class="easyui-textbox" name="drugId" style="width:100%" data-options="label:'药品编码:',required:true">
-			</div>
-			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="drugName" style="width:100%" data-options="label:'药品名称:',required:true">
-			</div>
-			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="amount" style="width:100%;height:60px" data-options="label:'药品数量',multiline:true">
-			</div>
-		</form>
+  </table>
+<div style="overflow-x:scroll;width:200px;white-space:nowrap;"></div>
+       <div id="tb" style="height:100px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
+	 <div class="div-inner" >
+	      计划单号:<input type="text" name="spId" >
+	     &emsp;&emsp;&emsp;计划种类:<input type="text" name="variety" >
+	    &emsp;&emsp;&emsp; 计划金额:<input type="text" name="totalNumber">
+	    &emsp;&emsp;&emsp; 制单人编号:<input type="text" name="userId" >
+	  &emsp;&emsp;&emsp;制单人名称:<input type="text" name="userName" >
+	&emsp;&emsp;&emsp;开始日期：<input type="date" name="beginDate"/><br><br>
+		截止日期：<input type="date" name="endDate"/>
+	   </div>
 	</div>
+</form>
  </body>
 </html>

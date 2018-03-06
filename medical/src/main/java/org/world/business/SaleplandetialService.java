@@ -8,6 +8,8 @@ import org.world.model.Saleplandetial;
 
 public class SaleplandetialService {
      SaleplandetialDao sd = new SaleplandetialDao();
+     
+     //查询所有的销售计划明细
      public List<Saleplandetial> loadAll(){
     	 List<Saleplandetial> list= null;
     	 try {

@@ -10,10 +10,12 @@ public class Saleorderdetial {
 			  `unitPrice` double NOT NULL COMMENT '成交单价'
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='销售订单明细表'
 		 */
-	
+
 		private String soId;
 		private String drugId;
 		private String drugName;
+		private String matSpec;
+		private String metering;
 		private int amount;
 		private double unitPrice;
 		public String getSoId() {
@@ -31,6 +33,20 @@ public class Saleorderdetial {
 		public String getDrugName() {
 			return drugName;
 		}
+
+
+		public String getMatSpec() {
+			return matSpec;
+		}
+		public void setMatSpec(String matSpec) {
+			this.matSpec = matSpec;
+		}
+		public String getMetering() {
+			return metering;
+		}
+		public void setMetering(String metering) {
+			this.metering = metering;
+		}
 		public void setDrugName(String drugName) {
 			this.drugName = drugName;
 		}
@@ -46,6 +62,13 @@ public class Saleorderdetial {
 		public void setUnitPrice(double unitPrice) {
 			this.unitPrice = unitPrice;
 		}
-		
-		
-}	
+		@Override
+		public String toString() {
+			return "Saleorderdetial [soId=" + soId + ", drugId=" + drugId + ", drugName=" + drugName + ", matSpec="
+					+ matSpec + ", metering=" + metering + ", amount=" + amount + ", unitPrice=" + unitPrice + "]";
+		}
+
+
+
+
+}

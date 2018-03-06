@@ -4,45 +4,4 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-  	<servlet-name>jhLoadAllServlet</servlet-name>
-  	<display-name>jhLoadAllServlet</display-name>
-  	<description></description>
-  	<servlet-class>org.world.servlet.JhLoadAllServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>xsbLoadAllServlet</servlet-name>
-  	<display-name>xsbLoadAllServlet</display-name>
-  	<description></description>
-  	<servlet-class>org.world.servlet.XsbLoadAllServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>sosdetialServlet</servlet-name>
-  	<display-name>sosdetialServlet</display-name>
-  	<description></description>
-  	<servlet-class>org.world.servlet.SosdetialServlet</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>salereturndetialServlet</servlet-name>
-  	<display-name>salereturndetialServlet</display-name>
-  	<description></description>
-  	<servlet-class>org.world.servlet.SalereturndetialServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>jhLoadAllServlet</servlet-name>
-  	<url-pattern>/jhLoadAllServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>xsbLoadAllServlet</servlet-name>
-  	<url-pattern>/xsbLoadAllServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>sosdetialServlet</servlet-name>
-  	<url-pattern>/sosdetialServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>salereturndetialServlet</servlet-name>
-  	<url-pattern>/salereturndetialServlet</url-pattern>
-  </servlet-mapping>
-  
 </web-app>
