@@ -29,16 +29,49 @@ public class ProstoreService {
 	/**
 	 * 批次查询
 	 */
-	public List<Prostore> inProDate(){
+	public List<Prostore> inProDate(int page,int rows){
 		List<Prostore> prostoreList=null;
 		try {
-			prostoreList=pdao.inProDate();
+			prostoreList=pdao.inProDate(page-1,rows);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return prostoreList;
 	}
-	
+	/**
+	 * 库存台账查询
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public List<Prostore> standingBook(int page,int rows){
+		List<Prostore> prostoreList=null;
+		try {
+			prostoreList=pdao.standingBook(page-1, rows);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prostoreList;
+	}
+	/**
+	 * 有效期查询
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	public List<Prostore> valDate(int page,int rows){
+		List<Prostore> prostoreList=null;
+		try {
+			prostoreList=pdao.valDate(page-1, rows);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prostoreList;
+	}
+	/**
+	 * 数据总数
+	 * @return
+	 */
 	public int getCount() {
 		int count=0;
 		try {

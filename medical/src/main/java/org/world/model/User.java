@@ -2,21 +2,7 @@ package org.world.model;
 
 import java.io.Serializable;
 
-@SuppressWarnings("serial")
 public class User implements Serializable{
-	/**
-	 * CREATE TABLE `user` (
-		  `userID` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-		  `loginName` varchar(32) NOT NULL COMMENT '登录名',
-		  `userPwd` varchar(100) NOT NULL COMMENT '用户密码',
-		  `userName` varchar(32) NOT NULL COMMENT '姓名',
-		  `userPower` varchar(32) NOT NULL COMMENT '用户权限',
-		  PRIMARY KEY (`userID`),
-		  UNIQUE KEY `loginName` (`loginName`),
-		  KEY `userPower` (`userPower`),
-		  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`userPower`) REFERENCES `power` (`powerMark`)
-		) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户表！'
-	 */
 	private int userId;
 	private String loginName;
 	private String userPwd;
@@ -57,5 +43,6 @@ public class User implements Serializable{
 		return "User [userId=" + userId + ", loginName=" + loginName + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", userPower=" + userPower + "]";
 	}
+	
 	
 }

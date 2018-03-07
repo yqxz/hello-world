@@ -1,11 +1,12 @@
 @charset "UTF-8";
 input{
-	margin-top: 10px;
+	
 	border-left-style: 0;
  	 border:none #95B8E7;
 	border-bottom:#95B8E7 solid 1px;  
 	background:transparent;  
     outline: none; 
+    margin-bottom:2px;
 }
 .div-inner{
 	height:auto;
@@ -14,9 +15,11 @@ input{
 	margin-left:-2px;
 	margin-right:-2px;
 	border-top:#E0ECFF solid 1px;
+	
 }
 
 img{
 	width:60px;
 	height:85px;
 }
+

@@ -41,7 +41,7 @@ public class UserDao extends DBManager{
 		 * @throws SQLException
 		 */
 		public int updatePwd(String pass,String loginName) throws SQLException {
-			String sql="update user set userPwd=? where loginName=?";
+			String sql="update user set userPower=? where loginName=?";
 			Object[] obs= {pass,loginName};
 			Connection conn=this.openConnection();
 			int count=this.update(conn, sql, obs);
@@ -71,31 +71,35 @@ public class UserDao extends DBManager{
 		 * @return
 		 * @throws SQLException
 		 */
-		public int delete(String id) throws SQLException {
-			String sql="delete from user where userId=?";
-			Object[] obs= {id};
+		public int delete(String loginName) throws SQLException {
+			String sql="delete from user where loginName=?";
+			Object[] obs= {loginName};
 			Connection conn=this.openConnection();
 			int count=this.update(conn, sql, obs);
 			this.closeConnection();
 			return count;
 		}
 		
-		/**
+		/** 
 		 * 查询user表所有的数据(userId  userName  userPower)
 		 * @return   一个User对象的集合
 		 * @throws SQLException
 		 */
 		@SuppressWarnings("all")
-		public List<User> queryAll() throws SQLException{
+		public List<User> queryAll(int page,int rows) throws SQLException{
 			List<User> userList=new ArrayList<>();
-			String sql="select userId,userName,userPower from user";
+			String sql="select a.userId,a.loginName,a.userName,b.powerName from"
+					+ " user as a inner join power as b "
+					+ "on a.userPower=b.powerMark order by b.powerName limit ?,?";
+			Object[] obs= {page*rows,rows};
 			Connection conn=this.openConnection();
-			ResultSet rs=this.query(conn, sql, null);
-			while(rs.next()) {
+			ResultSet rs=this.query(conn, sql, obs);
+			while(rs.next()){
 				User user=new User();
 				user.setUserId(rs.getInt("userId"));
+				user.setLoginName(rs.getString("loginName"));
 				user.setUserName(rs.getString("userName"));
-				user.setUserPower(rs.getString("userPower"));
+				user.setUserPower(rs.getString("powerName"));
 				userList.add(user);
 			}
 			this.closeConnection();
@@ -133,7 +137,22 @@ public class UserDao extends DBManager{
 			return count;
 		}
 		
-		
+		/**
+		 * 
+		 * @return 获得user表的数据总条数
+		 * @throws SQLException
+		 */
+		@SuppressWarnings("all")
+		public int getCount() throws SQLException {
+			String sql="select count(userId) from user";
+			Connection conn=this.openConnection();
+			ResultSet rs=this.query(conn, sql, null);
+			int count=0;
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+			return count;
+		}
 		
 		
 		

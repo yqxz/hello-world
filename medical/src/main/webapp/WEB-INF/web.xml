@@ -16,6 +16,24 @@
   	<description></description>
   	<servlet-class>org.world.servlet.CheckNameServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>personDeleteServlet</servlet-name>
+  	<display-name>personDeleteServlet</display-name>
+  	<description></description>
+  	<servlet-class>org.world.servlet.PersonDeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>changePowerServlet</servlet-name>
+  	<display-name>changePowerServlet</display-name>
+  	<description></description>
+  	<servlet-class>org.world.servlet.ChangePowerServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>personQueryServlet</servlet-name>
+  	<display-name>personQueryServlet</display-name>
+  	<description></description>
+  	<servlet-class>org.world.servlet.PersonQueryServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>registerServlet</servlet-name>
   	<url-pattern>/registerServlet</url-pattern>
@@ -23,5 +41,17 @@
   <servlet-mapping>
   	<servlet-name>checkNameServlet</servlet-name>
   	<url-pattern>/checkNameServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>personDeleteServlet</servlet-name>
+  	<url-pattern>/personDeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>changePowerServlet</servlet-name>
+  	<url-pattern>/changePowerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>personQueryServlet</servlet-name>
+  	<url-pattern>/personQueryServlet</url-pattern>
   </servlet-mapping>
 </web-app>

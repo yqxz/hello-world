@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<!--  <meta http-equiv="refresh" content="1"/>-->
 	<link rel="stylesheet" type="text/css" href="css/div.css">
 	<link rel="stylesheet" type="text/css" href="css/easyui.css">
 	<link rel="stylesheet" type="text/css" href="css/icon.css">
@@ -37,6 +38,13 @@
 				}
 			}
 		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'matId'
+			});
+			row.productname = $(ed.target).combobox('getText');
+		}
 		function append(){
 			if (endEditing()){
 				$('#dg').datagrid('appendRow',{});
@@ -64,8 +72,9 @@
 				$('#dg').datagrid('acceptChanges');      
 					var all = $("#dg").datagrid("getData");
 					var json =JSON.stringify(all.rows);
+					//alert(json);
 				}
-			$.post("purOrderServlet",{
+			$.post("addPurchaseServlet",{
 				info:json,
 				purId:purI,
 				purTime:purT,
@@ -74,53 +83,55 @@
 				supName:supN,
 				supId:supI
 				},
+				
 			function(data,status){
-				 alert("数据：" + data + "\n状态：" + status);
+				// alert("数据：" + data + "\n状态：" + status);
 			});
 			}
 	
 	</script>
 </head>
-<body style="background-color:#CCCCCC;">
-<div style="margin:20px 0;"></div>
-<div style="width:1460px;height:530px;margin-left: 50px">
-	<table id="dg" class="easyui-datagrid" title="采购订单" style="width:1460px;height:530px"
+<body>
+<div style="margin:20px;margin-left:100px"></div>
+	 <form id="ff">
+<table id="dg"  class="easyui-datagrid" title="采购订单" style="width:1200px;height:530px"
 			data-options="
 				singleSelect: true,
 				toolbar: '#tb',
-				method: 'post',
-				onClickCell:onClickCell">
+				method: 'get',
+				onClickCell: onClickCell,
+				onEndEdit: onEndEdit">
 				<thead>
-		<tr>
-	        <th data-options="field:'matId',width:120,align:'center',editor:{type:'numberbox',}" >材料编号</th>
-		    <th data-options="field:'matName',width:130,align:'center',editor:'textbox'" >材料名称</th>
-			<th data-options="field:'matCategory',width:130,align:'center',editor:'textbox'" >材料类别</th>
-			<th data-options="field:'matSpec',width:130,align:'center',editor:'textbox'" >规格型号</th>
-			<th data-options="field:'metering',width:120,align:'center',editor:'textbox'" >计量单位</th>
-			<th data-options="field:'unitPrice',width:120,align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
-			<th data-options="field:'amount',width:120,align:'center',editor:'numberbox'" >金额</th>
-			<th data-options="field:'quantity',width:120,align:'center',editor:'numberbox'" >采购数量</th>
-			<th data-options="field:'variety',width:120,align:'center',editor:'numberbox'">品种数量</th>
-			<th data-options="field:'totalNumber',width:120,align:'center',editor:'numberbox'" >货物总数</th>
-			<th data-options="field:'totalMoney',width:120,align:'center',editor:'numberbox'" >合计金额</th>
-             <th data-options="field:'expectDate',width:120,align:'center',editor:'textbox'" >预计到货日期</th>
+		<tr >
+		        <th data-options="field:'matId',width:80,align:'center',editor:{type:'numberbox',}" >原料编号</th>
+			    <th data-options="field:'matName',width:150,align:'center',editor:'textbox'" >原料名称</th>
+				<th data-options="field:'matCategory',width:150,align:'center',editor:'textbox'" >原料类别</th>
+				<th data-options="field:'matSpec',width:150,editor:'textbox'" >规格型号</th>
+				<th data-options="field:'metering',width:150,editor:'textbox'" >计量单位</th>
+				<th data-options="field:'unitPrice',width:80,align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
+				<th data-options="field:'amount',width:80,align:'center',editor:'numberbox'" >金额</th>
+				<th data-options="field:'quantity',width:80,align:'center',editor:'numberbox'" >采购数量</th>
+				<th data-options="field:'variety',width:80,align:'center',editor:'numberbox'">品种数量</th>
+				<th data-options="field:'totalNumber',width:80,align:'center',editor:'numberbox'" >货物总数</th>
+				<th data-options="field:'totalMoney',width:80,align:'center',editor:'numberbox'" >合计金额</th>
+                <th data-options="field:'expectDate',width:150,align:'center',editor:'textbox'" >预计到货日期</th>
 			</tr>
 		</thead>
   </table>
-</div>
-<div style="width:200px"></div>
-     <div id="tb" style="height:auto">
+<div style="overflow-x:scroll;width:200px;white-space:nowrap;"></div>
+       <div id="tb" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
-		 <div class="div-inner">
-				 &emsp;采购单号:<input type="text" name="purId" >
-				     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" >
-				    &emsp;&emsp;&emsp; 职工号:<input type="text" name="userId" >
-				  &emsp;&emsp;&emsp;职工名称:<input type="text" name="userName" >
-				&emsp;&emsp;&emsp;供应商编号:<input type="text" name="supId"><br/>
-				    &emsp; 供应商名称:<input type="text" name="supName" >
-		   </div>
+	 <div class="div-inner">
+	      采购单号:<input type="text" name="purId" >
+	     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" >
+	    &emsp;&emsp;&emsp; 职工号:<input type="text" name="userId" >
+	  &emsp;&emsp;&emsp;职工名称:<input type="text" name="userName" >
+	&emsp;&emsp;&emsp;供应商编号:<input type="text" name="supId"></br>
+	      供应商名称:<input type="text" name="supName" >
+	   </div>
 	</div>
+</form>
 </body>
 </html>

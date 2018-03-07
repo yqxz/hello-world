@@ -49,10 +49,10 @@ public class UserService {
 		 * @param userId	用户userId
 		 * @return			修改结果！！！
 		 */
-		public boolean changePower(String userPower,String userId) {
+		public boolean changePower(String userPower,String loginName) {
 			int count=0;
 			try {
-				count=userDao.updatePwd(userPower, userId);
+				count=userDao.updatePwd(userPower, loginName);
 			} catch (SQLException e) {
 				logger.debug(e);
 			}
@@ -63,10 +63,10 @@ public class UserService {
 		 * 查询所有所有user表信息！
 		 * @return   返回一个集合！每个对象只有  userId  userName  userPwd 三项属性值
 		 */
-		public List<User> queryAll(){
+		public List<User> queryAll(int page,int rows){
 			List<User> userList=null;
 			try {
-				userList=userDao.queryAll();
+				userList=userDao.queryAll(page-1,rows);
 			} catch (SQLException e) {
 				logger.debug(e);
 			}
@@ -78,10 +78,10 @@ public class UserService {
 		 * @param userId
 		 * @return  turn/false
 		 */
-		public boolean fire(String userId) {
+		public boolean fire(String loginName){
 			int count=0;
 			try {
-				count=userDao.delete(userId);
+				count=userDao.delete(loginName);
 			} catch (SQLException e) {
 				logger.debug(e);
 			}
@@ -116,8 +116,19 @@ public class UserService {
 			return count>0?true:false;
 		}
 		
-		
-		
+		/**
+		 * 
+		 * @return 获得user表的数据总数
+		 */
+		public int getCount() {
+			int count=0;
+			try {
+				count=userDao.getCount();
+			} catch (SQLException e) {
+				logger.debug(e);
+			}
+			return count;
+		}
 		
 		
 		
