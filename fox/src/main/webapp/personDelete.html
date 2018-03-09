@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>员工离职</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){  
+		var num="";  
+		for(var i=0;i<4;i++){  
+		    num+=Math.floor(Math.random()*10)  
+		}
+		$("#span1").text(num);
+	});
+	</script>
+</head>
+<body>
+<div style="height: 60px;width: 400px;display: inline">
+		<a href="login.html"><img src="img/log01.jpg" style="height: 60px;margin-left: 10%;display: inline;"></a>
+		<a href="login.html" style="display: inline;"><img src="img/t1.jpg"></a>
+</div>
+<hr width="90%"/>
+<div style="width:400px;margin: auto;margin-top: 50px;margin-left: 15%">
+		<form id="ff" method="post">
+			<div style="margin-bottom:20px">
+				<input id="loginName" class="easyui-textbox" name='loginName' style="width:80%;height: 30px" 
+						data-options="events:{blur:check},required:true,validType:'loginName',label:'用户名'"><span id="span" style="font-size: 20px;"></span>
+			</div>
+			<div style="margin-bottom:20px">
+				<input id="checkNumber" class="easyui-textbox" name='loginName' style="width:80%;height: 30px;" 
+						data-options="events:{blur:check1},required:true,label:'验证码'">   <span id="span1"></span>
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="message" style="width:80%;height:60px" data-options="label:'离职原因:',multiline:true">
+			</div>
+		</form>
+		<div style="text-align:center;padding:5px 0;margin-top: 10px">
+			<input type="button" value="确认" onclick="submitForm()" style="width:60%;height: 40px;background-color: dodgerblue;border: none"/>
+		</div>
+</div>
+<div style="margin: auto;width: 200px;margin-top: 180px;"><span style="color: blue">2018@狐仙</span></div>
+	<script type="text/javascript">
+			function submitForm(){
+				var lName=$("#loginName").val();
+				$.ajax({
+					url:'personDeleteServlet',
+					type:'POST',
+					data:{
+						loginName:lName,
+					},
+					success:function(data){
+						if(data==1){
+							alert("删除成功");
+							location.href="personDelete.html";
+						}else{
+							alert("删除失败重新验证");
+							location.href="personDelete.html";
+						}
+					}
+				})
+			}
+			function check(){
+				var name=$(this).val();
+				if(name!=''){
+					$.ajax({
+						url:'checkNameServlet',
+						type:'POST',
+						data:{
+							loginName:name
+						},
+						success:function(data){
+							var bool=data;
+							if(bool==false){
+								$("#span").css("color","red");
+								$("#span").text(" 用户名不存在");
+							}else{
+								$("#span").css("color","blue");
+								$("#span").text(" 用户正确");
+							}
+						}
+					})
+				}
+			}
+			
+			function check1(){
+				var num1=$(this).val();
+				var num2=$("#span1").text();
+				if(num1!=num2){
+					alert("验证失败")
+					location.href="personDelete.html";
+				}
+			}
+	</script>
+</body>
+</html>

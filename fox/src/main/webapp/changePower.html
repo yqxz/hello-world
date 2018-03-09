@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- 新用户注册界面 
+		events:{blur:check}
+	-->
+	<meta charset="UTF-8">
+	<title>职位调动</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<style type="text/css">
+		label{
+			font-size: 15px;
+			font-weight: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div style="height: 60px;width: 400px;display: inline">
+		<a href="login.html"><img src="img/log01.jpg" style="height: 60px;margin-left: 10%;display: inline;"></a>
+		<a href="login.html" style="display: inline;"><img src="img/t1.jpg"></a>
+	</div>
+	<hr width="90%"/>
+	<div style="width:400px;margin: auto;margin-top: 50px;margin-left: 15%">
+		<form id="ff" method="post">
+			<div style="margin-bottom:20px">
+				<input id="loginName" class="easyui-textbox" name='loginName' style="width:80%;height: 30px" 
+						data-options="events:{blur:check},required:true,validType:'loginName',label:'用户名:'"><span id="span"></span>
+			</div>
+			<div style="margin-bottom:20px">
+				<select class="easyui-combobox" id="power"  style="width:80%;height: 30px"
+						data-options="label:'职位:',required:true">
+						<option value="G">普通客户</option>
+						<option value="S">销售部门</option>
+						<option value="P">采购部门</option>
+						<option value="X">质检部门</option>
+						<option value="C">生产部门</option>
+						<option value="W">后勤部门</option>
+						<option value="A">狐仙高层</option>
+				</select>
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="message" style="width:80%;height:60px" data-options="label:'备注信息:',multiline:true">
+			</div>
+		</form>
+		<div style="text-align:center;padding:5px 0;margin-top: 10px">
+			<input type="button" value="确认更改" onclick="submitForm()" style="width:60%;height: 40px;background-color: dodgerblue;border: none"/>
+		</div>
+	</div>
+	<div style="margin: auto;width: 200px;margin-top: 180px;"><span style="color: blue">2018@狐仙</span></div>
+	<script type="text/javascript">
+			function submitForm(){
+					var lName=$("#loginName").val();
+					var p=$("#power").val();
+					$.ajax({
+						url:'changePowerServlet',
+						type:'POST',
+						data:{
+							loginName:lName,
+							userPower:p
+						},
+						success:function(data){
+							if(data==1){
+								alert("修改成功");
+								location.href="changePower.html";
+							}else{
+								alert("修改失败，请重新输入");
+								location.href="changePower.html";
+							}
+						}
+					})
+			}
+			function check(){
+				var name=$(this).val();
+				if(name!=''){
+					$.ajax({
+						url:'checkNameServlet',
+						type:'POST',
+						data:{
+							loginName:name
+						},
+						success:function(data){
+							var bool=data;
+							if(bool==false){
+								$("#span").css("color","red");
+								$("#span").text(" 输入错误");
+							}else{
+								$("#span").css("color","blue");
+								$("#span").text(" 输入正确");
+							}
+						}
+					})
+				}
+			}
+	</script>
+</body>
+</html>

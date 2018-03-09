@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- 新用户注册界面 
+		events:{blur:check}
+	-->
+	<meta charset="UTF-8">
+	<title>新用户注册</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<style type="text/css">
+		label{
+			font-size: 15px;
+			font-weight: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div style="height: 60px;width: 400px;display: inline">
+		<a href="login.html"><img src="img/log01.jpg" style="height: 60px;margin-left: 10%;display: inline;"></a>
+		<a href="login.html" style="display: inline;"><img src="img/log04.jpg"></a>
+	</div>
+	<div style="display: inline;height: 50px;width: 400px;margin-left: 70%;">
+		<span>我已注册,现在就</span>
+		<input id="button" value="登录" type="button" style="border-radius: 3px;width: 60px;height: 30px;font-size: 10px;border: none;"/>
+	</div>
+	<hr width="90%"/>
+	<div style="width:400px;margin: auto;margin-top: 50px;margin-left: 15%">
+		<form id="ff" method="post">
+			<div style="margin-bottom:20px">
+				<input id="loginName" class="easyui-textbox" name='loginName' style="width:80%;height: 30px" 
+						data-options="events:{blur:check},required:true,validType:'loginName',label:'用户名:'"><span id="span"></span>
+			</div>
+			<div style="margin-bottom:20px">
+			<input id="pass" class="easyui-passwordbox" prompt="请输入密码" iconWidth="28" name='userPwd'
+					style="width:80%;height: 30px"
+					data-options="label:'密码:'"	>
+			</div>
+			<div style="margin-bottom:20px">
+			<input class="easyui-passwordbox" prompt="请再次输入密码" iconWidth="28" 
+					validType="confirmPass['#pass']" style="width:80%;height: 30px"
+					data-options="label:'再次输入:'">
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" id="userName" style="width:80%;height: 30px" 
+						data-options="label:'姓名:',required:true">
+			</div>
+		</form>
+		<div style="margin-left: 20%">
+			<input type="checkbox" style="vertical-align: middle" id="checkbox"/>
+			<span>阅读</span><a href="" style="text-decoration: none;color: blue">《狐仙医药用户协议》</a>
+			<span>并同意</span>
+		</div>
+		<div style="text-align:center;padding:5px 0;margin-top: 10px">
+			<input type="button" value="注册" onclick="submitForm()" style="width:60%;height: 40px;background-color: dodgerblue;border: none"/>
+		</div>
+	</div>
+	<div style="margin: auto;width: 200px;margin-top: 100px;"><span style="color: blue">2018@狐仙</span></div>
+	<script type="text/javascript">
+			function submitForm(){
+				if($('#checkbox').is(':checked')){
+					var lName=$("#loginName").val();
+					var uPwd=$("#pass").val();
+					var uName=$("#userName").val();
+					var p=$("#power").val();
+					$.ajax({
+						url:'registerServlet',
+						type:'POST',
+						data:{
+							loginName:lName,
+							userPwd:uPwd,
+							userName:uName,
+							userPower:"G"
+						},
+						success:function(data){
+							if(data==1){
+								alert("注册成功！请登录");
+								location.href="login.html";
+							}else{
+								alert("注册失败！请重新注册");
+								location.href="register.html";
+							}
+						}
+					})
+				}
+			}
+			$.extend($.fn.validatebox.defaults.rules, {
+				confirmPass: {
+					validator: function(value, param){
+						var pass = $(param[0]).passwordbox('getValue');
+						return value == pass;
+					},
+					message: '两次输入的密码不相同！'
+				}
+			})
+			function check(){
+				var name=$(this).val();
+				if(name!=''){
+					$.ajax({
+						url:'checkNameServlet',
+						type:'POST',
+						data:{
+							loginName:name
+						},
+						success:function(data){
+							var bool=data;
+							if(bool==false){
+								$("#span").css("color","blue");
+								$("#span").text(" 用户名可用");
+							}else{
+								$("#span").css("color","red");
+								$("#span").text(" 用户重复");
+							}
+						}
+					})
+				}
+			}
+			$('#button').click(function(){
+				location.href="fox.html";
+			})
+	</script>
+</body>
+</html>

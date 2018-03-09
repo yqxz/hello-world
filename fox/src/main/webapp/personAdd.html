@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- 新用户注册界面 
+		events:{blur:check}
+	-->
+	<meta charset="UTF-8">
+	<title>员工入职</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<style type="text/css">
+		label{
+			font-size: 15px;
+			font-weight: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div style="height: 60px;width: 400px;display: inline">
+		<a href="login.html"><img src="img/log01.jpg" style="height: 60px;margin-left: 10%;display: inline;"></a>
+		<a href="login.html" style="display: inline;"><img src="img/log04.jpg"></a>
+	</div>
+	<hr width="90%"/>
+	<div style="width:400px;margin: auto;margin-top: 50px;margin-left: 15%">
+		<form id="ff" method="post">
+			<div style="margin-bottom:20px">
+				<input id="loginName" class="easyui-textbox" name='loginName' style="width:80%;height: 30px" 
+						data-options="events:{blur:check},required:true,validType:'loginName',label:'用户名:'"><span id="span"></span>
+			</div>
+			<div style="margin-bottom:20px">
+			<input id="pass" class="easyui-passwordbox" prompt="请输入密码" iconWidth="28" name='userPwd'
+					style="width:80%;height: 30px"
+					data-options="label:'密码:'"	>
+			</div>
+			<div style="margin-bottom:20px">
+			<input class="easyui-passwordbox" prompt="请再次输入密码" iconWidth="28" 
+					validType="confirmPass['#pass']" style="width:80%;height: 30px"
+					data-options="label:'再次输入:'">
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" id="userName" style="width:80%;height: 30px" 
+						data-options="label:'姓名:',required:true">
+			</div>
+			<div style="margin-bottom:20px">
+				<select class="easyui-combobox" id="power"  style="width:80%;height: 30px"
+						data-options="label:'职位:',required:true">
+						<option value="G">客户</option>
+						<option value="S">销售部</option>
+						<option value="P">采购部</option>
+						<option value="X">质检部</option>
+						<option value="C">生产部</option>
+						<option value="W">后勤部</option>
+						<option value="Y">供应商</option>
+				</select>
+			</div>
+		</form>
+		<div style="margin-left: 20%">
+			<input type="checkbox" style="vertical-align: middle" id="checkbox"/>
+			<span>阅读</span><a href="" style="text-decoration: none;color: blue">《狐仙医药用户协议》</a>
+			<span>并同意</span>
+		</div>
+		<div style="text-align:center;padding:5px 0;margin-top: 10px">
+			<input type="button" value="注册" onclick="submitForm()" style="width:60%;height: 40px;background-color: dodgerblue;border: none"/>
+		</div>
+	</div>
+	<div style="margin: auto;width: 200px;margin-top: 50px;"><span style="color: blue">2018@狐仙</span></div>
+	<script type="text/javascript">
+			function submitForm(){
+				if($('#checkbox').is(':checked')){
+					var lName=$("#loginName").val();
+					var uPwd=$("#pass").val();
+					var uName=$("#userName").val();
+					var p=$("#power").val();
+					$.ajax({
+						url:'registerServlet',
+						type:'POST',
+						data:{
+							loginName:lName,
+							userPwd:uPwd,
+							userName:uName,
+							userPower:p
+						},
+						success:function(data){
+							if(data==1){
+								alert("注册成功");
+								location.href="personAdd.html";
+							}else{
+								alert("注册失败！请重新注册");
+								location.href="personAdd.html";
+							}
+						}
+					})
+				}
+			}
+			$.extend($.fn.validatebox.defaults.rules, {
+				confirmPass: {
+					validator: function(value, param){
+						var pass = $(param[0]).passwordbox('getValue');
+						return value == pass;
+					},
+					message: '两次输入的密码不相同！'
+				}
+			})
+			function check(){
+				var name=$(this).val();
+				if(name!=''){
+					$.ajax({
+						url:'checkNameServlet',
+						type:'POST',
+						data:{
+							loginName:name
+						},
+						success:function(data){
+							var bool=data;
+							if(bool==false){
+								$("#span").css("color","blue");
+								$("#span").text(" 用户名可用");
+							}else{
+								$("#span").css("color","red");
+								$("#span").text(" 用户重复");
+							}
+						}
+					})
+				}
+			}
+			$('#button').click(function(){
+				location.href="fox.html";
+			})
+	</script>
+</body>
+</html>

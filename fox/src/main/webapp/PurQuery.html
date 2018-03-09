@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>进度查询</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/body.css">
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'purId'
+			});
+			row.productname = $(ed.target).combobox('getText');
+		}
+	
+	
+		
+		function accept(){
+           $.post("infoCheckServlet",function(data){
+             var json=eval(data);
+				//alert(json[0].totalNumber1);
+             $('#dg').datagrid({
+            		url:'infoCheckServlet',
+            	});
+            	$('#dg').datagrid('reload')
+            	});
+				
+	}
+			
+	
+	</script>
+</head>
+<body>
+<div style="width:992px;height:500px;margin: 0 auto;margin-top: 30px">
+	<table id="dg"  class="easyui-datagrid" title="进度查询" style="width:992px;height:500px"
+			data-options="
+				singleSelect: true,
+				toolbar: '#tb',
+				method: 'get',
+				 onClickCell: onClickCell,
+				onEndEdit: onEndEdit"
+				>
+				<thead>
+		   <tr>
+		        <th data-options="field:'purId',width:150,align:'center',editor:'numberbox'" >采购单号</th>
+			    <th data-options="field:'supName',width:180,align:'center',editor:'textbox'" >供应商名称</th>
+				<th data-options="field:'matName',width:180,align:'center',editor:'textbox'" >材料名称</th>
+				<th data-options="field:'accNumber',width:150,align:'center',editor:'numberbox'" >采购数量</th>
+				<th data-options="field:'quantity',width:150,align:'center',editor:'numberbox'" >退货数量</th>
+				<th data-options="field:'expectDate',width:180,align:'center',editor:'textbox'" >预计到货日期</th>
+			</tr>
+		</thead>
+  </table>
+</div>
+       <div id="tb" style="height:auto">
+       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true"  onclick="print()">打印</a>
+       <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"  onclick="accept()">查询</a>
+	   <div class="div-inner" style="height:30px">
+	&nbsp;&nbsp;日期:&nbsp;<input type="text" value="2018年1月">至&nbsp;&nbsp;<input type="text" value="2018年2月">
+	     </div>
+	</div>
+</body>
+</html>

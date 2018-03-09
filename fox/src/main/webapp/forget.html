@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>修改密码</title>
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+</head>
+<body>
+<div style="height: 60px;width: 400px;display: inline">
+		<a href="login.html"><img src="img/log01.jpg" style="height: 60px;margin-left: 10%;display: inline;"></a>
+		<a href="login.html" style="display: inline;"><img src="img/log05.jpg"></a>
+</div>
+<hr width="90%"/>
+<div style="width:400px;margin: auto;margin-top: 50px;margin-left: 15%">
+		<form id="ff" method="post">
+			<div style="margin-bottom:20px">
+				<input id="loginName" class="easyui-textbox" name='loginName' style="width:80%;height: 30px" 
+						data-options="events:{blur:check},required:true,validType:'loginName',label:'用户名'"><span id="span"></span>
+			</div>
+			<div style="margin-bottom:20px">
+			<input id="pass" class="easyui-passwordbox" prompt="请输入密码" iconWidth="28" name='userPwd'
+					style="width:80%;height: 30px"
+					data-options="label:'密码:'"	>
+			</div>
+			<div style="margin-bottom:20px">
+			<input class="easyui-passwordbox" prompt="请再次输入密码" iconWidth="28" 
+					validType="confirmPass['#pass']" style="width:80%;height: 30px"
+					data-options="label:'再次输入:'">
+			</div>
+		</form>
+		<div style="text-align:center;padding:5px 0;margin-top: 10px">
+			<input type="button" value="确认" onclick="submitForm()" style="width:60%;height: 40px;background-color: dodgerblue;border: none"/>
+		</div>
+</div>
+<div style="margin: auto;width: 200px;margin-top: 200px;"><span style="color: blue">2018@狐仙</span></div>
+	<script type="text/javascript">
+			function submitForm(){
+				var lName=$("#loginName").val();
+				var uPwd=$("#pass").val();
+				var uName=$("#userName").val();
+				var p=$("#power").val();
+				$.ajax({
+					url:'forgetServlet',
+					type:'POST',
+					data:{
+						loginName:lName,
+						userPwd:uPwd,
+						userName:uName,
+						userPower:p
+					},
+					success:function(data){
+						if(data==1){
+							alert("修改成功！请登录");
+							location.href="login.html";
+						}else{
+							alert("修改失败！重新验证");
+							location.href="forget.html";
+						}
+					}
+				})
+			}
+			$.extend($.fn.validatebox.defaults.rules, {
+				confirmPass: {
+					validator: function(value, param){
+						var pass = $(param[0]).passwordbox('getValue');
+						return value == pass;
+					},
+					message: '两次输入的密码不相同！'
+				}
+			})
+			function check(){
+				var name=$(this).val();
+				if(name!=''){
+					$.ajax({
+						url:'checkNameServlet',
+						type:'POST',
+						data:{
+							loginName:name
+						},
+						success:function(data){
+							var bool=data;
+							if(bool==false){
+								$("#span").css("color","blue");
+								$("#span").text(" 用户名不存在");
+							}else{
+								$("#span").css("color","red");
+								$("#span").text(" 用户正确");
+							}
+						}
+					})
+				}
+			}
+	</script>
+</body>
+</html>

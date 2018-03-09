@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>销售退货</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/body.css">
+    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'soId'
+			});
+			row.productname = $(ed.target).combobox('getText');
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#dg').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		
+	function accept(){
+		var stI=$("input[name='stId']").val();
+		var vari=$("input[name='variety']").val();
+		var totalN=$("input[name='totalNumber']").val();
+		var stD=$("input[name='stDate']").val();
+		var totalM=$("input[name='totalMoney']").val();
+		var userI=$("input[name='userId']").val();
+		var userN=$("input[name='userName']").val();		
+			//location.href="PurOrder.html";	
+			if (endEditing()){
+				$('#dg').datagrid('acceptChanges');      
+					var all = $("#dg").datagrid("getData");
+					var json =JSON.stringify(all.rows);
+					//alert(json);
+				}
+			$.post("addSalereturnServlet",{
+				info:json,
+				stId:stI,
+				variety:vari,
+				totalNumber:totalN,
+				stDate:stD,
+				totalMoney:totalM,
+				userId:userI,
+			    userName:userN,
+				},
+			function(data,status){
+			 //alert("数据：" + data + "\n状态：" + status);
+			});
+			}
+	
+	</script>
+</head>
+<body>
+<div style="width: 1240px;height: 450px;margin: 0 auto;margin-top: 20px">
+<form >
+   <table id="dg"  class="easyui-datagrid" title="销售退货" style="width:100%;height:450px"
+			data-options="
+				singleSelect: true,
+				toolbar: '#tb',
+				method: 'get',
+				onClickCell: onClickCell,
+				onEndEdit: onEndEdit">
+				<thead>
+		<tr>
+			    <th data-options="field:'soId',width:130,align:'center',editor:'textbox'" >出库单号</th>
+			    <th data-options="field:'drugId',width:130,align:'center',editor:'textbox'" >药品编码</th>
+				<th data-options="field:'drugName',width:130,align:'center',editor:'textbox'" >药品名称</th>
+				<th data-options="field:'matSpec',width:130,align:'center',editor:'textbox'" >规格</th>
+				<th data-options="field:'metering',width:130,align:'center',editor:'textbox'" >单位</th>
+				<th data-options="field:'cusId',width:130,align:'center',editor:'textbox'" >客户编码</th>
+				<th data-options="field:'cusName',width:130,align:'center',editor:'textbox'" >客户名称</th>
+				<th data-options="field:'unitPrice',width:130,align:'center',editor:'textbox'" >成交单价</th>
+				<th data-options="field:'quantity',width:100,align:'center',editor:'numberbox'" >数量</th>
+				<th data-options="field:'amount',width:100,align:'center',editor:'numberbox'" >金额</th>
+			</tr>
+		</thead>
+		
+  </table>
+       <div id="tb" style="height:80px;padding: 10px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
+	 <div class="div-inner">
+	      退货单号:<input type="text" name="stId" >
+	     &emsp;&emsp;&emsp;退货种类:<input type="text" name="variety" >
+	    &emsp;&emsp;&emsp; 销售数量:<input type="text" name="totalNumber">
+	    &emsp;&emsp;&emsp; 退货日期:<input type="date" name="stDate"><br><br>
+	    &emsp;&emsp;&emsp; 退货金额:<input type="text" name="totalMoney" >
+	&emsp;&emsp;&emsp; 负责人编号:<input type="text" name="userId" >
+	 负责人名称:<input type="text" name="userName" >
+	   </div>
+	</div>
+</form>
+</div>
+ </body>
+</html>
