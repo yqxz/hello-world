@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="css/demo.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	 <script type="text/javascript" src="js/date.js"></script>
 	<script type="text/javascript">
 		var editIndex = undefined;
 		function endEditing(){
@@ -68,11 +69,12 @@
 			var purI=$("input[name='purId']").val();
 			var supN=$("input[name='supName']").val();
 			var accD=$("input[name='accDate']").val();
+			location.href="PurGoods.html";
 			if (endEditing()){
 				$('#dg').datagrid('acceptChanges');
 				var all=$("#dg").datagrid("getData");
 				var json=JSON.stringify(all.rows);
-				alert(json);
+				//alert(json);
 				}
 			$.post("purchaseGoodsServlet",{
 				info:json,
@@ -83,7 +85,7 @@
 				
 			},
 			function(data,status){
-				 alert("数据：" + data + "\n状态：" + status);
+				 //alert("数据：" + data + "\n状态：" + status);
 			});
 		
 			
@@ -108,9 +110,9 @@
 			    <th data-options="field:'accNumber',width:100,align:'center',editor:'numberbox'">数量</th>
 				<th data-options="field:'batchNumber',width:100,align:'center',editor:'textbox'">内部批号</th>
 				<th data-options="field:'originNumber',width:100,align:'center',editor:'textbox'">原始批号</th>
-				<th data-options="field:'askTime',width:150,align:'center',editor:'textbox'">请检日期</th>
-				<th data-options="field:'proDate',width:150,align:'center',editor:'textbox'">生产日期</th>
-				<th data-options="field:'valDate',width:150,align:'center',editor:'textbox'">有效日期</th>
+				<th data-options="field:'askTime',width:150,align:'center',editor:'datebox'">请检日期</th>
+				<th data-options="field:'proDate',width:150,align:'center',editor:'datebox'" >生产日期</th>
+				<th data-options="field:'valDate',width:150,align:'center',editor:'datebox'">有效日期</th>
 			</tr>
 		</thead>
   </table>
@@ -124,7 +126,7 @@
 	到货单号:<input type="text" name="accId" >
 	采购单号:<input type="text" name="purId" >
 	供应商名称:<input type="text" name="supName" >
-	到货日期:<input type="text" name="accDate" >
+	到货日期:<input type="text" name="accDate" id="dd" id="control_date" onClick="new Calendar().show(this);" >
 </div>
 	</div>
 </form>

@@ -1,10 +1,48 @@
-ul{margin:0;padding:0}
+@charset "utf-8";
+/* 以下实际使用若已初始化可删除 .nav height父级需逐级设置为100%*/
+ ul,li{margin:0;padding:0}
 li{list-style:none}
+p{font-size:15px}
 a{text-decoration: none;}
+/* 以上实际使用若已初始化可删除 */
+
+.nav{width: 220px;height: 100%;background: #263238;transition: all .3s;}
 .nav a{display: block;overflow: hidden;padding-left: 20px;line-height: 46px;
 				max-height: 46px;color: black;transition: all .3s;}
-.nav a span{margin-left: 30px;font-size: 16px;font-family: ΢���ź�}
+.nav a span{margin-left: 20px;font-size: 15px;font-family: 微软雅黑;color: #ffffff;}
 .nav-item{position: relative;}
-.nav-item ul{display: none;background: rgba(0,0,0,.1);}
-.nav-item a:hover{color: blue;background: rgba(0, 0, 0,.1);}
-p{font-size:15px}
+.nav-item.nav-show{border-bottom: none;}	
+.nav-item ul{display: none;}
+nav-item.nav-show ul{display: block;}
+.nav-item a:hover{color: #ffffff;background: rgba(0, 0, 0,.1);}
+.nav-item>a:before{content: "";position: absolute;left: 0px;width: 2px;height: 46px;background: #34A0CE;opacity:0;transition: all .3s;}
+.nav .nav-icon{font-size: 15px;position: absolute;margin-left:-8px;}
+.icon_1::after{content: "\e613";}
+.icon_2::after{content: "\e6db";}
+.icon_3::after{content: "\e6c8";}
+.icon_4::after{content: "\e6d1";}
+.icon_5::after{content: "\e6cf";}
+.icon_6::after{content: "\e6dd";}
+.icon_7::after{content: "\e684";}
+.icon_8::after{content: "\e627";}
+.icon_9::after{ content: "\e86f";}
+.icon_10::after{content: "\e87e";}
+.icon_11::after{content: "\e8ab";}
+.icon_12::after{content: "\e8bb";}
+.icon_13::after{content: "\e603";}
+.icon_14::after{content: "\e629";}
+.icon_15::after{content: "\e657";}
+.icon_16::after{content: "\e645";}
+.icon_16::after{content: "\e614";}
+
+
+
+
+ul.inner{margin-top: -5px;padding-top: -5px}
+.inner a span{font-size: 15px;margin-left: 25px;font-family: cursive;}
+.innerli{padding: 0;margin: 0;height: 30px;}
+
+
+
+
+

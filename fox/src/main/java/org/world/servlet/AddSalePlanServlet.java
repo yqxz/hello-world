@@ -10,14 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.world.model.Purchase;
+import org.world.model.Purchasedetial;
 import org.world.model.SalePlan;
 import org.world.model.Saleplandetial;
+import org.world.model.User;
 import org.world.service.AddSalePlanService;
+import org.world.service.UserService;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@SuppressWarnings("serial")
 @WebServlet(name = "addSalePlanServlet", urlPatterns = { "/addSalePlanServlet" })
 public class AddSalePlanServlet extends HttpServlet {
 
@@ -30,44 +35,64 @@ public class AddSalePlanServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// 销售计划主表
-		String spId = request.getParameter("spId");
-		System.out.println(spId);
-		int variety = Integer.parseInt(request.getParameter("variety"));
-		int totalNumber = Integer.parseInt(request.getParameter("totalNumber"));
-		String userId = request.getParameter("userId");
-		String userName = request.getParameter("userName");
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		AddSalePlanService spas = new AddSalePlanService();
+		ObjectMapper mapper=new ObjectMapper();
+		UserService user=new UserService();
+		String info=request.getParameter("info");
+		String loginName=request.getParameter("loginName");
 		String beginDate = request.getParameter("beginDate");
-		String endDate = request.getParameter("endDate");
-
-		SalePlan sp = new SalePlan();
-		sp.setSpId(spId);
+		int userId=user.getId(loginName);
+		JavaType jt1 = mapper.getTypeFactory().constructParametricType(List.class, SalePlan.class);
+		JavaType jt2 = mapper.getTypeFactory().constructParametricType(List.class, Saleplandetial.class);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); 
+		List<SalePlan> infoList1=mapper.readValue(info, jt1);
+		List<Saleplandetial> infoList2=mapper.readValue(info, jt2);
+		double totalMoney=0;
+		int totalNumber=0;
+		int variety = 0;
+		int spId=0;
+		for(int i=0;i<infoList2.size();i++) {
+			Saleplandetial sd=infoList2.get(i);
+			totalNumber+=sd.getAmount();
+			variety++;
+			totalMoney+=sd.getUnitPrice()*sd.getAmount();
+		}
+		SalePlan sp=infoList1.get(0);
+		sp.setBeginDate(beginDate);
 		sp.setVariety(variety);
 		sp.setTotalNumber(totalNumber);
+		sp.setTotalMoney(totalMoney);
+		sp.setLoginName(loginName);
 		sp.setUserId(userId);
-		sp.setUserName(userName);
-		sp.setBeginDate(beginDate);
-		sp.setEndDate(endDate);
-
-		List<SalePlan> salePlanList = new ArrayList<SalePlan>();
-		salePlanList.add(sp);
-		AddSalePlanService spas = new AddSalePlanService();
-		spas.addSalePlan(salePlanList);
-
-
-		// 销售计划明细
-		ObjectMapper map = new ObjectMapper();
-		String info = request.getParameter("info");
-		JavaType jt = map.getTypeFactory().constructParametricType(List.class, Saleplandetial.class);
-		map.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		List<Saleplandetial> infoList = map.readValue(info, jt);
-		List<Saleplandetial> salePlandetialList = new ArrayList<Saleplandetial>();
-		for (int i = 0; i < infoList.size(); i++) {
-			Saleplandetial spd = infoList.get(i);
-			spd.setSpId(spId);
-			salePlandetialList.add(spd);
+		List<SalePlan> list1=new ArrayList<>();
+		list1.add(sp);
+		boolean bool=spas.addSalePlan(list1);
+		spId=spas.getMaxId();
+		List<Saleplandetial> list2=new ArrayList<>();
+		if(bool){
+			for(int i=0;i<infoList2.size();i++) {
+				Saleplandetial sd=infoList2.get(i);
+				sd.setSpId(spId);
+				list2.add(sd);
+			}
+			spas.addSalePlanDetial(list2);
 		}
-		spas.addSalePlanDetial(salePlandetialList);
+		response.getWriter().println(bool?1:0);
+		response.getWriter().flush();
+		response.getWriter().close();
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -2,45 +2,40 @@ package org.world.model;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class PlanInfo implements Serializable{
 	
+	private int  planInfoId;	//计划单号
+	private int matId;			//
 	private String matName;    //材料名称
-	private String matCategory; //材料类别
-	private String supName;     //供应商名称
-	private String matSpec;     //规格型号
-	private String metering;    //计量单位
-	private double unitPrice;   //单价
-	private double amount;      //金额
+	private double unitPrice;   //预期单价
 	private int quantity;       //数量
+	private String planInfoDate;//日期
+	private String loginName;	//员工姓名
+	private boolean status;
+	public String getPlanInfoDate() {
+		return planInfoDate;
+	}
+	public void setPlanInfoDate(String planInfoDate) {
+		this.planInfoDate = planInfoDate;
+	}
+	public String getLoginName() {
+		return loginName;
+	}
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+	public int getPlanInfoId() {
+		return planInfoId;
+	}
+	public void setPlanInfoId(int planInfoId) {
+		this.planInfoId = planInfoId;
+	}
 	public String getMatName() {
 		return matName;
 	}
 	public void setMatName(String matName) {
 		this.matName = matName;
-	}
-	public String getMatCategory() {
-		return matCategory;
-	}
-	public void setMatCategory(String matCategory) {
-		this.matCategory = matCategory;
-	}
-	public String getSupName() {
-		return supName;
-	}
-	public void setSupName(String supName) {
-		this.supName = supName;
-	}
-	public String getMatSpec() {
-		return matSpec;
-	}
-	public void setMatSpec(String matSpec) {
-		this.matSpec = matSpec;
-	}
-	public String getMetering() {
-		return metering;
-	}
-	public void setMetering(String metering) {
-		this.metering = metering;
 	}
 	public double getUnitPrice() {
 		return unitPrice;
@@ -48,24 +43,31 @@ public class PlanInfo implements Serializable{
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-	public double getAmount() {
-		return amount;
-	}
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
 	public int getQuantity() {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public int getMatId() {
+		return matId;
+	}
+	public void setMatId(int matId) {
+		this.matId = matId;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
-		return "PlanInfo [matName=" + matName + ", matCategory=" + matCategory + ", supName=" + supName + ", matSpec="
-				+ matSpec + ", metering=" + metering + ", unitPrice=" + unitPrice + ", amount=" + amount + ", quantity="
-				+ quantity + "]";
+		return "PlanInfo [planInfoId=" + planInfoId + ", matId=" + matId + ", matName=" + matName + ", unitPrice="
+				+ unitPrice + ", quantity=" + quantity + ", planInfoDate=" + planInfoDate + ", loginName=" + loginName
+				+ ", status=" + status + "]";
 	}
+	
 	
 	
 	

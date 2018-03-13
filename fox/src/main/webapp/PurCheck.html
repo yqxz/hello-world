@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="css/demo.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/date.js"></script>
 	<script type="text/javascript">
 		var editIndex = undefined;
 		function endEditing(){
@@ -108,7 +109,7 @@
 	<div class="div-inner" >
 	采购单号:<input type="text" name="purId" >
 	检验单号:<input type="text" name="cheId" >
-	检测日期:<input type="date" name="cheTime" >
+	检测日期:<input type="text" name="cheTime"  id="control_date" onClick="new Calendar().show(this);">
 	</div>
 	</div>
 	</form>

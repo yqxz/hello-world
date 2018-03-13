@@ -12,6 +12,20 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 	<script type="text/javascript">
+	function getUrlParam(key) {
+	    // 获取参数
+	    var url = window.location.search;
+	    // 正则筛选地址栏
+	    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	    // 匹配目标参数
+	    var result = url.substr(1).match(reg);
+	    //返回参数值
+	    return result ? decodeURIComponent(result[2]) : null;
+	}
+	$(document).ready(function(){
+		var login=getUrlParam("loginName");
+		$("#loginName").textbox('setValue',login);
+	});
 		var editIndex = undefined;
 		function endEditing(){
 			if (editIndex == undefined){return true}
@@ -45,7 +59,7 @@
 				index: index,
 				field: 'drugId'
 			});
-			row.productname = $(ed.target).combobox('getText');
+			row.drugName = $(ed.target).combobox('getText');
 		}
 		function append(){
 			if (endEditing()){
@@ -63,35 +77,31 @@
 		}
 		
 	function accept(){
-			var spI=$("input[name='spId']").val();
-			var v=$("input[name='variety']").val();
-			var totalN=$("input[name='totalNumber']").val();
-			var userI=$("input[name='userId']").val();
-			var userN=$("input[name='userName']").val();
+			var userN=$("input[name='loginName']").val();
 			var beginD=$("input[name='beginDate']").val();
-			var endD=$("input[name='endDate']").val();
-			//location.href="PurOrder.html";	
 			if (endEditing()){
 				$('#dg').datagrid('acceptChanges');      
 					var all = $("#dg").datagrid("getData");
 					var json =JSON.stringify(all.rows);
-					//alert(json);
 				}
-			$.post("addSalePlanServlet",{
-				info:json,
-				spId:spI,
-				variety:v,
-				totalNumber:totalN,
-				userId:userI,
-				userName:userN,
-				beginDate:beginD,
-				endDate:endD
+			$.ajax({
+				url:"addSalePlanServlet",
+				data:{
+					info:json,
+					loginName:userN,
+					beginDate:beginD,
 				},
-			function(data,status){
-			 //alert("数据：" + data + "\n状态：" + status);
+				success:function(data){
+					if(data==1){
+						alert("添加成功");
+						location.href="xsjh.html";
+					}else{
+						alert("添加失败,请重新添加");
+						location.href="xsjh.html";
+					}
+				}	
 			});
-			}
-	
+		}
 	</script>
 </head>
 <body>
@@ -106,26 +116,32 @@
 				onEndEdit: onEndEdit">
 				<thead>
 		<tr>
-			    <th data-options="field:'drugId',width:200,align:'center',editor:'textbox'" >药品编码</th>
-				<th data-options="field:'drugName',width:200,align:'center',editor:'textbox'" >药品名称</th>
-				<th data-options="field:'matSpec',width:200,align:'center',editor:'textbox'" >规格</th>
-				<th data-options="field:'metering',width:200,align:'center',editor:'textbox'" >单位</th>
+			        <th  data-options="field:'drugId',width:200,align:'center',
+								editor:{
+									type:'combobox',
+										options:{
+											valueField:'drugId',
+											textField:'drugName',
+											method:'get',
+											url:'getDrugNameServlet',
+											required:true,
+										}
+								}
+									">药品编号</th>
 				<th data-options="field:'amount',width:200,align:'center',editor:'numberbox'" >数量</th>
+				<th data-options="field:'endDate',width:200,align:'center',editor:'datetimebox'" >截止日期</th>
+				<th data-options="field:'unitPrice',width:200,align:'center',align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
+				<th data-options="field:'info',width:200,align:'center',editor:'textbox'" >备注信息</th>
 			</tr>
 		</thead>
   </table>
-       <div id="tb" style="height:100px;padding: 10px">
+       <div id="tb" style="height:50px;padding: 10px">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
 	 <div class="div-inner">
-	      计划单号:<input type="text" name="spId" >
-	     &emsp;&emsp;&emsp;计划种类:<input type="text" name="variety" >
-	    &emsp;&emsp;&emsp; 计划金额:<input type="text" name="totalNumber"><br/>
-	    &emsp;&emsp;&emsp; 制单人编号:<input type="text" name="userId" >
-	  &emsp;&emsp;&emsp;制单人名称:<input type="text" name="userName" >
-	&emsp;&emsp;&emsp;开始日期：<input type="date" name="beginDate"/><br><br>
-		截止日期：<input type="date" name="endDate"/>
+	 制单人名称:<input type="text" name="loginName" id="loginName" class="easyui-textbox">
+	&emsp;&emsp;&emsp;开始日期：<input type="text" id="com" name="beginDate" class="easyui-datetimebox"/>
 	   </div>
 	</div>
 </form>

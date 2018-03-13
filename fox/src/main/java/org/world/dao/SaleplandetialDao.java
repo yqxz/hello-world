@@ -25,8 +25,6 @@ public class SaleplandetialDao extends DBManager {
     		Saleplandetial sl = new Saleplandetial();
     		sl.setDrugId(rs.getString("drugId"));
     		sl.setDrugName(rs.getString("drugName"));
-    		sl.setSoamount(rs.getInt("soamount"));
-    		sl.setSaamount(rs.getInt("saamount"));
     		sl.setRate(rs.getString("rate"));
     		list.add(sl);
     	}

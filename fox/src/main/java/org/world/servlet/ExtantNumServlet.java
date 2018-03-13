@@ -32,7 +32,6 @@ public class ExtantNumServlet extends HttpServlet{
 		ProstoreService ps=new ProstoreService();
 		List<Prostore> list=ps.extantNum(page,rows);
 		int count=ps.getCount();
-		System.out.println("count-->"+count);
 		ObjectMapper mapper=new ObjectMapper();
 		Map<String,Object> maps=new HashMap<String,Object>();
 		maps.put("total", count);

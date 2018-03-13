@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.world.model.ProducingPlanEntity;
+import org.world.model.ProducingPlan;
 import org.world.service.ProducingPlanSevice;
 
 import com.fasterxml.jackson.databind.JavaType;
@@ -26,11 +26,11 @@ public class producingplan extends HttpServlet {
 		String infor=req.getParameter("info");
 		//System.out.println(infor);
 		ObjectMapper mapper=new ObjectMapper();
-		JavaType jt=mapper.getTypeFactory().constructParametricType(List.class,ProducingPlanEntity.class);
+		JavaType jt=mapper.getTypeFactory().constructParametricType(List.class,ProducingPlan.class);
 //		System.out.println(jt);
 //		Text akk=new Text();
 //		akk.text();
-		List<ProducingPlanEntity> infoList=mapper.readValue(infor, jt);
+		List<ProducingPlan> infoList=mapper.readValue(infor, jt);
 		
 		ProducingPlanSevice proPlan=new ProducingPlanSevice();
 		proPlan.PlanUploadSevice(infoList);

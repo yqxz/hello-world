@@ -1,30 +1,26 @@
 package org.world.model;
 
 public class SalePlan {
-		/**
-		 * CREATE TABLE `saleplan` (
-			  `spId` varchar(32) NOT NULL COMMENT '销售计划单号',
-			  `variety` smallint(6) NOT NULL COMMENT '销售种类',
-			  `totalNumber` int(11) NOT NULL COMMENT '销售总额',
-			  `userId` varchar(32) NOT NULL COMMENT '制单人ID',
-			  `userName` varchar(32) NOT NULL COMMENT '制单人姓名',
-			  `beginDate` varchar(32) NOT NULL COMMENT '开始日期',
-			  `endDate` varchar(32) NOT NULL COMMENT '截止日期',
-			  PRIMARY KEY (`spId`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='销售计划主表';
-		 */
 	
-		private String spId;
+		private int spId;
 		private int variety;
 		private int totalNumber;
-		private String userId;
-		private String userName;
+		private int userId;
+		private String loginName;
 		private String beginDate;
 		private String endDate;
-		public String getSpId() {
+		private double totalMoney;
+		
+		public double getTotalMoney() {
+			return totalMoney;
+		}
+		public void setTotalMoney(double totalMoney) {
+			this.totalMoney = totalMoney;
+		}
+		public int getSpId() {
 			return spId;
 		}
-		public void setSpId(String spId) {
+		public void setSpId(int spId) {
 			this.spId = spId;
 		}
 		public int getVariety() {
@@ -39,17 +35,20 @@ public class SalePlan {
 		public void setTotalNumber(int totalNumber) {
 			this.totalNumber = totalNumber;
 		}
-		public String getUserId() {
+		
+		
+		public int getUserId() {
 			return userId;
 		}
-		public void setUserId(String userId) {
+		public void setUserId(int userId) {
 			this.userId = userId;
 		}
-		public String getUserName() {
-			return userName;
+	
+		public String getLoginName() {
+			return loginName;
 		}
-		public void setUserName(String userName) {
-			this.userName = userName;
+		public void setLoginName(String loginName) {
+			this.loginName = loginName;
 		}
 		public String getBeginDate() {
 			return beginDate;
@@ -66,8 +65,12 @@ public class SalePlan {
 		@Override
 		public String toString() {
 			return "SalePlan [spId=" + spId + ", variety=" + variety + ", totalNumber=" + totalNumber + ", userId="
-					+ userId + ", userName=" + userName + ", beginDate=" + beginDate + ", endDate=" + endDate + "]";
+					+ userId + ", loginName=" + loginName + ", beginDate=" + beginDate + ", endDate=" + endDate
+					+ ", totalMoney=" + totalMoney + "]";
 		}
+		
+		
+		
 		
 		
 }

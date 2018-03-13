@@ -2,35 +2,36 @@ package org.world.model;
 
 import java.io.Serializable;
 //采购订单明细表
+@SuppressWarnings("serial")
 public class Purchasedetial implements Serializable {
-	private String purId;        //采购订单号
-	private String supId;        //供应商编号
-	private String matId;        //材料编号
+	private int purId;        //采购订单号
+	private int supId;        //供应商编号
+	private int matId;        //材料编号
 	private String matName;      //材料名称
-	private String matCategory;  //材料类别
-	private String matSpec;      //规格型号
 	private String metering;     //计量单位
 	private double unitPrice;    //单价
 	private int quantity;        //采购数量
 	private String expectDate;   //预计到货日期
 	private double amount;       //金额
 	
-	public String getPurId() {
+
+	public int getPurId() {
 		return purId;
 	}
-	public void setPurId(String purId) {
+	public void setPurId(int purId) {
 		this.purId = purId;
 	}
-	public String getSupId() {
+	public int getSupId() {
 		return supId;
 	}
-	public void setSupId(String supId) {
+	public void setSupId(int supId) {
 		this.supId = supId;
 	}
-	public String getMatId() {
+	
+	public int getMatId() {
 		return matId;
 	}
-	public void setMatId(String matId) {
+	public void setMatId(int matId) {
 		this.matId = matId;
 	}
 	public String getMatName() {
@@ -38,18 +39,6 @@ public class Purchasedetial implements Serializable {
 	}
 	public void setMatName(String matName) {
 		this.matName = matName;
-	}
-	public String getMatCategory() {
-		return matCategory;
-	}
-	public void setMatCategory(String matCategory) {
-		this.matCategory = matCategory;
-	}
-	public String getMatSpec() {
-		return matSpec;
-	}
-	public void setMatSpec(String matSpec) {
-		this.matSpec = matSpec;
 	}
 	public String getMetering() {
 		return metering;
@@ -83,10 +72,11 @@ public class Purchasedetial implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Purchasedetial [supId=" + supId + ", matId=" + matId + ", matName=" + matName + ", matCategory="
-				+ matCategory + ", matSpec=" + matSpec + ", metering=" + metering + ", unitPrice=" + unitPrice
-				+ ", quantity=" + quantity + ", expectDate=" + expectDate + ", amount=" + amount + "]";
+		return "Purchasedetial [purId=" + purId + ", supId=" + supId + ", matId=" + matId + ", matName=" + matName
+				+ ", metering=" + metering + ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", expectDate="
+				+ expectDate + ", amount=" + amount + "]";
 	}
+	
 	
 	
 	

@@ -1,28 +1,21 @@
 package org.world.model;
 
-public class Drug {
-		/**
-		 * CREATE TABLE `drug` (
-			  `drugId` varchar(32) NOT NULL COMMENT '药品编号',
-			  `drugCategory` varchar(32) NOT NULL COMMENT '药品类别',
-			  `drugName` varchar(32) NOT NULL COMMENT '药品名称',
-			  `metering` varchar(32) NOT NULL COMMENT '计量单位',
-			  `drugSpec` varchar(32) NOT NULL COMMENT '药品规格',
-			  `approvalNum` varchar(32) NOT NULL COMMENT '批准文号',
-			  PRIMARY KEY (`drugId`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='药品信息表';
-		 */
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Drug implements Serializable{
 	
-		private String drugId;
+		private int drugId;
 		private String drugCategory;
 		private String drugName;
 		private String metering;
 		private String drugSpec;
 		private String approvalNum;
-		public String getDrugId() {
+		
+		public int getDrugId() {
 			return drugId;
 		}
-		public void setDrugId(String drugId) {
+		public void setDrugId(int drugId) {
 			this.drugId = drugId;
 		}
 		public String getDrugCategory() {
@@ -54,6 +47,11 @@ public class Drug {
 		}
 		public void setApprovalNum(String approvalNum) {
 			this.approvalNum = approvalNum;
+		}
+		@Override
+		public String toString() {
+			return "Drug [drugId=" + drugId + ", drugCategory=" + drugCategory + ", drugName=" + drugName
+					+ ", metering=" + metering + ", drugSpec=" + drugSpec + ", approvalNum=" + approvalNum + "]";
 		}
 		
 		

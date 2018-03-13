@@ -209,7 +209,6 @@ public class ProstoreDao extends DBManager{
 		int count=0;
 		if(rs.next()) {
 			count=rs.getInt(1);
-			System.out.println("dao"+count);
 		}
 		return count;
 	}

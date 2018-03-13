@@ -11,7 +11,22 @@
 	<link rel="stylesheet" type="text/css" href="css/demo.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" >
+	
+	function getUrlParam(key) {
+	    // 获取参数
+	    var url = window.location.search;
+	    // 正则筛选地址栏
+	    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	    // 匹配目标参数
+	    var result = url.substr(1).match(reg);
+	    //返回参数值
+	    return result ? decodeURIComponent(result[2]) : null;
+	}
+	$(document).ready(function(){
+		var login=getUrlParam("loginName");
+		$("#loginName").textbox('setValue',login);
+	});
 		var editIndex = undefined;
 		function endEditing(){
 			if (editIndex == undefined){return true}
@@ -45,7 +60,7 @@
 				index: index,
 				field: 'matId'
 			});
-			row.productname = $(ed.target).combobox('getText');
+			row.matName = $(ed.target).combobox('getText');
 		}
 		function append(){
 			if (endEditing()){
@@ -63,34 +78,35 @@
 		}
 		
 	function accept(){
-			var purI=$("input[name='purId']").val();
+			var supI=$("#com").combobox("getValue");
+			var supN=$("#com").combobox("getText");
 			var purT=$("input[name='purTime']").val();
-			var userI=$("input[name='userId']").val();
-			var userN=$("input[name='userName']").val();
-			var supN=$("input[name='supName']").val();
-			var supI=$("input[name='supId']").val();
-			location.href="PurOrder.html";	
+			var userN=$("input[name='loginName']").val();
 			if (endEditing()){
 				$('#dg').datagrid('acceptChanges');      
 					var all = $("#dg").datagrid("getData");
 					var json =JSON.stringify(all.rows);
-					//alert(json);
 				}
-			$.post("addPurchaseServlet",{
-				info:json,
-				purId:purI,
-				purTime:purT,
-				userId:userI,
-				userName:userN,
-				supName:supN,
-				supId:supI
+			$.ajax({
+				url:"addPurchaseServlet",
+				data:{
+					info:json,
+					purTime:purT,
+					userName:userN,
+					supName:supN,
+					supId:supI,
 				},
-				
-			function(data,status){
-				// alert("数据：" + data + "\n状态：" + status);
+				success:function(data){
+					if(data==1){
+						alert("添加成功");
+						location.href="PurOrder.html";
+					}else{
+						alert("添加失败,请重新添加");
+						location.href="PurOrder.html";
+					}
+				}
 			});
-			}
-	
+	}
 	</script>
 </head>
 <body>
@@ -105,32 +121,39 @@
 					onEndEdit: onEndEdit">
 					<thead>
 			<tr >
-			        <th data-options="field:'matId',width:100,align:'center',editor:{type:'numberbox',}" >原料编号</th>
-				    <th data-options="field:'matName',width:100,align:'center',editor:'textbox'" >原料名称</th>
-					<th data-options="field:'matCategory',width:100,align:'center',editor:'textbox'" >原料类别</th>
-					<th data-options="field:'matSpec',width:100,editor:'textbox'" >规格型号</th>
-					<th data-options="field:'metering',width:100,editor:'textbox'" >计量单位</th>
-					<th data-options="field:'unitPrice',width:100,align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
-					<th data-options="field:'amount',width:100,align:'center',editor:'numberbox'" >金额</th>
-					<th data-options="field:'quantity',width:100,align:'center',editor:'numberbox'" >采购数量</th>
-					<th data-options="field:'variety',width:100,align:'center',editor:'numberbox'">品种数量</th>
-					<th data-options="field:'totalNumber',width:100,align:'center',editor:'numberbox'" >货物总数</th>
-					<th data-options="field:'totalMoney',width:100,align:'center',editor:'numberbox'" >合计金额</th>
-	                <th data-options="field:'expectDate',width:110,align:'center',editor:'textbox'" >预计到货日期</th>
+			        <th  id="com1" data-options="field:'matId',width:200,align:'center',
+								editor:{
+									type:'combobox',
+										options:{
+											valueField:'matId',
+											textField:'matName',
+											method:'get',
+											url:'getMatNameServlet',
+											required:true,
+											onSelect:function(){
+												var url = 'getMatNameServlet';   
+												$().combobox('reload', url);   
+											},
+										}
+								}
+									">原料名称</th>
+					<th data-options="field:'metering',width:200,align:'center',editor:'textbox'" >计量单位</th>
+					<th data-options="field:'unitPrice',width:200,align:'center',align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
+					<th data-options="field:'quantity',width:200,align:'center',editor:'numberbox'" >采购数量</th>
+	                <th data-options="field:'expectDate',width:200,align:'center',editor:'datetimebox'" >预计到货日期</th>
+					<th data-options="field:'amount',width:200,align:'center',editor:'numberbox'" >金额</th>
 				</tr>
 			</thead>
 	  </table>
       <div id="tb" style="height:auto">
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">提交</a>
 	 <div class="div-inner">
-	      采购单号:<input type="text" name="purId" >
-	     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" >
-	    &emsp;&emsp;&emsp; 职工号:<input type="text" name="userId" >
-	  &emsp;&emsp;&emsp;职工名称:<input type="text" name="userName" >
-	&emsp;&emsp;&emsp;供应商编号:<input type="text" name="supId"></br>
-	      供应商名称:<input type="text" name="supName" >
+	  账号名:<input type="text" name="loginName" class="easyui-textbox" id="loginName">
+	     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" id="control_date" class="easyui-datetimebox" >
+	&emsp;&emsp;&emsp;供应商名称:<input type="text"class="easyui-combobox" id="com"
+	data-options="url: 'getSupNameServlet',valueField:'supId',textField: 'supName'" ><br/><br/>
 	   </div>
 	</div>
 </form>

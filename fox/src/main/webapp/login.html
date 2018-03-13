@@ -8,28 +8,31 @@
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#login").click(function(){
-				var name=$("#name").val();
-				var pass=$("#pass").val();
-				$.post("foxServlet",
-				{
-					loginName:name,
-					userPwd:pass
-				},
-				function(data,status){
-					var src=String($.trim(data));
-					if(src==0){
-						alert("登录失败，请重新登录！");
-						location.href="login.html";	
-					}else{
-						location.href="index.html?u="+src;
+				$("#login").click(function(){
+					var pass=$("#pass").val();
+					var name=$("#name").val();
+					if(pass!=""&&name!=""){
+						$.post(
+								"foxServlet",
+								{
+									loginName:name,
+									userPwd:pass
+								},
+								function(data,status){
+									var src=String($.trim(data));
+									if(src==0){
+										alert("登录失败，请重新登录！");
+										location.href="login.html";	
+									}else{
+										location.href=encodeURI("index.html?u="+src+"&loginName="+name);
+									}
+								})
 					}
-				});
-			});
+				})
 		})
 	</script>
 </head>
-<body style="background-color: lightblue">
+<body style="background-color: #dddddd">
 	<div class="wrapper">
 		<div class="header">Login to <span>狐仙！医药^-^</span></div>
 		<form action="" method="post">

@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="css/demo.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/date.js"></script>
 	<script type="text/javascript">
 		var editIndex = undefined;
 		function endEditing(){
@@ -68,12 +69,12 @@
 			var userI=$("input[name='userId']").val();
 			var userN=$("input[name='userName']").val();
 			var inStoreD=$("input[name='inStoreDate']").val();
-			
+			location.href="PurLibary.html";
 				if (endEditing()){
 					$('#dg').datagrid('acceptChanges');  
 					var all = $("#dg").datagrid("getData");
 					var json =JSON.stringify(all.rows);
-					alert(json);
+					
 						}
 				$.post("storeGoodsServlet",{
 					info:json,
@@ -82,10 +83,9 @@
 					userName:userN,
 					inStoreDate:inStoreD
 					},
-					
-					function(data,status){
-						 alert("数据：" + data + "\n状态：" + status);
-				});
+				function(data,status){
+						// alert("数据：" + data + "\n状态：" + status);
+				});	
 				}
 		
 	</script>
@@ -126,7 +126,7 @@
 	&nbsp;采购单号:<input type="text" name=purId>
 	&emsp;&emsp;&emsp;职工编号:<input type="text" name="userId" >
 	&emsp;&emsp;&emsp;职工姓名:<input type="text" name="userName" >
-	&emsp;&emsp;&emsp;入库日期:<input type="text" name=inStoreDate>
+	&emsp;&emsp;&emsp;入库日期:<input type="text" name="inStoreDate id="control_date" onClick="new Calendar().show(this);">
        </div>
 	</div>
  </form>

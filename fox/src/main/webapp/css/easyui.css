@@ -1590,7 +1590,11 @@
 }
 .tabs-header,
 .tabs-tool {
+  background-color:rgb(128,136,147);
+  <!--
+  更改title属性颜色
   background-color: #E0ECFF;
+  -->
 }
 .tabs-header-plain {
   background: transparent;
@@ -1606,7 +1610,11 @@
 .tabs-header-bottom .tabs li.tabs-selected a.tabs-inner,
 .tabs-header-left .tabs li.tabs-selected a.tabs-inner,
 .tabs-header-right .tabs li.tabs-selected a.tabs-inner {
+  border:none;
+  <!--
+  	更改title边框属性
   border-color: #95B8E7;
+  ->
 }
 .tabs-p-tool a:hover,
 .tabs li a:hover.tabs-close,

@@ -2,25 +2,27 @@ package org.world.model;
 
 import java.io.Serializable;
 //采购订单主表
+@SuppressWarnings("serial")
 public class Purchase implements Serializable{
-	private String purId;     //采购订单号
-	private String userId;    //职工编号
+	private int purId;     //采购订单号
+	private int userId;    //职工编号
 	private String userName;  //职工姓名
 	private String supName;   //供应商名称
 	private String purTime;   //采购时间
 	private int variety;      //品种数量
 	private int totalNumber;   //总数量
 	private double totalMoney;  //总金额
-	public String getPurId() {
+	
+	public int getPurId() {
 		return purId;
 	}
-	public void setPurId(String purId) {
+	public void setPurId(int purId) {
 		this.purId = purId;
 	}
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getUserName() {
@@ -65,6 +67,7 @@ public class Purchase implements Serializable{
 				+ ", purTime=" + purTime + ", variety=" + variety + ", totalNumber=" + totalNumber + ", totalMoney="
 				+ totalMoney + "]";
 	}
+	
 	
 	
 

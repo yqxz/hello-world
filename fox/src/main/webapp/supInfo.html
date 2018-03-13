@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>供应商信息</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/body.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var pager = $("#dg").datagrid().datagrid('getPager');
+			pager.pagination({
+		            pageSize: 10,
+		            pageList:[5,10,15,20,40],
+		            beforePageText: '第',
+		            afterPageText:'共{pages}页',
+		            displayMsg: '当前显示 {from} 到 {to} ,共{total}记录'
+			});
+		})
+	</script>
+</head>
+<body>
+	<div style="width: 1100px;height: 450px;margin: 0 auto;margin-top: 20px">
+		<table id="dg" class="easyui-datagrid" title="供应商列表" style="width:100%;height:450px"
+			data-options="rownumbers:true,
+						singleSelect:true,
+						collapsible:true,
+						url:'supInfoServlet',
+						pagination:true,
+						toolbar: '#tb',
+						method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'supId',width:150,align:'center'">供应商编号</th>
+				<th data-options="field:'supName',width:150,align:'center'">名称</th>
+				<th data-options="field:'supAccount',width:170,align:'center'">银行账号</th>
+				<th data-options="field:'supBank',width:150,align:'center'">银行名称</th>
+				<th data-options="field:'supAddress',width:150,align:'center'">地址</th>
+				<th data-options="field:'supContact',width:150,align:'center'">联系人</th>
+				<th data-options="field:'supPhone',width:150,align:'center'">联系电话</th>
+			</tr>
+		</thead>
+	</table>
+	</div>	
+	<div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+	</div>
+</body>
+
+</html>

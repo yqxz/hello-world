@@ -1,28 +1,19 @@
 package org.world.model;
 
 public class Saleplandetial {
-		/**
-		 * CREATE TABLE `saleplandetial` (
-			  `spId` varchar(32) NOT NULL COMMENT '销售计划单号',
-			  `drugId` varchar(32) NOT NULL COMMENT '药品编号',
-			  `drugName` varchar(32) NOT NULL COMMENT '药品名称',
-			  `amount` int(11) NOT NULL COMMENT '数量'
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='销售计划单明细表'
-		 */
-	
-		private String spId;
+		
+		private int spId;
 		private String drugId;
 		private String drugName;
-		private String matSpec;
-		private String metering;
+		private double unitPrice;
 		private int amount;
-		private int soamount; //单品计划总数量
-		private int saamount; //单品出库总数量
+		private int outAmount; //单品出库总数量
 		private String rate; //单品计划完成情况
-		public String getSpId() {
+		
+		public int getSpId() {
 			return spId;
 		}
-		public void setSpId(String spId) {
+		public void setSpId(int spId) {
 			this.spId = spId;
 		}
 		public String getDrugId() {
@@ -49,36 +40,26 @@ public class Saleplandetial {
 		public void setRate(String rate) {
 			this.rate = rate;
 		}
-		public int getSoamount() {
-			return soamount;
+		public int getOutAmount() {
+			return outAmount;
 		}
-		public void setSoamount(int soamount) {
-			this.soamount = soamount;
-		}
-		public int getSaamount() {
-			return saamount;
-		}
-		public void setSaamount(int saamount) {
-			this.saamount = saamount;
+		public void setOutAmount(int outAmount) {
+			this.outAmount = outAmount;
 		}
 		
-		public String getMatSpec() {
-			return matSpec;
+		public double getUnitPrice() {
+			return unitPrice;
 		}
-		public void setMatSpec(String matSpec) {
-			this.matSpec = matSpec;
-		}
-		public String getMetering() {
-			return metering;
-		}
-		public void setMetering(String metering) {
-			this.metering = metering;
+		public void setUnitPrice(double unitPrice) {
+			this.unitPrice = unitPrice;
 		}
 		@Override
 		public String toString() {
-			return "Saleplandetial [spId=" + spId + ", drugId=" + drugId + ", drugName=" + drugName + ", amount="
-					+ amount + "]";
+			return "Saleplandetial [spId=" + spId + ", drugId=" + drugId + ", drugName=" + drugName + ", unitPrice="
+					+ unitPrice + ", amount=" + amount + ", outAmount=" + outAmount + ", rate=" + rate + "]";
 		}
+		
+	
 		
 		
 		

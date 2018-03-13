@@ -1,23 +1,19 @@
 package org.world.model;
 
-public class Material {
-	/**
-	 * CREATE TABLE `material` (
-		  `matId` varchar(32) NOT NULL COMMENT '材料编号',
-		  `matName` varchar(32) NOT NULL COMMENT '材料名',
-		  `matCategory` varchar(32) NOT NULL COMMENT '材料类别',
-		  `matSpec` varchar(32) NOT NULL COMMENT '材料规格',
-		  PRIMARY KEY (`matId`)
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='原材料表';
-	 */
-	private String matId;
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Material implements Serializable{
+
+	private int matId;
 	private String matName;
 	private String matCategory;
 	private String matSpec;
-	public String getMatId() {
+	
+	public int getMatId() {
 		return matId;
 	}
-	public void setMatId(String matId) {
+	public void setMatId(int matId) {
 		this.matId = matId;
 	}
 	public String getMatName() {
@@ -37,6 +33,11 @@ public class Material {
 	}
 	public void setMatSpec(String matSpec) {
 		this.matSpec = matSpec;
+	}
+	@Override
+	public String toString() {
+		return "Material [matId=" + matId + ", matName=" + matName + ", matCategory=" + matCategory + ", matSpec="
+				+ matSpec + "]";
 	}
 	
 	

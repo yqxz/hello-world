@@ -26,6 +26,7 @@ public class UserDao extends DBManager{
 			User user=null;
 			if(rs.next()) {
 				user=new User();
+				user.setUserId(rs.getInt("userId"));
 				user.setUserName(rs.getString("userName"));
 				user.setUserPower(rs.getString("userPower"));
 			}
@@ -154,6 +155,17 @@ public class UserDao extends DBManager{
 			return count;
 		}
 		
+		public int getId(String name) throws SQLException {
+			String sql="select userId from user where loginName=?";
+			Connection conn=this.openConnection();
+			Object[] obs= {name};
+			ResultSet rs=this.query(conn, sql, obs);
+			int count=0;
+			if(rs.next()) {
+				count=rs.getInt(1);
+			}
+			return count;
+		}
 		
 		
 		

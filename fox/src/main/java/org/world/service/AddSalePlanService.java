@@ -10,7 +10,7 @@ import org.world.model.Saleplandetial;
 public class AddSalePlanService {
    private AddSalePlanDao spd = new AddSalePlanDao();
    //销售计划添加主表
-   public int addSalePlan(List<SalePlan> salePlanList) {
+   public boolean addSalePlan(List<SalePlan> salePlanList) {
 	   int count = 0;
 	   for(int i= 0;i<salePlanList.size();i++) {
 			try {
@@ -20,11 +20,11 @@ public class AddSalePlanService {
 			}
 			   count++;
 	   }
-	   return count;   
+	   return count>0?true:false;   
    }
    
    //销售计划添加明细表
-   public int addSalePlanDetial(List<Saleplandetial> salePlandetialList) {
+   public boolean addSalePlanDetial(List<Saleplandetial> salePlandetialList) {
 	   int count  = 0;
 	   for(int i = 0;i<salePlandetialList.size();i++) {
 			   try {
@@ -34,6 +34,17 @@ public class AddSalePlanService {
 			}
 			   count++;
 	   }
-	   return count;
+	   return count>0?true:false;
    }
+   
+   
+	public int getMaxId() {
+		int count=0;
+		try {
+			count=spd.getMaxId();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

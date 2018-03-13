@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="css/demo.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/date.js"></script>
 	<script type="text/javascript">
 		var editIndex = undefined;
 		function endEditing(){
@@ -51,9 +52,8 @@
 	
 		
 		function accept(){
-           $.post("infoCheckServlet",function(data){
+			$.post("infoCheckServlet",function(data){
              var json=eval(data);
-				//alert(json[0].totalNumber1);
              $('#dg').datagrid({
             		url:'infoCheckServlet',
             	});
@@ -77,7 +77,7 @@
 				>
 				<thead>
 		   <tr>
-		        <th data-options="field:'purId',width:150,align:'center',editor:'numberbox'" >采购单号</th>
+		        <th data-options="field:'purId',width:180,align:'center',editor:'textbox'" >采购单号</th>
 			    <th data-options="field:'supName',width:180,align:'center',editor:'textbox'" >供应商名称</th>
 				<th data-options="field:'matName',width:180,align:'center',editor:'textbox'" >材料名称</th>
 				<th data-options="field:'accNumber',width:150,align:'center',editor:'numberbox'" >采购数量</th>
@@ -91,7 +91,7 @@
        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true"  onclick="print()">打印</a>
        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"  onclick="accept()">查询</a>
 	   <div class="div-inner" style="height:30px">
-	&nbsp;&nbsp;日期:&nbsp;<input type="text" value="2018年1月">至&nbsp;&nbsp;<input type="text" value="2018年2月">
+	   &nbsp;&nbsp;日期:&nbsp;<input type="text" id="control_date" onClick="new Calendar().show(this);">至&nbsp;&nbsp;<input type="text" id="control_date" onClick="new Calendar().show(this);"">
 	     </div>
 	</div>
 </body>

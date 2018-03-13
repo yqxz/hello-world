@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<title>采购计划</title>
 	<!--  <meta http-equiv="refresh" content="1"/>-->
 	<link rel="shortcut icon" href="img/head.ico"/>
 	<link rel="stylesheet" type="text/css" href="css/body.css">
@@ -12,88 +13,51 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 	<script type="text/javascript">
-		var editIndex = undefined;
-		function endEditing(){
-			if (editIndex == undefined){return true}
-			if ($('#dg').datagrid('validateRow', editIndex)){
-				$('#dg').datagrid('endEdit', editIndex);
-				editIndex = undefined;
-				return true;
-			} else {
-				return false;
-			}
-		}
-		function onClickCell(index, field){
-			if (editIndex != index){
-				if (endEditing()){
-					$('#dg').datagrid('selectRow', index)
-							.datagrid('beginEdit', index);
-					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
-					if (ed){
-						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
-					}
-					editIndex = index;
-				} else {
-					setTimeout(function(){
-						$('#dg').datagrid('selectRow', editIndex);
-					},0);
-				}
-			}
-		}
-		function onEndEdit(index, row){
-			var ed = $(this).datagrid('getEditor', {
-				index: index,
-				field: 'matName'
+		$(document).ready(function(){
+			var pager = $("#dg").datagrid().datagrid('getPager');
+			pager.pagination({
+		            pageSize: 10,
+		            pageList:[5,10,15,20,40],
+		            beforePageText: '第',
+		            afterPageText:'共{pages}页',
+		            displayMsg: '当前显示 {from} 到 {to} ,共{total}记录'
 			});
-			row.productname = $(ed.target).combobox('getText');
-		}
-	
-
+		})
 		function accept(){
-			$.post("planInfoServlet",function(data){
-				 var json=eval(data);
-	          $('#dg').datagrid({
-	         		url:'planInfoServlet',
-	         	});
-	         	$('#dg').datagrid('reload')
-			});			
-		}	
-	
+			var row = $('#dg').datagrid('getSelected');
+			
+		}
 	</script>
 </head>
 
 <body>
-<div style="height: 60px;width: 200px;">
-			<a href="login.html"><img src="img/t2.png" 
-					style="width:70px; height: 60px;margin-left: 30%;display: inline;"></a>
-</div>
-	<hr/>
-<div	style="margin: 0 auto;width: 992px;height: 400px;">
-<table id="dg"  class="easyui-datagrid" title="采购计划" style="width:992px;height:400px"
-			data-options="
-				singleSelect: true,
-				toolbar: '#tb',
-				method: 'get',
-				onClickCell: onClickCell,
-				onEndEdit: onEndEdit">
-				<thead>
-		<tr >
-			    <th data-options="field:'matName',width:150,align:'center',editor:'textbox'" >材料名称</th>
-				<th data-options="field:'matCategory',width:150,align:'center',editor:'textbox'" >材料类别</th>
-				<th data-options="field:'supName',width:150,align:'center',editor:'textbox'" >供应商名称</th>
-				<th data-options="field:'matSpec',width:150,align:'center',editor:'textbox'" >规格型号</th>
-				<th data-options="field:'metering',width:150,align:'center',editor:'textbox'" >计量单位</th>
-				<th data-options="field:'unitPrice',width:80,align:'center',align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
-				<th data-options="field:'amount',width:80,align:'center',editor:'numberbox'" >金额</th>
-				<th data-options="field:'amount',width:80,align:'center',editor:'numberbox'" >数量</th>
-				
+<div style="width: 1100px;height: 450px;margin: 0 auto;margin-top: 20px">
+		<table id="dg" class="easyui-datagrid" title="任务查询" style="width:100%;height:450px"
+			data-options="rownumbers:true,
+						singleSelect:true,
+						collapsible:true,
+						url:'planInfoServlet',
+						pagination:true,
+						toolbar: '#tb',
+						method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'ck',checkbox:true"></th>
+				<th data-options="field:'planInfoId',width:150,align:'center'">任务编号</th>
+				<th data-options="field:'matId',width:150,align:'center'">材料编号</th>
+				<th data-options="field:'unitPrice',width:150,align:'center'">预期单价</th>
+				<th data-options="field:'quantity',width:150,align:'center'">总数</th>
+				<th data-options="field:'planInfoDate',width:150,align:'center'">发布日期</th>
+				<th data-options="field:'loginName',width:150,align:'center'">发布人</th>
+				<th data-options="field:'status',width:140,align:'center'">执行状态</th>
 			</tr>
 		</thead>
-  </table>
-     <div id="tb" style="height:auto">
+	</table>
+	</div>	
+	<div id="tb" style="height:auto">
 		 &nbsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true"  onclick="print()">打印</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true"  onclick="accept()">生成采购计划</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true"  onclick="accept()">生成采购订单</a>
 	</div>
-</div>
+
 </body>
 </html>

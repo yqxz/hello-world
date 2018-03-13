@@ -1,6 +1,9 @@
 package org.world.model;
 
-public class Supplier {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Supplier implements Serializable{
 	/**
 	 * CREATE TABLE `supplier` (
 		  `supID` varchar(32) NOT NULL COMMENT '供应商编号',
@@ -14,17 +17,18 @@ public class Supplier {
 		  UNIQUE KEY `supName` (`supName`)
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商表';
 	 */
-		private String supId;
+		private int supId;
 		private String supName;
 		private String supAccount;
 		private String supBank;
 		private String supAddress;
 		private String supContact;
 		private String supPhone;
-		public String getSupId() {
+		
+		public int getSupId() {
 			return supId;
 		}
-		public void setSupId(String supId) {
+		public void setSupId(int supId) {
 			this.supId = supId;
 		}
 		public String getSupName() {
@@ -62,6 +66,12 @@ public class Supplier {
 		}
 		public void setSupPhone(String supPhone) {
 			this.supPhone = supPhone;
+		}
+		@Override
+		public String toString() {
+			return "Supplier [supId=" + supId + ", supName=" + supName + ", supAccount=" + supAccount + ", supBank="
+					+ supBank + ", supAddress=" + supAddress + ", supContact=" + supContact + ", supPhone=" + supPhone
+					+ "]";
 		}
 		
 }

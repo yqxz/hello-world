@@ -130,7 +130,15 @@ public class UserService {
 			return count;
 		}
 		
-		
+		public int getId(String name) {
+			int count=0;
+			try {
+				count=userDao.getId(name);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return count;
+		}
 		
 		
 }

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>采购任务</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/body.css">
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/date.js"></script>
+</head>
+<body>
+<div style="width:1000px;height:500px;margin: 0 auto;margin-top: 20px">
+	<form id="ff">
+	<table id="dg"  class="easyui-datagrid" title="录入采购任务" style="width:100%px;height:500px"
+				data-options="
+					singleSelect: true,
+					toolbar: '#tb',
+					method: 'get',
+					onClickCell: onClickCell,
+					onEndEdit: onEndEdit">
+					<thead>
+			<tr >
+			        <th  id="com1" data-options="field:'matId',width:200,align:'center',
+								editor:{
+									type:'combobox',
+										options:{
+											valueField:'matId',
+											textField:'matName',
+											method:'get',
+											url:'getMatNameServlet',
+											required:true,
+											onSelect:function(){
+												var url = 'getMatNameServlet';   
+												$().combobox('reload', url);   
+											},
+										}
+								}
+									">原料名称</th>
+					<th data-options="field:'unitPrice',width:200,align:'center',editor:{type:'numberbox',options:{precision:1}}" >预估单价</th>
+					<th data-options="field:'quantity',width:200,align:'center',editor:'numberbox'" >采购数量</th>
+	                <th  data-options="field:'planInfoDate',width:200,align:'center',editor:'datetimebox'" >日期</th>
+	                <th  data-options="field:'info',width:200,align:'center',editor:'textbox'" >备注信息</th>
+				</tr>
+			</thead>
+	  </table>
+	  </form>
+      <div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">保存</a>
+		</div>
+</div>
+<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+	
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'matId'
+			});
+			row.matName= $(ed.target).combobox('getText');
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+	function removeit(){
+		if (editIndex == undefined){return}
+		$('#dg').datagrid('cancelEdit', editIndex)
+				.datagrid('deleteRow', editIndex);
+		editIndex = undefined;
+	}
+		
+	
+	function accept(){	
+		if (endEditing()){
+			$('#dg').datagrid('acceptChanges');      
+				var all = $("#dg").datagrid("getData");
+				var json =JSON.stringify(all.rows);
+			}
+		var login=getUrlParam("loginName");
+			$.ajax({
+				url:"pruTaskServlet",
+				data:{
+					info:json,
+					loginName:login,
+				},
+				success:function(data){
+					if(data==1){
+						alert("添加成功");
+						location.href="purTask.html";
+					}else{
+						alert("添加失败,请重新添加");
+						location.href="purTask.html";
+					}
+				}
+			});
+	}
+	function getUrlParam(key) {
+	    // 获取参数
+	    var url = window.location.search;
+	    // 正则筛选地址栏
+	    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	    // 匹配目标参数
+	    var result = url.substr(1).match(reg);
+	    //返回参数值
+	    return result ? decodeURIComponent(result[2]) : null;
+	}
+		
+		
+	
+	</script>		
+</body>
+</html>
