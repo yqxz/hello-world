@@ -4,7 +4,7 @@ import java.io.Serializable;
 //采购订单主表
 @SuppressWarnings("serial")
 public class Purchase implements Serializable{
-	private int purId;     //采购订单号
+	private String purId;     //采购订单号
 	private int userId;    //职工编号
 	private String userName;  //职工姓名
 	private String supName;   //供应商名称
@@ -13,10 +13,11 @@ public class Purchase implements Serializable{
 	private int totalNumber;   //总数量
 	private double totalMoney;  //总金额
 	
-	public int getPurId() {
+	
+	public String getPurId() {
 		return purId;
 	}
-	public void setPurId(int purId) {
+	public void setPurId(String purId) {
 		this.purId = purId;
 	}
 	public int getUserId() {

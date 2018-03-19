@@ -2,16 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>采购任务</title>
-	<link rel="shortcut icon" href="img/head.ico"/>
-	<link rel="stylesheet" type="text/css" href="css/body.css">
-	<link rel="stylesheet" type="text/css" href="css/div.css">
-	<link rel="stylesheet" type="text/css" href="css/easyui.css">
-	<link rel="stylesheet" type="text/css" href="css/icon.css">
-	<link rel="stylesheet" type="text/css" href="css/demo.css">
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="js/date.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
 <div style="width:1000px;height:400px;margin: 0 auto;margin-top: 20px">
@@ -25,19 +16,15 @@
 					onEndEdit: onEndEdit">
 					<thead>
 			<tr >
-			        <th  id="com1" data-options="field:'matId',width:200,align:'center',
+			        <th  id="com1" data-options="field:'drugId',width:200,align:'center',
 								editor:{
 									type:'combobox',
 										options:{
-											valueField:'matId',
-											textField:'matName',
+											valueField:'drugId',
+											textField:'drugName',
 											method:'get',
-											url:'getMatNameServlet',
+											url:'getDrugNameServlet',
 											required:true,
-											onSelect:function(){
-												var url = 'getMatNameServlet';   
-												$().combobox('reload', url);   
-											},
 										}
 								}
 									">原料名称</th>
@@ -109,13 +96,12 @@
 		
 	
 	function accept(){	
-		var login=getUrlParam("loginName");
 		if (endEditing()){
 			$('#dg').datagrid('acceptChanges');      
 				var all = $("#dg").datagrid("getData");
 				var json =JSON.stringify(all.rows);
 			}
-
+		var login=getUrlParam("loginName");
 			$.ajax({
 				url:"pruTaskServlet",
 				data:{
@@ -125,10 +111,10 @@
 				success:function(data){
 					if(data==1){
 						alert("添加成功");
-						location.reload();
+						location.href="purTask.html";
 					}else{
 						alert("添加失败,请重新添加");
-						location.reload();
+						location.href="purTask.html";
 					}
 				}
 			});
@@ -144,6 +130,6 @@
 	    return result ? decodeURIComponent(result[2]) : null;
 	}
 
-	</script>		
+	</script>
 </body>
 </html>

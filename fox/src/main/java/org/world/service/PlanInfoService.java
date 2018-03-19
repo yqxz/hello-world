@@ -39,7 +39,19 @@ public class PlanInfoService {
 		return count>0?true:false;
 	}
 	
-	
+	/**
+	 * 获得最大主键值
+	 * @return
+	 */
+	public String getMaxId() {
+		String count=null;
+		try {
+			count=pf.getMaxId();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 	
 	
 	

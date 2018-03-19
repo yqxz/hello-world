@@ -5,14 +5,14 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class PlanInfo implements Serializable{
 	
-	private int  planInfoId;	//计划单号
+	private String  planInfoId;	//计划单号
 	private int matId;			//
 	private String matName;    //材料名称
 	private double unitPrice;   //预期单价
 	private int quantity;       //数量
 	private String planInfoDate;//日期
 	private String loginName;	//员工姓名
-	private boolean status;
+	private String status;
 	public String getPlanInfoDate() {
 		return planInfoDate;
 	}
@@ -25,10 +25,10 @@ public class PlanInfo implements Serializable{
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
 	}
-	public int getPlanInfoId() {
+	public String getPlanInfoId() {
 		return planInfoId;
 	}
-	public void setPlanInfoId(int planInfoId) {
+	public void setPlanInfoId(String planInfoId) {
 		this.planInfoId = planInfoId;
 	}
 	public String getMatName() {
@@ -55,10 +55,11 @@ public class PlanInfo implements Serializable{
 	public void setMatId(int matId) {
 		this.matId = matId;
 	}
-	public boolean isStatus() {
+	
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	@Override

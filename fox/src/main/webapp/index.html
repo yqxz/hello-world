@@ -36,7 +36,7 @@
 			style="height:60px;background:#B3DFDA;
 					padding:0;background: rgb(53,64,82);
 					border: none;margin: 0">
-		<div style="width: 200px;margin-left: 20px;margin-top: 20px;float: left;"><i class="iconfont icon_10" style="color: rgb(56,178,141);"></i> <span style="color: #ffffff;font-size: 16px"> &nbsp;狐仙医药管理系统</span> </div>
+		<div style="width: 200px;margin-left: 20px;margin-top: 20px;float: left;"><i class="iconfont icon_10" style="color: rgb(56,178,141);"></i> <span style="color: #ffffff;font-size: 16px"> &nbsp;长春医药管理系统</span> </div>
 		<div style="width: 200px;float: left;margin-top: 20px;margin-left: 60%">
 				<i class="iconfont icon_9" style="color: rgb(56,178,141);"></i>
 				<span id="loginName" style="color: rgb(56,178,141);font-size: 16px;font-family: cursive;"></span>
@@ -45,133 +45,132 @@
 	<div id="load1" class="nav" data-options="region:'west'," 
 			style="width:170px;padding:10px;overflow: auto;background: rgb(71,83,99);border: none;">
 	</div>
-	<div id="tb"  data-options="region:'center'," style="background: rgb(240,243,248);border: solid;height: 100%;width: 100%">
+	<div id="tb" class="easyui-tabs" data-options="region:'center'," 
+	style="background: rgb(240,243,248);overflow: hidden;">
 		
-<div style="margin: auto ;margin-top: 30px;">
-	<div style="height: 200px;width: 200px;float: left;margin-left: 20px">
-		<table  style="height: 150px;width: 150px;margin: auto;">
-		  <tr>
-		  	<td><i class="iconfont  icon_13" style="color: rgb(56,178,141);font-size: 50px"></i> </td>
-		  	<td>仓库管理</td>
-		  </tr>
-		</table>
-	</div>
-	<div style="height: 200px;width: 200px;float: left;margin-left: 10px">
-	<table style="height: 150px;width: 150px;margin: auto;">
-		  <tr>
-		  	<td><i class="iconfont  icon_14" style="color: rgb(56,178,141);font-size: 50px"></i></td>
-		  	<td>数据统计</td>
-		  </tr>
-		</table></div>
-	<div style="height: 200px;width: 200px;float: left;margin-left: 10px">
-	<table style="height: 150px;width: 150px;margin: auto;">
-		  <tr>
-		  	<td><i class="iconfont  icon_15" style="color: rgb(56,178,141);font-size: 50px"></i></td>
-		  	<td>出入库信息</td>
-		  </tr>
-		</table></div>
-	<div style="height: 200px;width: 200px;float: left;margin-left: 10px">
-	<table style="height: 150px;width: 150px;margin: auto;">
-		  <tr>
-		  	<td><i class="iconfont  icon_16" style="color: rgb(56,178,141);font-size: 50px"></i></td>
-		  	<td>系统安全</td>
-		  </tr>
-		</table></div>
-	<div style="height: 200px;width: 200px;margin-left:865px;clear: float">
-	<table style="height: 150px;width: 150px;margin: auto;">
-		  <tr>
-		  	<td><i class="iconfont  icon_6" style="color: rgb(56,178,141);font-size: 50px"></i></td>
-		  	<td>任务查询</td>
-		  </tr>
-		</table></div>
-</div>
-<div style="margin: auto ;margin-top: 20px">
-    <div style="height: 250px;width: 250px;border: solid 1px;border-radius:5px;background-color:RGB(124,198,247);float: left;margin-left: 20px">
-    	<p style="font-size: 18px;font-family: 黑体">仓库预警</p>
-    	<table style="margin-left:30px;margin-top:20px; width: 200px;height: 150px;font-size: 16px">
-    		<tr>
-	    		<td>库存下线预警</td>
-	    		<td>20</td>
-    		</tr>
-    		<tr>
-	    		<td>库存上线预警</td>
-	    		<td>2</td>
-    		</tr>
-    		<tr>
-	    		<td>近效期预警</td>
-	    		<td>20</td>
-    		</tr>
-    		<tr>
-	    		<td>失效期预警</td>
-	    		<td>20</td>
-    		</tr>
-    	</table>
-    </div>
-	<div style="height: 250px;width: 250px;border-radius:5px;border:solid 1px;background-color:RGB(63,196,177); float: left;margin-left: 10px">
-		<p style="font-size: 18px;font-family: 黑体">往来单位预警</p>
-    	<table style="margin-left:30px;margin-top:20px;  width: 200px;height: 150px;font-size: 16px">
-    		<tr>
-	    		<td>超期采购预警</td>
-	    		<td>20</td>
-    		</tr>
-    		<tr>
-	    		<td>超期销售预警</td>
-	    		<td>2</td>
-    		</tr>
-    		<tr>
-	    		<td>客户未进货天数预警</td>
-	    		<td>20</td>
-    		</tr>
-    		<tr>
-	    		<td>超期未结算预警</td>
-	    		<td>20</td>
-    		</tr>
-    	</table>
-	</div>
-	<div style="height: 250px;width: 250px;border: solid 1px;border-radius:5px;background-color:RGB(253,107,107);float: left;margin-left: 10px">
-		<p style="font-size: 18px;font-family: 黑体">单据信息预警</p>
-    	<table style="margin-left:30px;margin-top:20px; width: 200px;height: 150px;font-size: 16px">
-    		<tr>
-	    		<td>未结算单据预警</td>
-	    		<td>5</td>
-    		</tr>
-    		<tr>
-	    		<td>未过账单据预警</td>
-	    		<td>3</td>
-    		</tr>
-    		<tr>
-	    		<td>未日结单据预警</td>
-	    		<td>23</td>
-    		</tr>
-    		<tr>
-	    		<td>未审核单据预警</td>
-	    		<td>20</td>
-    		</tr>
-    	</table>
-	</div>
-	<div style="height: 250px;width: 260px;border: solid 1px;border-radius:5px;background-color:RGB(254,186,139);margin-left:805px;clear: float">
-		<p style="font-size: 18px;font-family: 黑体">超期款预警</p>
-    	<table style="margin-left:30px;margin-top:20px; width: 200px;height: 150px;font-size: 16px">
-    		<tr>
-	    		<td>超期应收款报警</td>
-	    		<td>3</td>
-    		</tr>
-    		<tr>
-	    		<td>超期应付款报警</td>
-	    		<td>23</td>
-    		</tr>
-    		<tr>
-	    		<td>超期预付款报警</td>
-	    		<td>33</td>
-    		</tr>
-    		<tr>
-	    		<td>超期预收款报警</td>
-	    		<td>77</td>
-    		</tr>
-    	</table>
-	</div>
-</div>
 
+<div style="margin: auto ;margin-top: 30px;"data-options="title:'系统概况',closable:true,">
+  <div style="height: 200px;width: 200px;float: left;margin-left: 20px">
+    <table  style="height: 150px;width: 150px;margin: auto;">
+      <tr>
+        <td><i class="iconfont  icon_13" style="color: rgb(56,178,141);font-size: 50px"></i> </td>
+        <td>仓库管理</td>
+      </tr>
+    </table>
+  </div>
+  <div style="height: 200px;width: 200px;float: left;margin-left: 10px">
+  <table style="height: 150px;width: 150px;margin: auto;">
+      <tr>
+        <td><i class="iconfont  icon_14" style="color: rgb(56,178,141);font-size: 50px"></i></td>
+        <td>数据统计</td>
+      </tr>
+    </table></div>
+  <div style="height: 200px;width: 200px;float: left;margin-left: 10px">
+  <table style="height: 150px;width: 150px;margin: auto;">
+      <tr>
+        <td><i class="iconfont  icon_15" style="color: rgb(56,178,141);font-size: 50px"></i></td>
+        <td>出入库信息</td>
+      </tr>
+    </table></div>
+  <div style="height: 200px;width: 200px;float: left;margin-left: 10px">
+  <table style="height: 150px;width: 150px;margin: auto;">
+      <tr>
+        <td><i class="iconfont  icon_16" style="color: rgb(56,178,141);font-size: 50px"></i></td>
+        <td>系统安全</td>
+      </tr>
+    </table></div>
+  <div style="height: 200px;width: 200px;margin-left:865px;clear: float">
+  <table style="height: 150px;width: 150px;margin: auto;">
+      <tr>
+        <td><i class="iconfont  icon_6" style="color: rgb(56,178,141);font-size: 50px"></i></td>
+        <td>任务查询</td>
+      </tr>
+    </table></div>
+     <div style="height: 250px;width: 250px;border: solid 1px;border-radius:5px;background-color:RGB(124,198,247);float: left;margin-left: 20px">
+      <p style="font-size: 18px;font-family: 黑体">仓库预警</p>
+      <table style="margin-left:30px;margin-top:20px; width: 200px;height: 150px;font-size: 16px">
+        <tr>
+          <td>库存下线预警</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>库存上线预警</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>近效期预警</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>失效期预警</td>
+          <td>20</td>
+        </tr>
+      </table>
+    </div>
+  <div style="height: 250px;width: 250px;border-radius:5px;border:solid 1px;background-color:RGB(63,196,177); float: left;margin-left: 10px">
+    <p style="font-size: 18px;font-family: 黑体">往来单位预警</p>
+      <table style="margin-left:30px;margin-top:20px;  width: 200px;height: 150px;font-size: 16px">
+        <tr>
+          <td>超期采购预警</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>超期销售预警</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>客户未进货天数预警</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>超期未结算预警</td>
+          <td>20</td>
+        </tr>
+      </table>
+  </div>
+  <div style="height: 250px;width: 250px;border: solid 1px;border-radius:5px;background-color:RGB(253,107,107);float: left;margin-left: 10px">
+    <p style="font-size: 18px;font-family: 黑体">单据信息预警</p>
+      <table style="margin-left:30px;margin-top:20px; width: 200px;height: 150px;font-size: 16px">
+        <tr>
+          <td>未结算单据预警</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>未过账单据预警</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>未日结单据预警</td>
+          <td>23</td>
+        </tr>
+        <tr>
+          <td>未审核单据预警</td>
+          <td>20</td>
+        </tr>
+      </table>
+  </div>
+  <div style="height: 250px;width: 260px;border: solid 1px;border-radius:5px;background-color:RGB(254,186,139);margin-left:805px;clear: float">
+    <p style="font-size: 18px;font-family: 黑体">超期款预警</p>
+      <table style="margin-left:30px;margin-top:20px; width: 200px;height: 150px;font-size: 16px">
+        <tr>
+          <td>超期应收款报警</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>超期应付款报警</td>
+          <td>23</td>
+        </tr>
+        <tr>
+          <td>超期预付款报警</td>
+          <td>33</td>
+        </tr>
+        <tr>
+          <td>超期预收款报警</td>
+          <td>77</td>
+        </tr>
+      </table>
+  </div>
+</div>
 		
 	</div>
 </body>

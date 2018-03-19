@@ -92,27 +92,29 @@
 				data:{
 					info:json,
 					purTime:purT,
-					userName:userN,
+					loginName:userN,
 					supName:supN,
 					supId:supI,
 				},
 				success:function(data){
 					if(data==1){
 						alert("添加成功");
-						location.href="PurOrder.html";
+						location.reload();
 					}else{
 						alert("添加失败,请重新添加");
-						location.href="PurOrder.html";
+						location.reload();
 					}
 				}
 			});
 	}
+	
 	</script>
+	
 </head>
 <body>
-<div style="width:1200px;height:500px;margin: 0 auto;margin-top: 20px">
+<div style="width:1000px;height:400px;margin: 0 auto;margin-top: 20px">
 	<form id="ff">
-	<table id="dg"  class="easyui-datagrid" title="采购订单" style="width:1200px;height:500px"
+	<table id="dg"  class="easyui-datagrid" title="采购订单" style="width:100%px;height:400px"
 				data-options="
 					singleSelect: true,
 					toolbar: '#tb',
@@ -129,19 +131,28 @@
 											textField:'matName',
 											method:'get',
 											url:'getMatNameServlet',
-											required:true,
-											onSelect:function(){
-												var url = 'getMatNameServlet';   
-												$().combobox('reload', url);   
-											},
+											
 										}
 								}
 									">原料名称</th>
-					<th data-options="field:'metering',width:200,align:'center',editor:'textbox'" >计量单位</th>
+					<th data-options="field:'metering',width:100,
+						formatter:function(value,row){
+							return row.metering;
+						},
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'metering',
+								textField:'metering',
+								method:'get',
+								url:'json/products.json',
+								
+							}
+						}">计量单位</th>
 					<th data-options="field:'unitPrice',width:200,align:'center',align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
 					<th data-options="field:'quantity',width:200,align:'center',editor:'numberbox'" >采购数量</th>
-	                <th data-options="field:'expectDate',width:200,align:'center',editor:'datetimebox'" >预计到货日期</th>
-					<th data-options="field:'amount',width:200,align:'center',editor:'numberbox'" >金额</th>
+	                <th data-options="field:'expectDate',width:200,align:'center',editor:'datebox'" >预计到货日期</th>
+					
 				</tr>
 			</thead>
 	  </table>
@@ -150,8 +161,8 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">提交</a>
 	 <div class="div-inner">
-	  账号名:<input type="text" name="loginName" class="easyui-textbox" id="loginName">
-	     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" id="control_date" class="easyui-datetimebox" >
+	  用户名:<input type="text" name="loginName" class="easyui-textbox" id="loginName" readonly="readonly" >
+	     &emsp;&emsp;&emsp;采购日期:<input type="text" name="purTime" id="control_date" class="easyui-datebox" >
 	&emsp;&emsp;&emsp;供应商名称:<input type="text"class="easyui-combobox" id="com"
 	data-options="url: 'getSupNameServlet',valueField:'supId',textField: 'supName'" ><br/><br/>
 	   </div>

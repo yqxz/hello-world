@@ -24,4 +24,19 @@ public class AcceptanceService {
 		}
 		return count>0?true:false;
 	}
+	
+	
+	  /**
+	   * 获得最大主键值
+	   * @return
+	   */
+	  public String getMaxId() {
+	    String count=null;
+	    try {
+	      count=accDao.getMaxId();
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+	    return count;
+	  }
 }

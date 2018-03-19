@@ -14,6 +14,7 @@ import org.world.model.Purchase;
 import org.world.model.Purchasedetial;
 import org.world.service.PurchaseService;
 import org.world.service.UserService;
+import org.world.utils.Utils;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
@@ -43,6 +44,7 @@ public class AddPurchaseServlet extends HttpServlet {
 		List<Purchasedetial> infoList=mapper.readValue(info, jt1);
 			for(int i=0;i<infoList.size();i++) {
 				Purchasedetial pur=infoList.get(i);
+				pur.setAmount(pur.getUnitPrice()*pur.getQuantity());
 				totalMoney+=pur.getAmount();
 				totalNumber+=pur.getQuantity();
 				count++;
@@ -54,35 +56,43 @@ public class AddPurchaseServlet extends HttpServlet {
          //订单主表
 		String purTime=req.getParameter("purTime");
 		String loginName=req.getParameter("loginName");
+		System.out.println(loginName);
 		int userId=us.getId(loginName);
 		String supName=req.getParameter("supName");
 		int supId=Integer.valueOf(req.getParameter("supId"));
 		PurchaseService ps=new PurchaseService();
 		
-		List<Purchase> purList=new ArrayList<>();
+		//实现单号自增长
+		String purId=ps.getMaxId();
+		if(purId!=null) {
+			 purId=Utils.giveId(purId);//获得采购订单号
+		}else {
+			purId=Utils.giveId("CGDH");
+		}
+		
 		//主表加数据
+		List<Purchase> purList=new ArrayList<>();
 			Purchase p=infoList1.get(0);
 			p.setPurTime(purTime);
 			p.setUserId(userId);
 			p.setUserName(loginName);
 			p.setSupName(supName);
+			p.setPurId(purId);
 			purList.add(p);
 		boolean bool=ps.addPurchase(purList);
 		
 		if(bool==true) {
-			System.out.println("kan kan");
 			List<Purchasedetial> purdList=new ArrayList<>();
-			int purId=ps.getMaxId();
 			for(int j=0;j<infoList.size();j++) {
 				Purchasedetial pd=infoList.get(j);
 				pd.setPurId(purId);
 				pd.setSupId(supId);
 				purdList.add(pd);
 			}
-			ps.addPurchasedetial(purdList);
+			boolean bool1=ps.addPurchasedetial(purdList);
 			System.out.println(purdList);
+			System.out.println(bool1);
 		}
-		System.out.println(bool);
 		resp.getWriter().println(bool?1:0);
 		resp.getWriter().flush();
 		resp.getWriter().close();

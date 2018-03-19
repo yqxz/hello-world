@@ -19,13 +19,13 @@ public class PlanInfoDao  extends DBManager{
 		ResultSet rs=this.query(conn, sql, null);
 		while(rs.next()) {
 			PlanInfo p=new PlanInfo();
-			p.setPlanInfoId(rs.getInt("planInfoId"));
+			p.setPlanInfoId(rs.getString("planInfoId"));
 			p.setMatId(rs.getInt("matId"));
 			p.setUnitPrice(rs.getDouble("unitPrice"));
 			p.setQuantity(rs.getInt("quantity"));
 			p.setPlanInfoDate(rs.getString("planInfoDate"));
 			p.setLoginName(rs.getString("loginName"));
-			p.setStatus(rs.getBoolean("status"));
+			p.setStatus(rs.getString("status"));
 			piList.add(p);
 			}
 		this.closeConnection();
@@ -39,20 +39,40 @@ public class PlanInfoDao  extends DBManager{
 	 * @throws SQLException
 	 */
 	public int insert(PlanInfo p) throws SQLException {
-		String sql= "insert into planInfo values(default,?,?,?,?,?,?,default)";
+		String sql= "insert into planInfo values(?,?,?,?,?,?,?,default)";
 		Connection conn=this.openConnection();
-		Object[] obs= {p.getMatId(),p.getMatName(),p.getUnitPrice(),
+		Object[] obs= {p.getPlanInfoId(),p.getMatId(),p.getMatName(),p.getUnitPrice(),
 						p.getQuantity(),p.getPlanInfoDate(),p.getLoginName()};
 		int count=this.update(conn, sql, obs);
 		this.closeConnection();
 		return count;
 	}
 	
+	/**
+	 * 更新采购计划的状态
+	 * @param p
+	 * @return
+	 * @throws SQLException
+	 */
 	public int updataStatus(PlanInfo p) throws SQLException {
 		String sql= "update planInfo set status=? where planInfoId=?";
 		Connection conn=this.openConnection();
-		Object[] obs= {p.isStatus(),p.getPlanInfoId()};
+		Object[] obs= {p.getStatus(),p.getPlanInfoId()};
 		int count=this.update(conn, sql, obs);
+		this.closeConnection();
+		return count;
+	}
+	
+	
+	 @SuppressWarnings("all")
+	public String getMaxId() throws SQLException {
+		String sql="select MAX(planInfoId) from planInfo";
+		Connection conn=this.openConnection();
+		ResultSet rs=this.query(conn, sql, null);
+		String count=null;
+		if(rs.next()) {
+			count=rs.getString(1);
+		}
 		this.closeConnection();
 		return count;
 	}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>采购订单查询</title>
+	<link rel="shortcut icon" href="img/head.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/body.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	 <script type="text/javascript" src="js/date.js"></script>
+	<script type="text/javascript">
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickCell(index, field){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					var ed = $('#dg').datagrid('getEditor', {index:index,field:field});
+					if (ed){
+						($(ed.target).data('textbox') ? $(ed.target).textbox('textbox') : $(ed.target)).focus();
+					}
+					editIndex = index;
+				} else {
+					setTimeout(function(){
+						$('#dg').datagrid('selectRow', editIndex);
+					},0);
+				}
+			}
+		}
+		function onEndEdit(index, row){
+			var ed = $(this).datagrid('getEditor', {
+				index: index,
+				field: 'supName'
+			});
+			row.productname = $(ed.target).combobox('getText');
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#dg').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		
+		
+		function accept(){
+			$.post("orderCheckServlet",function(data){
+             var json=eval(data);
+             $('#dg').datagrid({
+            		url:'orderCheckServlet',
+            	});
+            	$('#dg').datagrid('reload')
+            	});
+				
+	}
+		
+	</script>
+</head>
+<body>
+	<div style="width:1000px;height:400px;margin: 0 auto;margin-top: 20px"> 
+		<table id="dg" class="easyui-datagrid" title="订单查询" style="width:100%px;height:400px;"
+			data-options="
+				singleSelect: true,
+				toolbar: '#tb',
+				url:'orderCheckServlet',
+				method: 'get',
+				onClickCell: onClickCell,
+				onEndEdit: onEndEdit">
+				<thead>
+		<tr>
+		       <th data-options="field:'purId',width:150,align:'center'">采购单号</th>
+		       <th data-options="field:'supName',width:100,align:'center'">供应商名称</th>
+                <th data-options="field:'totalNumber',width:100,align:'center'">总数量</th>
+			    <th data-options="field:'matName',width:100,align:'center'">材料名称</th>
+				<th data-options="field:'metering',width:100,align:'center'">计量单位</th>
+				<th data-options="field:'unitPrice',width:100,align:'center'">单价</th>
+				<th data-options="field:'quantity',width:100,align:'center'">数量</th>
+				<th data-options="field:'amount',width:100,align:'center'" >金额</th>
+				<th data-options="field:'expectDate',width:150,align:'center'">预计到货日期</th>
+			</tr>
+		</thead>
+  </table>
+	</div>
+<form >
+    
+	<div  id="tb" style="height:auto">
+		<div class="div-inner" >
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true"  onclick="print()">打印</a>
+		 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"  onclick="accept()">查询</a>
+	
+	
+</div>
+	</div>
+</form>
+</body>
+</html>
+
+
+

@@ -3,42 +3,19 @@ package org.world.model;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Acceptance implements Serializable{
-	
-		private String accId;
-		private String purId;
-		private int matId;
+public class PurGoods implements Serializable{
+		
+		private String matId;
 		private String matName;
+		private String accDate;
 		private int totalNumber;
 		private String batchNumber;
 		private String proDate;
 		private String valDate;
-		
-		
-		public String getProDate() {
-			return proDate;
-		}
-		public void setProDate(String proDate) {
-			this.proDate = proDate;
-		}
-		public String getAccId() {
-			return accId;
-		}
-		public void setAccId(String accId) {
-			this.accId = accId;
-		}
-		public String getPurId() {
-			return purId;
-		}
-		public void setPurId(String purId) {
-			this.purId = purId;
-		}
-		
-		
-		public int getMatId() {
+		public String getMatId() {
 			return matId;
 		}
-		public void setMatId(int matId) {
+		public void setMatId(String matId) {
 			this.matId = matId;
 		}
 		public String getMatName() {
@@ -46,6 +23,12 @@ public class Acceptance implements Serializable{
 		}
 		public void setMatName(String matName) {
 			this.matName = matName;
+		}
+		public String getAccDate() {
+			return accDate;
+		}
+		public void setAccDate(String accDate) {
+			this.accDate = accDate;
 		}
 		public int getTotalNumber() {
 			return totalNumber;
@@ -59,6 +42,12 @@ public class Acceptance implements Serializable{
 		public void setBatchNumber(String batchNumber) {
 			this.batchNumber = batchNumber;
 		}
+		public String getProDate() {
+			return proDate;
+		}
+		public void setProDate(String proDate) {
+			this.proDate = proDate;
+		}
 		public String getValDate() {
 			return valDate;
 		}
@@ -67,12 +56,14 @@ public class Acceptance implements Serializable{
 		}
 		@Override
 		public String toString() {
-			return "Acceptance [matId=" + matId + ", matName=" + matName + ", totalNumber=" + totalNumber
-					+ ", batchNumber=" + batchNumber +  ", valDate=" + valDate + "]";
+			return "Acceptance [matId=" + matId + ", matName=" + matName + ", accDate=" + accDate + ", totalNumber="
+					+ totalNumber + ", batchNumber=" + batchNumber + ", proDate=" + proDate + ", valDate=" + valDate
+					+ "]";
 		}
 		
 		
-	
+		
+		
 		
 		
 }

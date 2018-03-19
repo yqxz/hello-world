@@ -13,8 +13,21 @@ $(function(){
             }
     });
 	$(".innerli").on("click",function(){
+			/**
+			window.open(""+valName+"?loginName="+loginName);
+			 */
 		var valName=$(this).attr('id');
+		var title=$(this).find("span").text();
 		var loginName=$("#loginName").text();
-		window.open(""+valName+"?loginName="+loginName);
+		var content = '<iframe scrolling="auto" frameborder="0"  src="'+valName+'?loginName='+loginName+'" style="width:100%;height:100%;"></iframe>'; 
+		if($('#tb').tabs('exists', title)){
+			 $('#tabs').tabs('select', title);//选中并刷新
+	        }else{
+	        	$('#tb').tabs('add',{   
+	        		title:title,   
+	        		content:content,
+	        		closable:true,   
+	        	});  
+	        }
 	})
 });

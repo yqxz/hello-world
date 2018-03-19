@@ -9,46 +9,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.world.model.PlanInfo;
+import org.world.model.Acceptance;
+import org.world.model.Purchase;
 import org.world.model.Purchasedetial;
-import org.world.service.PlanInfoService;
+import org.world.service.AcceptanceService;
+import org.world.service.PurchaseService;
 import org.world.utils.Utils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns= {"/pruTaskServlet"})
-public class PruTaskServlet extends HttpServlet{
-	
+@WebServlet(urlPatterns="/addMatServlet")
+public class AddMatServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String info=request.getParameter("info");
-		System.out.println(info);
-		String loginName=request.getParameter("loginName");
-		System.out.println(loginName);
+		String proDate=request.getParameter("date");
+		AcceptanceService acc=new AcceptanceService();
+		PurchaseService ps=new PurchaseService();
 		ObjectMapper mapper=new ObjectMapper();
-		JavaType jt=mapper.getTypeFactory().constructParametricType(List.class,PlanInfo.class);
-	    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); 
-		List<PlanInfo> infoList=mapper.readValue(info, jt);
-		PlanInfoService ps=new PlanInfoService();
-		String planInfoId=ps.getMaxId();
-		if(planInfoId==null) {
-			planInfoId=Utils.giveId("CGJH");
+		JavaType jt=mapper.getTypeFactory().constructParametricType(List.class,Acceptance.class);	
+		List<Acceptance> infoList=mapper.readValue(info, jt);
+		String accId=acc.getMaxId();
+		if(accId==null) {
+			accId=Utils.giveId("RKDH");
 		}else {
-			planInfoId=Utils.giveId(planInfoId);
+			accId=Utils.giveId(accId);
 		}
-		for(int i=0;i<infoList.size();i++){
-			infoList.get(i).setPlanInfoId(planInfoId);
-			infoList.get(i).setLoginName(loginName);
+		boolean bool=false;
+		for(int i=0;i<infoList.size();i++) {
+			infoList.get(i).setAccId(accId);
+			infoList.get(i).setProDate(proDate);
+			bool=acc.add(infoList.get(i));
+			ps.changeNumber(infoList.get(i).getTotalNumber(), infoList.get(i).getPurId(), infoList.get(i).getMatId());
 		}
-		boolean bool=ps.addPlanInfo(infoList);
 		response.getWriter().println(bool?1:0);
 		response.getWriter().flush();
 		response.getWriter().close();

@@ -19,7 +19,6 @@ public class PurchaseService {
 			}
 			count++;
 		}
-		System.out.println(count);
 		return count>0?true:false;
 	}
 	//添加采购明细表信息
@@ -39,14 +38,52 @@ public class PurchaseService {
 		}
 		
 		
-		public int getMaxId() {
-			int count=0;
+		public String  getMaxId() {
+			String strMax=null;
 			try {
-				count=pd.getMaxId();
+				strMax=pd.getMaxId();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			return count;
+			return strMax;
 		}
-
+		
+		/**
+		 * 查询所有
+		 * @return
+		 */
+		public List<Purchase> queryAll(){
+			List<Purchase> list=null;
+			try {
+				list=pd.select();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
+		}
+		
+		/**
+		 * 查询明细表所有
+		 * @return
+		 */
+		public List<Purchasedetial> queryDetialAll(String purId){
+			List<Purchasedetial> list=null;
+			try {
+				list=pd.selectDetial(purId);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
+		}
+		
+		public boolean changeNumber(Number a,String purId,int matId) {
+			int count=0;
+			try {
+				count=pd.changeNumber(a, purId, matId);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return count>0?true:false;
+		}
+ 
 }

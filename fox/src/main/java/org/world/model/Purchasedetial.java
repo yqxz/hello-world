@@ -4,21 +4,24 @@ import java.io.Serializable;
 //采购订单明细表
 @SuppressWarnings("serial")
 public class Purchasedetial implements Serializable {
-	private int purId;        //采购订单号
+	private String purId;        //采购订单号
 	private int supId;        //供应商编号
 	private int matId;        //材料编号
 	private String matName;      //材料名称
 	private String metering;     //计量单位
 	private double unitPrice;    //单价
 	private int quantity;        //采购数量
+	private int arriveNumber;
+	private int inStoreNumber;
 	private String expectDate;   //预计到货日期
 	private double amount;       //金额
 	
-
-	public int getPurId() {
+	
+	
+	public String getPurId() {
 		return purId;
 	}
-	public void setPurId(int purId) {
+	public void setPurId(String purId) {
 		this.purId = purId;
 	}
 	public int getSupId() {
@@ -69,6 +72,19 @@ public class Purchasedetial implements Serializable {
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	
+	public int getArriveNumber() {
+		return arriveNumber;
+	}
+	public void setArriveNumber(int arriveNumber) {
+		this.arriveNumber = arriveNumber;
+	}
+	public int getInStoreNumber() {
+		return inStoreNumber;
+	}
+	public void setInStoreNumber(int inStoreNumber) {
+		this.inStoreNumber = inStoreNumber;
 	}
 	@Override
 	public String toString() {
