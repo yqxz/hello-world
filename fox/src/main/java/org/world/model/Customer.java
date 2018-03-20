@@ -1,19 +1,7 @@
 package org.world.model;
 
 public class Customer {
-		/**
-		 CREATE TABLE `customer` (
-			  `cusId` varchar(32) NOT NULL COMMENT '客户ID',
-			  `cusName` varchar(32) NOT NULL COMMENT '客户名称',
-			  `cusPhone` varchar(32) NOT NULL COMMENT '客户电话',
-			  `address` varchar(32) DEFAULT NULL COMMENT '客户地址',
-			  `cusAccount` varchar(32) NOT NULL COMMENT '银行账号',
-			  `cusBank` varchar(32) NOT NULL COMMENT '银行名称',
-			  PRIMARY KEY (`cusId`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户表';
-		 */
-			
-	
+		
 		private String cusId;
 		private String cusName;
 		private String  cusPhone;

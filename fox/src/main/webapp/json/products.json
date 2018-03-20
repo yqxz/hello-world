@@ -1,5 +1,7 @@
 [
 {"metering":"kg"},
-{"metering":"g"}
+{"metering":"g"},
+{"metering":"L"},
+{"metering":"ml"}
 ]
 

@@ -22,4 +22,14 @@ public class DrugService {
 		}
 		return list;
 	}
+	
+	public Drug queryById(int drugId) {
+		Drug drug=null;
+		try {
+			drug=dd.selectSpec(drugId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return drug;
+	}
 }

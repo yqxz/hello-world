@@ -1,19 +1,20 @@
 package org.world.model;
 
 public class Saleplandetial {
-		
-		private int spId;
+
+		private String spId;
 		private String drugId;
 		private String drugName;
 		private double unitPrice;
 		private int amount;
 		private int outAmount; //单品出库总数量
 		private String rate; //单品计划完成情况
-		
-		public int getSpId() {
+
+
+		public String getSpId() {
 			return spId;
 		}
-		public void setSpId(int spId) {
+		public void setSpId(String spId) {
 			this.spId = spId;
 		}
 		public String getDrugId() {
@@ -46,7 +47,7 @@ public class Saleplandetial {
 		public void setOutAmount(int outAmount) {
 			this.outAmount = outAmount;
 		}
-		
+
 		public double getUnitPrice() {
 			return unitPrice;
 		}
@@ -58,9 +59,9 @@ public class Saleplandetial {
 			return "Saleplandetial [spId=" + spId + ", drugId=" + drugId + ", drugName=" + drugName + ", unitPrice="
 					+ unitPrice + ", amount=" + amount + ", outAmount=" + outAmount + ", rate=" + rate + "]";
 		}
-		
-	
-		
-		
-		
+
+
+
+
+
 }

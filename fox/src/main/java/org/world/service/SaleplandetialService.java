@@ -19,4 +19,19 @@ public class SaleplandetialService {
 		}
     	 return list;
      }
+     
+     /**
+      * 改变名校表的执行状态
+      * @param spId
+      * @return
+      */
+     public boolean changeRate(String spId) {
+    	 int count=0;
+    	 try {
+			count=sd.changeRate(spId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	 return count>0?true:false;
+     }
 }

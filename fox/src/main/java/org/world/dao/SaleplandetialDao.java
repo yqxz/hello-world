@@ -13,22 +13,36 @@ import org.world.model.Saleplandetial;
 public class SaleplandetialDao extends DBManager {
     public List<Saleplandetial> loadAll() throws SQLException {
     	List<Saleplandetial> list= new ArrayList<>();
-        String sql="SELECT drugid,drugname,soamount ,saamount,rate\r\n" + 
-        		"FROM (SELECT a.drugid,a.drugname,a.soamount ,b.saamount,\r\n" + 
-        		"CONCAT ( LEFT ((b.saamount) / (a.soamount) *100,5),'%') AS rate\r\n" + 
-        		"FROM (SELECT drugid,drugname, SUM(amount) AS soamount FROM sosdetial GROUP BY(drugId))a\r\n" + 
-        		"INNER JOIN (SELECT drugid,drugname, SUM(amount) AS saamount FROM Saleplandetial GROUP BY(drugId)) b \r\n" + 
-        		"ON a.drugid = b.drugid) a;";
+        String sql="select * from Saleplandetial";
     	Connection conn = this.openConnection();
     	ResultSet rs = this.query(conn, sql, null);
     	while(rs.next()) {
     		Saleplandetial sl = new Saleplandetial();
+    		sl.setSpId(rs.getString("spId"));
     		sl.setDrugId(rs.getString("drugId"));
     		sl.setDrugName(rs.getString("drugName"));
+    		sl.setUnitPrice(rs.getDouble("unitPrice"));
+    		sl.setAmount(rs.getInt("amount"));
+    		sl.setOutAmount(rs.getInt("outAmount"));
     		sl.setRate(rs.getString("rate"));
     		list.add(sl);
     	}
     	this.closeConnection();
     	return list;
+    }
+    
+    /**
+     * 改变明细表执行状态
+     * @param spId
+     * @return
+     * @throws SQLException
+     */
+    public int changeRate(String spId) throws SQLException {
+    	String sql="update Saleplandetial set rate='已执行' where spId=?";
+    	Connection conn=this.openConnection();
+    	Object[] obs= {spId};
+    	int count=this.update(conn, sql, obs);
+    	this.closeConnection();
+    	return count;
     }
 }

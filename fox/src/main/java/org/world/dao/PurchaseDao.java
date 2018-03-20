@@ -106,4 +106,18 @@ public class PurchaseDao extends DBManager{
 		return count;
 	}
 	
+	
+	public int getArriveNumber(String purId,int matId) throws SQLException {
+		String sql="select arriveNumber from purchaseDetial where purId=? and matId=?";
+		Connection conn=this.openConnection();
+		Object[] obs= {purId,matId};
+		int count=0;
+		ResultSet rs=this.query(conn, sql, obs);
+		if(rs.next()){
+			count=rs.getInt(1);
+		}
+		this.closeConnection();
+		return count;
+	}
+	
 }

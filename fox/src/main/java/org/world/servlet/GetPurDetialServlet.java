@@ -26,7 +26,6 @@ public class GetPurDetialServlet extends HttpServlet {
 			req.setCharacterEncoding("utf-8");
 		   resp.setCharacterEncoding("utf-8");
 		   String purId=req.getParameter("purId");
-		   System.out.println(purId);
 			ObjectMapper mapper=new ObjectMapper();
 			PurchaseService ps=new PurchaseService();
 			List<Purchasedetial> list=new ArrayList<>();

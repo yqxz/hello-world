@@ -53,13 +53,7 @@
 					},0);
 				}
 		}
-		function onEndEdit(index, row){
-			var ed = $(this).datagrid('getEditor', {
-				index: index,
-				field: 'matId'
-			});
-			row.matName = $(ed.target).combobox('getText');
-		}
+		
 		function append(){
 			if (endEditing()){
 				$('#dg').datagrid('appendRow',{});
@@ -89,11 +83,12 @@
 				var all = $("#dg").datagrid("getData");
 				var json =JSON.stringify(all.rows);
 			}
+		alert(date);
 		$.ajax({
 			url:"addMatServlet",
 			data:{
 				info:json,
-				addDate:date
+				accDate:date
 			},
 			success:function(data){
 				if(data==1){
@@ -112,21 +107,20 @@
 <body>
 	<div style="width: 1000px;height: 400px;margin: 0 auto;margin-top: 20px;">
 		<table id="dg" class="easyui-datagrid" title="采购到货" style="width:100%;height:400px"
-			data-options="rownumbers:true,
+			data-options="
 						url:'',
 						onClickCell: onClickCell,
-						onEndEdit: onEndEdit,
 						pagination:true,
 						toolbar: '#tb',
 						method:'get'">
 		<thead>
 			<tr>
-				<th data-options="field:'purId',width:200,align:'center'">采购单号</th>
-				<th data-options="field:'matId',width:200,align:'center'">材料编号</th>
-				<th data-options="field:'matName',width:200,align:'center'">材料名称</th>
-				<th data-options="field:'quantity',width:200,align:'center'">采购总数</th>
+				<th data-options="field:'purId',width:150,align:'center'">采购单号</th>
+				<th data-options="field:'matId',width:150,align:'center'">材料编号</th>
+				<th data-options="field:'matName',width:150,align:'center'">材料名称</th>
+				<th data-options="field:'quantity',width:150,align:'center'">采购总数</th>
 				<th data-options="field:'arriveNumber',width:200,align:'center'">到货总数</th>
-				<th data-options="field:'totalNumber',width:200,align:'center',editor:'numberbox'">本次到货</th>
+				<th data-options="field:'inStoreNumber',width:200,align:'center',editor:'numberbox'">本次到货</th>
 			</tr>
 		</thead>
 	</table>
@@ -137,7 +131,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">到货/请检</a>
 	<div class="div-inner" >
 	  采购单号:<input type="text"  id="purId"  class="easyui-textbox"  name="purId">
-	  到货日期:<input type="text"   class="easyui-datebox" name="addDate">
+	  到货日期:<input type="text"   class="easyui-datebox" name="addDate" data-options="required:true">
 	  </div>
 	</div>
 </form>

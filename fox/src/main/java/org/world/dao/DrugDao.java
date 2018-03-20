@@ -23,11 +23,38 @@ public class DrugDao extends DBManager{
 			d.setDrugCategory(rs.getString("drugCategory"));
 			d.setDrugName(rs.getString("drugName"));
 			d.setMetering(rs.getString("metering"));
-			d.setDrugSpec(rs.getString("drugSpec"));
+			d.setSpec(rs.getString("spec"));
 			d.setApprovalNum(rs.getString("approvalNum"));
+			d.setDrugCategory(rs.getString("drugCategory"));
 			list.add(d);
 		}
 		this.closeConnection();
 		return list;
+	}
+	
+	/**
+	 * 根据Id查询信息
+	 * @param drugId
+	 * @return
+	 * @throws SQLException
+	 */
+	public Drug selectSpec(int drugId) throws SQLException{
+		String sql="select * from drug where drugId=?";
+		Connection conn=this.openConnection();
+		Object[] obs= {drugId};
+		ResultSet rs=this.query(conn, sql, obs);
+		Drug d=null;
+		if(rs.next()) {
+			 d=new Drug();
+			d.setDrugId(rs.getInt("drugId"));
+			d.setDrugCategory(rs.getString("drugCategory"));
+			d.setDrugName(rs.getString("drugName"));
+			d.setMetering(rs.getString("metering"));
+			d.setSpec(rs.getString("spec"));
+			d.setApprovalNum(rs.getString("approvalNum"));
+			d.setDrugCategory(rs.getString("drugCategory"));
+		}
+		this.closeConnection();
+		return d;
 	}
 }

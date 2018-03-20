@@ -11,7 +11,7 @@ public class AcceptanceService {
 	private Logger logger=Logger.getLogger(AcceptanceService.class);
 	
 	/**
-	 * 添加一条采购主表的数据
+	 * 添加一条请检单的数据
 	 * @param acc
 	 * @return
 	 */
@@ -39,4 +39,19 @@ public class AcceptanceService {
 	    }
 	    return count;
 	  }
+	  
+	  /**
+	   * 获得批号
+	   * @return
+	   */
+	  public String getBatchNumber() {
+	    String count=null;
+	    try {
+	      count=accDao.getBatchNumber();
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+	    return count;
+	  }
+	  
 }

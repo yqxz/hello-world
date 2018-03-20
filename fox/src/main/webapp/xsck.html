@@ -2,16 +2,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>销售出库</title>
+<title>采购收货</title>
 	<link rel="shortcut icon" href="img/head.ico"/>
-	<link rel="stylesheet" type="text/css" href="css/div.css">
 	<link rel="stylesheet" type="text/css" href="css/body.css">
-    <link rel="stylesheet" type="text/css" href="css/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/div.css">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css">
 	<link rel="stylesheet" type="text/css" href="css/icon.css">
 	<link rel="stylesheet" type="text/css" href="css/demo.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" >
+	
+	function getUrlParam(key) {
+	    // 获取参数
+	    var url = window.location.search;
+	    // 正则筛选地址栏
+	    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+	    // 匹配目标参数
+	    var result = url.substr(1).match(reg);
+	    //返回参数值
+	    return result ? decodeURIComponent(result[2]) : null;
+	}
+	$(document).ready(function(){
+		var login=getUrlParam("loginName");
+		$("#loginName").textbox('setValue',login);
+	});
 		var editIndex = undefined;
 		function endEditing(){
 			if (editIndex == undefined){return true}
@@ -24,7 +39,6 @@
 			}
 		}
 		function onClickCell(index, field){
-			if (editIndex != index){
 				if (endEditing()){
 					$('#dg').datagrid('selectRow', index)
 							.datagrid('beginEdit', index);
@@ -38,15 +52,8 @@
 						$('#dg').datagrid('selectRow', editIndex);
 					},0);
 				}
-			}
 		}
-		function onEndEdit(index, row){
-			var ed = $(this).datagrid('getEditor', {
-				index: index,
-				field: 'drugId'
-			});
-			row.productname = $(ed.target).combobox('getText');
-		}
+		
 		function append(){
 			if (endEditing()){
 				$('#dg').datagrid('appendRow',{});
@@ -61,77 +68,76 @@
 					.datagrid('deleteRow', editIndex);
 			editIndex = undefined;
 		}
-		function accept(){
-			var sosI=$("input[name='sosId']").val();
-			var soI=$("input[name='soId']").val();
-			var repN=$("input[name='repName']").val();
-			var vari=$("input[name='variety']").val();
-			var totalN=$("input[name='totalNumber']").val();
-			var outS=$("input[name='outStoreDate']").val();
-			var userI=$("input[name='userId']").val();
-			var userN=$("input[name='userName']").val();
-			//location.href="PurOrder.html";	
-			if (endEditing()){
-				$('#dg').datagrid('acceptChanges');      
-					var all = $("#dg").datagrid("getData");
-					var json =JSON.stringify(all.rows);
-					//alert(json);
-				}
-			$.post("addSaleoutstoreServlet",{
-				info:json,
-				sosId:sosI,
-				soId:soI,
-				repName:repN,
-				variety:vari,
-				totalNumber:totalN,
-				outStoreDate:outS,
-				userId:userI,
-			    userName:userN,
-				},
-			function(data,status){
-			 //alert("数据：" + data + "\n状态：" + status);
-			});
+		
+	function query(){
+			var soId=$("input[name='soId']").val();
+			$('#dg').datagrid({
+          		url:'getSaleDetialServlet?soId='+soId,
+          	});
+          	$('#dg').datagrid('reload')
+	}
+	function accept(){
+		var date=$("input[name='addDate']").val();
+		if (endEditing()){
+			$('#dg').datagrid('acceptChanges');      
+				var all = $("#dg").datagrid("getData");
+				var json =JSON.stringify(all.rows);
 			}
+		$.ajax({
+			url:"addMatServlet",
+			data:{
+				info:json,
+				accDate:date
+			},
+			success:function(data){
+				if(data==1){
+					alert("添加成功");
+					location.reload();
+				}else{
+					alert("添加失败,请重新添加");
+					location.reload();
+				}
+			}
+		});
+	}
 	
 	</script>
 </head>
 <body>
-<div style="width: 1100px;height: 450px;margin: 0 auto;margin-top: 20px">
-<form >
-   <table id="dg"  class="easyui-datagrid" title="销售出库" style="width:100%;height:450px"
+	<div style="width: 1000px;height: 400px;margin: 0 auto;margin-top: 20px;">
+		<table id="dg" class="easyui-datagrid" title="采购到货" style="width:100%;height:400px"
 			data-options="
-				singleSelect: true,
-				toolbar: '#tb',
-				method: 'get',
-				onClickCell: onClickCell,
-				onEndEdit: onEndEdit">
-				<thead>
-		<tr>
-			    <th data-options="field:'drugId',width:150,align:'center',editor:'textbox'" >药品编码</th>
-				<th data-options="field:'drugName',width:150,align:'center',editor:'textbox'" >药品名称</th>
-				<th data-options="field:'matSpec',width:200,align:'center',editor:'textbox'" >规格</th>
-				<th data-options="field:'metering',width:200,align:'center',editor:'textbox'" >单位</th>
-				<th data-options="field:'amount',width:200,align:'center',editor:'numberbox'" >数量</th>
-				<th data-options="field:'unitPrice',width:200,align:'center',editor:'textbox'" >出库单价</th>
+						url:'',
+						onClickCell: onClickCell,
+						pagination:true,
+						toolbar: '#tb',
+						method:'get'">
+		<thead>
+			<tr>
+		       <th data-options="field:'soId',width:150,align:'center'">销售单号</th>
+		       <th data-options="field:'drugId',width:100,align:'center'">药品编号</th>
+	            <th data-options="field:'drugName',width:150,align:'center'">药品名称</th>
+			    <th data-options="field:'metering',width:100,align:'center'">主计量</th>
+				<th data-options="field:'number',width:150,align:'center'">总数量</th>
+				<th data-options="field:'outNumber',width:150,align:'center'">已发货数</th>
+				<th data-options="field:'nowNumber',width:100,align:'center',editor:'numberbox'">本次发货数</th>
+				<th data-options="field:'unitPrice',width:100,align:'center'">成交单价</th>
 			</tr>
 		</thead>
-  </table>
-       <div id="tb" style="height:100px;padding: 10px">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">增加</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
-	 <div class="div-inner">
-	      出库单号:<input type="text" name="sosId" >
-	     &emsp;&emsp;&emsp;销售单号:<input type="text" name="soId" >
-	    &emsp;&emsp;&emsp; 仓库名称:<input type="text" name="repName"><br>
-	    &emsp;&emsp;&emsp; 种类数量:<input type="text" name="variety">
-	    &emsp;&emsp;&emsp; 合计数量:<input type="text" name="totalNumber" >
-	  &emsp;&emsp;&emsp;出库日期：<input type="date" name="outStoreDate"/><br>
-	 管理员编号:<input type="text" name="userId" >
-	  &emsp;&emsp;&emsp;管理员名称:<input type="text" name="userName" >
-	   </div>
+	</table>
+	</div>	
+<form >
+	<div  id="tb" style="height:auto">
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="query()">订单查询</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">确认/发货</a>
+	<div class="div-inner" >
+	  单号查询:<input type="text"  id="soId"  class="easyui-textbox"  name="soId">
+	  发货日期:<input type="text"   class="easyui-datebox" name="addDate" data-options="required:true">
+	  </div>
 	</div>
 </form>
-</div>
- </body>
+</body>
 </html>
+
+
+

@@ -19,9 +19,9 @@ public class RawstoreDao extends DBManager{
 		 */
 		public int insert(Rawstore raw) throws SQLException {
 			String sql="insert into Rawstore values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-			Object[] obs= {raw.getRawId(),raw.getMatId(),raw.getMatName(),raw.getMetering(),raw.getRawSpec(),
-				raw.getBatchNumber(),raw.getRepId(),raw.getRepName(),raw.getProDate(),raw.getValDate(),
-				raw.getExtantNum(),raw.getOriginNumber(),raw.getWaterIndex(),raw.getImpurity(),raw.getWaitCheck()};
+			Object[] obs= {raw.getRawId(),raw.getMatId(),raw.getMatName(),raw.getMetering(),raw.getSpec(),
+				raw.getBatchNumber(),raw.getRepName(),raw.getProDate(),
+				raw.getExtantNum(),raw.getWaitCheck()};
 			Connection conn=this.openConnection();
 			int count=this.update(conn, sql, obs);
 			this.closeConnection();
@@ -34,9 +34,9 @@ public class RawstoreDao extends DBManager{
 		 * @return
 		 * @throws SQLException
 		 */
-		public int update(Rawstore raw) throws SQLException {
-			String sql="update Rawstore set extantNum=?,waterIndex=?,impurity=?,waitCheck=0 where rawId=? ";
-			Object[] obs= {raw.getExtantNum(),raw.getWaterIndex(),raw.getImpurity(),raw.getRawId()};
+		public int update(double waitCheck,int matId) throws SQLException {
+			String sql="update Rawstore set waitCheck=? where matId=?";
+			Object[] obs= {waitCheck,matId};
 			Connection conn=this.openConnection();
 			int count=this.update(conn, sql, obs);
 			this.closeConnection();
@@ -61,19 +61,14 @@ public class RawstoreDao extends DBManager{
 			while(rs.next()) {
 				Rawstore raw=new Rawstore();
 				raw.setRawId(rs.getString("rawId"));
-				raw.setMatId(rs.getString("matId"));
+				raw.setMatId(rs.getInt("matId"));
 				raw.setMatName(rs.getString("matName"));
 				raw.setMetering(rs.getString("metering"));
-				raw.setRawSpec(rs.getString("rawSpec"));
+				raw.setSpec(rs.getString("rawSpec"));
 				raw.setBatchNumber(rs.getString("batchNumber"));
-				raw.setRepId(rs.getString("repId"));
 				raw.setRepName(rs.getString("repName"));
 				raw.setProDate(rs.getString("proDate"));
-				raw.setValDate(rs.getString("valDate"));
 				raw.setExtantNum(rs.getDouble("extantNum"));
-				raw.setOriginNumber(rs.getString("originNumber"));
-				raw.setWaterIndex(rs.getString("waterIndex"));
-				raw.setImpurity(rs.getString("impurity"));
 				raw.setWaitCheck(rs.getDouble("waitCheck"));
 				rawList.add(raw);
 			}

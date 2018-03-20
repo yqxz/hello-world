@@ -20,9 +20,9 @@ public class AddSalePlanService {
 			}
 			   count++;
 	   }
-	   return count>0?true:false;   
+	   return count>0?true:false;
    }
-   
+
    //销售计划添加明细表
    public boolean addSalePlanDetial(List<Saleplandetial> salePlandetialList) {
 	   int count  = 0;
@@ -36,15 +36,15 @@ public class AddSalePlanService {
 	   }
 	   return count>0?true:false;
    }
-   
-   
-	public int getMaxId() {
-		int count=0;
+
+
+	public String getMaxId() {
+		String strMax=null;
 		try {
-			count=spd.getMaxId();
+			strMax=spd.getMaxId();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return count;
+		return strMax;
 	}
 }

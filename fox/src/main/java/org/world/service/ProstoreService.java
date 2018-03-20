@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.world.dao.ProstoreDao;
+import org.world.model.Acceptdetial;
 import org.world.model.Prostore;
 
 
@@ -12,7 +13,22 @@ import org.world.model.Prostore;
 public class ProstoreService {
 	private ProstoreDao pdao=new ProstoreDao(); 
 	
+	/**
+	 * 模糊查询
+	 * @return
+	 */
+	public List<Prostore> blurAll(String name){
+		List<Prostore> prostorelist=null;
+		try {
+			prostorelist=pdao.blur(name);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return prostorelist;
+	}
 	
+
 	
 /**
  * 按现存量查询

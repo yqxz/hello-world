@@ -10,7 +10,7 @@ import org.world.model.Saleorderdetial;
 public class AddSaleOrderService {
 	private AddSaleOrderDao soad = new AddSaleOrderDao();
 	//销售订单添加主表
-	public int saleOrderAdd(List<Saleorder> saleOrderList) {
+	public boolean saleOrderAdd(List<Saleorder> saleOrderList) {
 		int count =0;
 		for(int i =0;i<saleOrderList.size();i++) {
 			try {
@@ -20,11 +20,11 @@ public class AddSaleOrderService {
 			}
 			count++;
 		}
-		return count;
+		return count>0?true:false;
 	}
 	
 	//销售订单添加明细表
-	public int saleOrderdetialAdd(List<Saleorderdetial> saleOrderdetialList) {
+	public boolean saleOrderdetialAdd(List<Saleorderdetial> saleOrderdetialList) {
 		int count =0;
 		for(int i =0;i<saleOrderdetialList.size();i++) {
 			try {
@@ -34,7 +34,21 @@ public class AddSaleOrderService {
 			}
 			count++;
 		}
-		return count;
+		return count>0?true:false;
 	}
+	
+	    /**
+	   * 获得最大主键值
+	   * @return
+	   */
+	  public String getMaxId() {
+	    String count=null;
+	    try {
+	      count=soad.getMaxId();
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+	    return count;
+	  }
 
 }

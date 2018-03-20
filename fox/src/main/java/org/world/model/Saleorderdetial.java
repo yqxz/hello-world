@@ -1,22 +1,13 @@
 package org.world.model;
 
 public class Saleorderdetial {
-		/**
-		 * CREATE TABLE `saleorderdetial` (
-			  `soId` varchar(32) NOT NULL COMMENT '销售订单号',
-			  `drugId` varchar(32) NOT NULL COMMENT '药品编号',
-			  `drugName` varchar(32) NOT NULL COMMENT '药品名称',
-			  `amount` int(11) NOT NULL COMMENT '数量',
-			  `unitPrice` double NOT NULL COMMENT '成交单价'
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='销售订单明细表'
-		 */
 
 		private String soId;
-		private String drugId;
+		private int drugId;
 		private String drugName;
-		private String matSpec;
 		private String metering;
-		private int amount;
+		private int number;
+		private int outNumber;//已发货数量
 		private double unitPrice;
 		public String getSoId() {
 			return soId;
@@ -24,22 +15,18 @@ public class Saleorderdetial {
 		public void setSoId(String soId) {
 			this.soId = soId;
 		}
-		public String getDrugId() {
+		
+		public int getDrugId() {
 			return drugId;
 		}
-		public void setDrugId(String drugId) {
+		public void setDrugId(int drugId) {
 			this.drugId = drugId;
 		}
 		public String getDrugName() {
 			return drugName;
 		}
-
-
-		public String getMatSpec() {
-			return matSpec;
-		}
-		public void setMatSpec(String matSpec) {
-			this.matSpec = matSpec;
+		public void setDrugName(String drugName) {
+			this.drugName = drugName;
 		}
 		public String getMetering() {
 			return metering;
@@ -47,14 +34,18 @@ public class Saleorderdetial {
 		public void setMetering(String metering) {
 			this.metering = metering;
 		}
-		public void setDrugName(String drugName) {
-			this.drugName = drugName;
+
+		public int getNumber() {
+			return number;
 		}
-		public int getAmount() {
-			return amount;
+		public void setNumber(int number) {
+			this.number = number;
 		}
-		public void setAmount(int amount) {
-			this.amount = amount;
+		public int getOutNumber() {
+			return outNumber;
+		}
+		public void setOutNumber(int outNumber) {
+			this.outNumber = outNumber;
 		}
 		public double getUnitPrice() {
 			return unitPrice;
@@ -64,9 +55,11 @@ public class Saleorderdetial {
 		}
 		@Override
 		public String toString() {
-			return "Saleorderdetial [soId=" + soId + ", drugId=" + drugId + ", drugName=" + drugName + ", matSpec="
-					+ matSpec + ", metering=" + metering + ", amount=" + amount + ", unitPrice=" + unitPrice + "]";
+			return "Saleorderdetial [soId=" + soId + ", drugId=" + drugId + ", drugName=" + drugName + ", metering="
+					+ metering + ",  number=" + number + ", outNumber=" + outNumber + ", unitPrice="
+					+ unitPrice + "]";
 		}
+
 
 
 

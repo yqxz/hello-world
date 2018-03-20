@@ -16,7 +16,7 @@ import org.world.service.SaleorderdetialService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet(name = "xsbLoadAllServlet", urlPatterns = { "/xsbLoadAllServlet" })
+@WebServlet(name = "XsbLoadAllServlet", urlPatterns = { "/xsbLoadAllServlet" })
 public class XsbLoadAllServlet extends HttpServlet {
 
 	@Override
@@ -28,13 +28,13 @@ public class XsbLoadAllServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		SaleorderdetialService ss = new SaleorderdetialService();
 		List<Saleorderdetial> list = ss.loadAll();
 
 		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> map = new HashMap<>();
-		map.put("rows", list);
-		String jsonStr = mapper.writeValueAsString(map);
+		String jsonStr = mapper.writeValueAsString(list);
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().println(jsonStr);
 		response.getWriter().flush();

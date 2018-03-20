@@ -94,10 +94,10 @@
 				success:function(data){
 					if(data==1){
 						alert("添加成功");
-						location.href="xsjh.html";
+						location.reload();
 					}else{
 						alert("添加失败,请重新添加");
-						location.href="xsjh.html";
+						location.reload();
 					}
 				}	
 			});
@@ -127,9 +127,9 @@
 											required:true,
 										}
 								}
-									">药品编号</th>
+									">药品信息</th>
 				<th data-options="field:'amount',width:200,align:'center',editor:'numberbox'" >数量</th>
-				<th data-options="field:'endDate',width:200,align:'center',editor:'datetimebox'" >截止日期</th>
+				<th data-options="field:'endDate',width:200,align:'center',editor:'datebox'" >截止日期</th>
 				<th data-options="field:'unitPrice',width:200,align:'center',align:'center',editor:{type:'numberbox',options:{precision:1}}" >单价</th>
 				<th data-options="field:'info',width:200,align:'center',editor:'textbox'" >备注信息</th>
 			</tr>
@@ -140,8 +140,8 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true"  onclick="accept()">审核</a>
 	 <div class="div-inner">
-	 制单人名称:<input type="text" name="loginName" id="loginName" class="easyui-textbox">
-	&emsp;&emsp;&emsp;开始日期：<input type="text" id="com" name="beginDate" class="easyui-datetimebox"/>
+	 制单人名称:<input type="text" name="loginName" id="loginName" class="easyui-textbox" readonly="readonly">
+	&emsp;&emsp;&emsp;开始日期：<input type="text" id="com" name="beginDate" class="easyui-datebox"/>
 	   </div>
 	</div>
 </form>

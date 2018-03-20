@@ -5,23 +5,15 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Acceptance implements Serializable{
 	
-		private String accId;
-		private String purId;
-		private int matId;
-		private String matName;
-		private int totalNumber;
-		private String batchNumber;
-		private String proDate;
-		private String valDate;
+		private String accId; //请检单号
+		private String purId; //订单号
+		private int matId;//原料Id
+		private String matName;//原料名称
+		private int totalNumber;//到货数
+		private String batchNumber;//批号
+		private String accDate;//到货日期--请检日期
 		
-		
-		public String getProDate() {
-			return proDate;
-		}
-		public void setProDate(String proDate) {
-			this.proDate = proDate;
-		}
-		public String getAccId() {
+		public String getAccId(){
 			return accId;
 		}
 		public void setAccId(String accId) {
@@ -33,8 +25,6 @@ public class Acceptance implements Serializable{
 		public void setPurId(String purId) {
 			this.purId = purId;
 		}
-		
-		
 		public int getMatId() {
 			return matId;
 		}
@@ -59,18 +49,21 @@ public class Acceptance implements Serializable{
 		public void setBatchNumber(String batchNumber) {
 			this.batchNumber = batchNumber;
 		}
-		public String getValDate() {
-			return valDate;
+		public String getAccDate() {
+			return accDate;
 		}
-		public void setValDate(String valDate) {
-			this.valDate = valDate;
-		}
-		@Override
-		public String toString() {
-			return "Acceptance [matId=" + matId + ", matName=" + matName + ", totalNumber=" + totalNumber
-					+ ", batchNumber=" + batchNumber +  ", valDate=" + valDate + "]";
+		public void setAccDate(String accDate) {
+			this.accDate = accDate;
 		}
 		
+		@Override
+		public String toString() {
+			return "Acceptance [accId=" + accId + ", purId=" + purId + ", matId=" + matId + ", matName=" + matName
+					+ ", totalNumber=" + totalNumber + ", batchNumber=" + batchNumber + ", accDate=" + accDate + "]";
+		}
+		
+		
+	
 		
 	
 		

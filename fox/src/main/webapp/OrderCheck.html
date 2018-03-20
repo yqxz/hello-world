@@ -65,12 +65,12 @@
 		
 		function accept(){
 			$.post("orderCheckServlet",function(data){
-             var json=eval(data);
-             $('#dg').datagrid({
-            		url:'orderCheckServlet',
-            	});
-            	$('#dg').datagrid('reload')
-            	});
+	             var json=eval(data);
+	             $('#dg').datagrid({
+	            		url:'orderCheckServlet',
+	            	});
+            	 $('#dg').datagrid('reload')
+            });
 				
 	}
 		
@@ -88,16 +88,16 @@
 				onEndEdit: onEndEdit">
 				<thead>
 		<tr>
-		       <th data-options="field:'purId',width:150,align:'center'">采购单号</th>
-		       <th data-options="field:'supName',width:100,align:'center'">供应商名称</th>
-                <th data-options="field:'totalNumber',width:100,align:'center'">总数量</th>
-			    <th data-options="field:'matName',width:100,align:'center'">材料名称</th>
-				<th data-options="field:'metering',width:100,align:'center'">计量单位</th>
-				<th data-options="field:'unitPrice',width:100,align:'center'">单价</th>
-				<th data-options="field:'quantity',width:100,align:'center'">数量</th>
-				<th data-options="field:'amount',width:100,align:'center'" >金额</th>
-				<th data-options="field:'expectDate',width:150,align:'center'">预计到货日期</th>
-			</tr>
+	       <th data-options="field:'purId',width:150,align:'center'">采购单号</th>
+	       <th data-options="field:'supName',width:100,align:'center'">供应商名称</th>
+            <th data-options="field:'totalNumber',width:100,align:'center'">总数量</th>
+		    <th data-options="field:'matName',width:100,align:'center'">材料名称</th>
+			<th data-options="field:'metering',width:100,align:'center'">计量单位</th>
+			<th data-options="field:'unitPrice',width:100,align:'center'">单价</th>
+			<th data-options="field:'quantity',width:100,align:'center'">数量</th>
+			<th data-options="field:'amount',width:100,align:'center'" >金额</th>
+			<th data-options="field:'expectDate',width:150,align:'center'">预计到货日期</th>
+		</tr>
 		</thead>
   </table>
 	</div>

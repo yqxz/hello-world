@@ -32,10 +32,10 @@ public class RawstoreService {
 		 * @param raw
 		 * @return
 		 */
-		public boolean change(Rawstore raw) {
+		public boolean change(double waitCheck,int matId) {
 			int count=0;
 			try {
-				count=rawDao.update(raw);
+				count=rawDao.update(waitCheck,matId);
 			} catch (SQLException e) {
 				logger.debug(e);
 			}

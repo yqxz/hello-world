@@ -1,6 +1,7 @@
 package org.world.model;
 
 public class Saleoutstore {
+	
 		/**
 		 * CREATE TABLE `saleoutstore` (
 			  `sosId` varchar(32) NOT NULL COMMENT '销售出库单号',

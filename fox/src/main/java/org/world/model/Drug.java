@@ -9,8 +9,9 @@ public class Drug implements Serializable{
 		private String drugCategory;
 		private String drugName;
 		private String metering;
-		private String drugSpec;
+		private String spec;
 		private String approvalNum;
+		private String repName;
 		
 		public int getDrugId() {
 			return drugId;
@@ -36,11 +37,12 @@ public class Drug implements Serializable{
 		public void setMetering(String metering) {
 			this.metering = metering;
 		}
-		public String getDrugSpec() {
-			return drugSpec;
+		
+		public String getSpec() {
+			return spec;
 		}
-		public void setDrugSpec(String drugSpec) {
-			this.drugSpec = drugSpec;
+		public void setSpec(String spec) {
+			this.spec = spec;
 		}
 		public String getApprovalNum() {
 			return approvalNum;
@@ -48,10 +50,17 @@ public class Drug implements Serializable{
 		public void setApprovalNum(String approvalNum) {
 			this.approvalNum = approvalNum;
 		}
+		
+		public String getRepName() {
+			return repName;
+		}
+		public void setRepName(String repName) {
+			this.repName = repName;
+		}
 		@Override
 		public String toString() {
 			return "Drug [drugId=" + drugId + ", drugCategory=" + drugCategory + ", drugName=" + drugName
-					+ ", metering=" + metering + ", drugSpec=" + drugSpec + ", approvalNum=" + approvalNum + "]";
+					+ ", metering=" + metering + ", spec=" + spec + ", approvalNum=" + approvalNum + "]";
 		}
 		
 		

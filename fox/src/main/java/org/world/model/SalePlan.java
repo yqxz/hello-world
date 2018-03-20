@@ -1,8 +1,8 @@
 package org.world.model;
 
 public class SalePlan {
-	
-		private int spId;
+
+		private String spId;
 		private int variety;
 		private int totalNumber;
 		private int userId;
@@ -10,17 +10,18 @@ public class SalePlan {
 		private String beginDate;
 		private String endDate;
 		private double totalMoney;
-		
+
 		public double getTotalMoney() {
 			return totalMoney;
 		}
 		public void setTotalMoney(double totalMoney) {
 			this.totalMoney = totalMoney;
 		}
-		public int getSpId() {
+
+		public String getSpId() {
 			return spId;
 		}
-		public void setSpId(int spId) {
+		public void setSpId(String spId) {
 			this.spId = spId;
 		}
 		public int getVariety() {
@@ -35,15 +36,15 @@ public class SalePlan {
 		public void setTotalNumber(int totalNumber) {
 			this.totalNumber = totalNumber;
 		}
-		
-		
+
+
 		public int getUserId() {
 			return userId;
 		}
 		public void setUserId(int userId) {
 			this.userId = userId;
 		}
-	
+
 		public String getLoginName() {
 			return loginName;
 		}
@@ -68,9 +69,9 @@ public class SalePlan {
 					+ userId + ", loginName=" + loginName + ", beginDate=" + beginDate + ", endDate=" + endDate
 					+ ", totalMoney=" + totalMoney + "]";
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 }

@@ -89,9 +89,12 @@ public class Purchasedetial implements Serializable {
 	@Override
 	public String toString() {
 		return "Purchasedetial [purId=" + purId + ", supId=" + supId + ", matId=" + matId + ", matName=" + matName
-				+ ", metering=" + metering + ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", expectDate="
-				+ expectDate + ", amount=" + amount + "]";
+				+ ", metering=" + metering + ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", arriveNumber="
+				+ arriveNumber + ", inStoreNumber=" + inStoreNumber + ", expectDate=" + expectDate + ", amount="
+				+ amount + "]";
 	}
+	
+	
 	
 	
 	

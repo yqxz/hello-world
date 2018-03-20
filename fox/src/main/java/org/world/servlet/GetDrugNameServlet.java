@@ -28,7 +28,7 @@ public class GetDrugNameServlet extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			DrugService ds=new DrugService();
 			ObjectMapper map=new ObjectMapper();
-		String json=map.writeValueAsString(ds.queryAll());
+			String json=map.writeValueAsString(ds.queryAll());
 			response.getWriter().println(json);
 			response.getWriter().flush();
 			response.getWriter().close();

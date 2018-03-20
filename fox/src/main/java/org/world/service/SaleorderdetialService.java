@@ -17,4 +17,19 @@ public class SaleorderdetialService {
 		}
 	  return list;
    }
+  		
+	  /**
+	   * 按单号查询明细表数据
+	   * @param soId
+	   * @return
+	   */
+	  public List<Saleorderdetial> loadById(String soId){
+		  List<Saleorderdetial> list = null;
+			  try {
+				list=sd.loadById(soId);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		  return list;
+	   }
 }

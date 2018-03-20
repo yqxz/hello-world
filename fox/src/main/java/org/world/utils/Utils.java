@@ -36,29 +36,27 @@ public class Utils {
 		}
 		return result;
 	}
-public static String getDate() {
-	Calendar c=Calendar.getInstance();
-	int year = c.get(Calendar.YEAR);  
-	int month = c.get(Calendar.MONTH)+1;   
-	int day = c.get(Calendar.DATE); 
-	 String s=year+""+month+""+day;
-	 String m=null;
-	 String d=null;
-	 if(month<10) {
-		  m=0+""+month;
-	 }else {
-		  m=""+month;
+	public static String getDate() {
+		Calendar c=Calendar.getInstance();
+		int year = c.get(Calendar.YEAR);  
+		int month = c.get(Calendar.MONTH)+1;   
+		int day = c.get(Calendar.DATE); 
+		 String s=year+""+month+""+day;
+		 String m=null;
+		 String d=null;
+		 if(month<10) {
+			  m=0+""+month;
+		 }else {
+			  m=""+month;
+		 }
+		 if(day<10) {
+			 d=0+""+day;
+		 }else {
+			 d=""+day;
+		 }
+		 String date=year+m+d;
+		 return date;
 	 }
-	 if(day<10) {
-		 d=0+""+day;
-	 }else {
-		 d=""+day;
-	 }
-	 String date=year+m+d;
-	 return date;
- }
-
-	
 
 
 

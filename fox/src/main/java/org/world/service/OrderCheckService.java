@@ -13,7 +13,6 @@ public class OrderCheckService {
 		try {
 			orderList=ocd.loadPurchase();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return orderList;

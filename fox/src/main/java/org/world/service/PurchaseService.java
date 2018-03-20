@@ -85,5 +85,15 @@ public class PurchaseService {
 			}
 			return count>0?true:false;
 		}
+		
+		public int getArriveNumber(String purId,int matId) {
+			int count=0;
+			try {
+				count=pd.getArriveNumber(purId, matId);
+			}catch (SQLException e){
+				e.printStackTrace();
+			}
+			return count;
+		}
  
 }
